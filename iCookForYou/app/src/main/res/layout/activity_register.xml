@@ -23,9 +23,12 @@
                 android:gravity="center"
                 android:text="Inscription"
                 android:textColor="#fff"
-                android:ems="10"/>
+                android:ems="10"
+                android:textSize="30sp"
+                android:layout_marginTop="50dp"/>
 
             <EditText
+                android:layout_marginTop="30dp"
                 android:id="@+id/registeredname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,6 +43,11 @@
                 android:textColorHint="#fff"
                 android:textColor="#fff"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#fff"/>
+
             <EditText
                 android:id="@+id/registeredfirstname"
                 android:layout_width="match_parent"
@@ -49,18 +57,25 @@
                 android:drawablePadding="12dp"
                 android:ems="10"
                 android:hint="Prénom"
+                android:layout_marginTop="10dp"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
                 android:textColorHint="#fff"
                 android:textColor="#fff"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#fff"/>
+
             <EditText
                 android:id="@+id/registeredmail"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_person_white_24dp"
+                android:drawableLeft="@drawable/ic_email_white_24dp"
                 android:drawablePadding="12dp"
                 android:ems="10"
                 android:hint="Adresse mail"
@@ -70,9 +85,16 @@
                 android:textColorHint="#fff"
                 android:textColor="#fff"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#fff"/>
+
             <EditText
+                android:id="@+id/registeredpassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:inputType="textPassword"
                 android:ems="10"
                 android:drawablePadding="12dp"
@@ -82,10 +104,15 @@
                 android:textColor="#fff"
                 android:maxLines="1"
                 android:background="@android:color/transparent"
-                android:layout_marginTop="4dp"
                 android:drawableLeft="@drawable/ic_lock_white_24dp"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#fff"/>
+
             <EditText
+                android:id="@+id/confirmpassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -97,48 +124,82 @@
                 android:textColor="#fff"
                 android:maxLines="1"
                 android:background="@android:color/transparent"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/ic_lock_white_24dp"/>
 
-            <Button
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_login"
-                android:text="S'inscrire"
-                android:textColor="#395fc6"
-                android:textAllCaps="false"
-                android:padding="16dp"
-                android:clickable="true"
-                style="@style/Base.TextAppearance.AppCompat.Body2"
-                android:layout_marginTop="24dp"
-                android:textSize="18sp"
-                />
+                android:layout_height="1dp"
+                android:background="#fff"/>
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_signup"
-                android:text="Annuler"
-                android:textColor="#fff"
-                android:textAllCaps="false"
-                android:padding="16dp"
-                android:clickable="true"
-                style="@style/Base.TextAppearance.AppCompat.Body2"
-                android:layout_marginTop="16dp"
-                android:textSize="18sp"
-                />
-
-            <TextView
+                android:id="@+id/registeredallergies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Mot de passe oublié ?"
-                style="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#fff"
+                android:text="Allergies"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:clickable="true"
-                android:layout_marginBottom="16dp"/>
+                android:textColor="#395fc6"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:background="@drawable/background_login"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
+                />
 
+            <Button
+                android:id="@+id/registereddiet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Régimes alimentaire"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:layout_gravity="center"
+                android:textColor="#395fc6"
+                android:textAllCaps="false"
+                android:background="@drawable/background_login"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
+                />
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center">
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_signup"
+        android:text="S'inscrire"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:padding="16dp"
+        android:clickable="true"
+        style="@style/Base.TextAppearance.AppCompat.Body2"
+        android:layout_marginTop="24dp"
+        android:textSize="18sp"
+        />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_signup"
+        android:text="Annuler"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:padding="18dp"
+        android:clickable="true"
+        style="@style/Base.TextAppearance.AppCompat.Body2"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="24dp"
+        android:textSize="18sp"
+        />
+
+</LinearLayout>
         </LinearLayout>
 
     </ScrollView>

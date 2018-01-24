@@ -63,6 +63,7 @@ android:orientation="vertical"
             android:background="#fff"/>
 
         <Button
+            android:id="@+id/connection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_login"
@@ -77,6 +78,7 @@ android:orientation="vertical"
             />
 
         <Button
+            android:id="@+id/gotoregister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_signup"
