@@ -123,6 +123,7 @@
                     android:textColor="#fff"
                     android:padding="8dp"
                     android:textSize="17sp"
+                    android:layout_marginLeft="20dp"
                     />
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -149,6 +150,7 @@
                 android:layout_marginTop="20dp"/>
 
             <Button
+                android:id="@+id/boutonAllergie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="110dp"
@@ -166,7 +168,6 @@
                 android:padding="16dp"
                 android:clickable="true"
                 style="@style/Base.TextAppearance.AppCompat.Body2"
-                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp"
                 />
