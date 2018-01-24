@@ -10,26 +10,86 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/logo"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Gestion de votre profil"
+               android:padding="8dp"
+               android:textColor="#fff"
+               android:textSize="25sp"
+               android:layout_gravity="center"
+               android:layout_marginTop="80dp"/>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+                <EditText
+                    android:id="@+id/nom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_person_white_24dp"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:hint="Lebegue"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColorHint="#fff"
+                    android:textColor="#fff"/>
+
+                <EditText
+                    android:id="@+id/prenom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_person_white_24dp"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:hint="Clément"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColorHint="#fff"
+                    android:textColor="#fff"
+                    android:layout_toRightOf="@id/nom"/>
+            </RelativeLayout>
+
+
+
 
             <EditText
-                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:drawablePadding="12dp"
+                android:padding="8dp"
+                android:hint="XXX"
+                android:textColorHint="#fff"
+                android:textColor="#fff"
+                android:maxLines="1"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="4dp"
+                android:drawableLeft="@drawable/ic_lock_white_24dp"/>
+
+
+            <EditText
+                android:id="@+id/mail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_person_white_24dp"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:hint="Adresse Mail"
+                android:hint="lebegue.clement@gmail.com"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
@@ -39,47 +99,68 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#fff"/>
+                android:background="#fff"
+                android:layout_marginTop="20dp"/>
 
-            <EditText
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Régime alimentaire :"
+                android:textColor="#fff"
+                android:padding="8dp"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                />
+
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:drawablePadding="12dp"
-                android:padding="8dp"
-                android:hint="Mot de passe"
-                android:textColorHint="#fff"
-                android:textColor="#fff"
-                android:maxLines="1"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="4dp"
-                android:drawableLeft="@drawable/ic_lock_white_24dp"/>
+                android:orientation="horizontal">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vegan"
+                    android:textColor="#fff"
+                    android:padding="8dp"
+                    android:textSize="17sp"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vegetarien"
+                    android:textColor="#fff"
+                    android:padding="8dp"
+                    android:textSize="17sp"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sans Gluten"
+                    android:textColor="#fff"
+                    android:padding="8dp"
+                    android:textSize="17sp"
+                    />
+            </RadioGroup>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#fff"/>
+                android:background="#fff"
+                android:layout_marginTop="20dp"/>
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_login"
-                android:text="Se connecter"
-                android:textColor="#395fc6"
-                android:textAllCaps="false"
-                android:padding="16dp"
-                android:clickable="true"
-                style="@style/Base.TextAppearance.AppCompat.Body2"
-                android:layout_marginTop="24dp"
-                android:textSize="18sp"
-                />
+                android:layout_marginLeft="110dp"
+                android:text="Modifier vos allergies"
+                android:layout_marginTop="20dp"/>
+
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_signup"
-                android:text="S'inscrire"
+                android:text="Modifier le profil"
                 android:textColor="#fff"
                 android:textAllCaps="false"
                 android:padding="16dp"
@@ -87,19 +168,8 @@
                 style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:layout_marginTop="16dp"
                 android:textSize="18sp"
+                android:layout_marginTop="20dp"
                 />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Mot de passe oublié ?"
-                style="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#fff"
-                android:padding="16dp"
-                android:clickable="true"
-                android:layout_marginBottom="16dp"/>
-
         </LinearLayout>
 
     </ScrollView>
