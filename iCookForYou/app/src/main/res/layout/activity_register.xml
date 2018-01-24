@@ -16,6 +16,15 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Inscription"
+                android:textColor="#fff"
+                android:ems="10"/>
+
             <EditText
                 android:id="@+id/registeredname"
                 android:layout_width="match_parent"
@@ -95,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_login"
-                android:text="Se connecter"
+                android:text="S'inscrire"
                 android:textColor="#395fc6"
                 android:textAllCaps="false"
                 android:padding="16dp"
@@ -109,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_signup"
-                android:text="S'inscrire"
+                android:text="Annuler"
                 android:textColor="#fff"
                 android:textAllCaps="false"
                 android:padding="16dp"
