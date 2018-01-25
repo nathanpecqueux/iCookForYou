@@ -48,10 +48,16 @@ WHERE F.idCategoryF = 1
 AND F.idCategoryF = C.idCategory;
 
 #Afficher les sous categories de la categorie 1
-#Pas encore fonctonnelle
-SELECT C.name AS CatFarine, C.name AS SubCatFarine
+SELECT C.name 
 FROM TCategory AS C
-WHERE C.idCategory = 1;
+WHERE idCategory = '1'
+UNION 
+SELECT name 
+FROM (SELECT * FROM TCategory AS C ORDER BY idSubCategory, idCategory) categories,
+	 (SELECT @ct := '1') initialisation
+	  WHERE find_in_set(idSubCategory, @ct)>0
+	  AND @ct := concat(@ct, ',', idCategory);
+
 
 #Afficher toutes les categories des aliments du stock de l'utilisateur 1
 SELECT U.name AS UserName, C.name AS CategoryName
