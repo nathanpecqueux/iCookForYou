@@ -29,8 +29,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_register);
         allergiesButton=(Button) findViewById(R.id.registeredallergies);
         dietButton=(Button) findViewById(R.id.registereddiet);
-        registerButton=(Button) findViewById(R.id.register);
-        cancelButton=(Button) findViewById(R.id.cancel);
+        registerButton=(Button) findViewById(R.id.registerButton);
+        cancelButton=(Button) findViewById(R.id.cancelButton);
         allergiesButton.setOnClickListener(this);
         registerButton.setOnClickListener(this);
         dietButton.setOnClickListener(this);

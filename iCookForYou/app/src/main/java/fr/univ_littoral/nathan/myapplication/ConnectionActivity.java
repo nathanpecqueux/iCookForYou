@@ -5,19 +5,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class ConnectionActivity extends Activity implements View.OnClickListener{
 
     Button registerButton;
     Button connectionButton;
+    EditText connectionMail;
+    EditText connectionPassword;
+    TextView forgotPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
-        registerButton=(Button) findViewById(R.id.gotoregister);
-        connectionButton=(Button) findViewById(R.id.connection);
+        registerButton=(Button) findViewById(R.id.gotoregisterButton);
+        connectionButton=(Button) findViewById(R.id.connectionButton);
+        connectionMail=(EditText) findViewById(R.id.connectionMail);
+        connectionPassword=(EditText) findViewById(R.id.connectionPassword);
+        forgotPassword=(TextView) findViewById(R.id.forgotPassword);
         registerButton.setOnClickListener(this);
         connectionButton.setOnClickListener(this);
+        forgotPassword.setOnClickListener(this);
     }
 
     @Override
@@ -28,6 +37,9 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                 startActivity(registerActivity);
                 break;
             case R.id.connection:
+
+                break;
+            case R.id.forgotPassword:
 
                 break;
         }

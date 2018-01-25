@@ -23,7 +23,7 @@ android:orientation="vertical"
             android:src="@drawable/logo"/>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/connectionMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -43,6 +43,7 @@ android:orientation="vertical"
             android:background="#fff"/>
 
         <EditText
+            android:id="@+id/connectionPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -63,7 +64,7 @@ android:orientation="vertical"
             android:background="#fff"/>
 
         <Button
-            android:id="@+id/connection"
+            android:id="@+id/connectionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_login"
@@ -78,7 +79,7 @@ android:orientation="vertical"
             />
 
         <Button
-            android:id="@+id/gotoregister"
+            android:id="@+id/gotoregisterButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_signup"
@@ -93,6 +94,7 @@ android:orientation="vertical"
             />
 
         <TextView
+            android:id="@+id/forgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -106,6 +108,5 @@ android:orientation="vertical"
     </LinearLayout>
 
 </ScrollView>
-
 
 </LinearLayout>

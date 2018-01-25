@@ -169,7 +169,7 @@
     android:layout_gravity="center">
 
     <Button
-        android:id="@+id/register"
+        android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_signup"
@@ -184,7 +184,7 @@
         />
 
     <Button
-        android:id="@+id/cancel"
+        android:id="@+id/cancelButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_signup"
