@@ -29,7 +29,7 @@
 
             <EditText
                 android:layout_marginTop="30dp"
-                android:id="@+id/registeredname"
+                android:id="@+id/registeredName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -49,7 +49,7 @@
                 android:background="#fff"/>
 
             <EditText
-                android:id="@+id/registeredfirstname"
+                android:id="@+id/registeredFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -70,7 +70,7 @@
                 android:background="#fff"/>
 
             <EditText
-                android:id="@+id/registeredmail"
+                android:id="@+id/registeredMail"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                 android:background="#fff"/>
 
             <EditText
-                android:id="@+id/registeredpassword"
+                android:id="@+id/registeredPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -112,7 +112,7 @@
                 android:background="#fff"/>
 
             <EditText
-                android:id="@+id/confirmpassword"
+                android:id="@+id/registeredConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -133,7 +133,7 @@
                 android:background="#fff"/>
 
             <Button
-                android:id="@+id/registeredallergies"
+                android:id="@+id/registeredAllergies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Allergies"
@@ -148,7 +148,7 @@
                 />
 
             <Button
-                android:id="@+id/registereddiet"
+                android:id="@+id/registeredDiet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Régimes alimentaire"

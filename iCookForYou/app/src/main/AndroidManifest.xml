@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="fr.univ_littoral.nathan.myapplication">
+    package="fr.univ_littoral.nathan.myapplication">
 
     <application
         android:name=".MyApp"
@@ -13,14 +13,19 @@
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ConnectionActivity"  android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".RegisterActivity"  android:windowSoftInputMode="stateHidden">
-        </activity>
+        <activity
+            android:name=".ConnectionActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".RegisterActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".ForgotPasswordActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>

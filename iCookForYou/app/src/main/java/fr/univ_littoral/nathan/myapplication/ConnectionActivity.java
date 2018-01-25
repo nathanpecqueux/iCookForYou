@@ -32,15 +32,16 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.gotoregister:
+            case R.id.gotoregisterButton:
                 Intent registerActivity = new Intent(ConnectionActivity.this, RegisterActivity.class);
                 startActivity(registerActivity);
                 break;
-            case R.id.connection:
+            case R.id.connectionButton:
 
                 break;
             case R.id.forgotPassword:
-
+                Intent forgotPasswordActivity = new Intent(ConnectionActivity.this, ForgotPasswordActivity.class);
+                startActivity(forgotPasswordActivity);
                 break;
         }
     }
