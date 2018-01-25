@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Mer 24 Janvier 2018 à 14:16
+-- Généré le :  Jeu 25 Janvier 2018 à 10:53
 -- Version du serveur :  10.1.26-MariaDB-0+deb9u1
 -- Version de PHP :  7.0.19-1
 
@@ -31,14 +31,17 @@ CREATE TABLE `TAllergy` (
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Contenu de la table `TAllergy`
+-- Structure de la table `TCategory`
 --
 
-INSERT INTO `TAllergy` (`idAllergy`, `name`) VALUES
-(1, 'poisson'),
-(2, 'lait de vache'),
-(3, 'soja');
+CREATE TABLE `TCategory` (
+  `idCategory` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `idSubCategory` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -50,15 +53,6 @@ CREATE TABLE `TDiet` (
   `idDiet` int(11) NOT NULL,
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Contenu de la table `TDiet`
---
-
-INSERT INTO `TDiet` (`idDiet`, `name`) VALUES
-(1, 'vegan'),
-(2, 'vegetarien'),
-(3, 'sans gluten');
 
 -- --------------------------------------------------------
 
@@ -81,18 +75,10 @@ CREATE TABLE `TFood` (
   `idFood` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `unit` varchar(45) NOT NULL,
-  `codeEAN` int(13) NOT NULL
+  `idUnitF` int(11) NOT NULL,
+  `codeEAN` int(13) NOT NULL,
+  `idCategoryF` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Contenu de la table `TFood`
---
-
-INSERT INTO `TFood` (`idFood`, `name`, `quantity`, `unit`, `codeEAN`) VALUES
-(1, 'pomme', 3, 'unit', 1465),
-(2, 'lait', 6, 'litre', 148),
-(3, 'farine', 500, 'g', 1498);
 
 -- --------------------------------------------------------
 
@@ -105,13 +91,6 @@ CREATE TABLE `THistory` (
   `idRecipeH` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Contenu de la table `THistory`
---
-
-INSERT INTO `THistory` (`idUserH`, `idRecipeH`) VALUES
-(1, 5648449);
-
 -- --------------------------------------------------------
 
 --
@@ -122,13 +101,6 @@ CREATE TABLE `TRecipe` (
   `idRecipe` int(11) NOT NULL,
   `nameProvider` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Contenu de la table `TRecipe`
---
-
-INSERT INTO `TRecipe` (`idRecipe`, `nameProvider`) VALUES
-(5648449, 'wecook');
 
 -- --------------------------------------------------------
 
@@ -142,14 +114,16 @@ CREATE TABLE `TStock` (
   `quantityS` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Contenu de la table `TStock`
+-- Structure de la table `TUnit`
 --
 
-INSERT INTO `TStock` (`idUserS`, `idFood`, `quantityS`) VALUES
-(1, 1, 8),
-(1, 2, 4),
-(2, 3, 1);
+CREATE TABLE `TUnit` (
+  `idUnit` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -165,14 +139,6 @@ CREATE TABLE `TUser` (
   `password` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Contenu de la table `TUser`
---
-
-INSERT INTO `TUser` (`idUser`, `name`, `firstname`, `mail`, `password`) VALUES
-(1, 'pecqueux', 'nathan', 'sdqg', 'qsdfg'),
-(2, 'lebegue', 'clement', 'qdfh', '<sfg');
-
 -- --------------------------------------------------------
 
 --
@@ -183,15 +149,6 @@ CREATE TABLE `TUserAllergy` (
   `idUserUA` int(11) NOT NULL,
   `idAllergyUA` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Contenu de la table `TUserAllergy`
---
-
-INSERT INTO `TUserAllergy` (`idUserUA`, `idAllergyUA`) VALUES
-(1, 1),
-(1, 3),
-(2, 2);
 
 -- --------------------------------------------------------
 
@@ -205,13 +162,6 @@ CREATE TABLE `TUserDiet` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Contenu de la table `TUserDiet`
---
-
-INSERT INTO `TUserDiet` (`idUserUD`, `idDietUD`) VALUES
-(1, 2);
-
---
 -- Index pour les tables exportées
 --
 
@@ -220,6 +170,13 @@ INSERT INTO `TUserDiet` (`idUserUD`, `idDietUD`) VALUES
 --
 ALTER TABLE `TAllergy`
   ADD PRIMARY KEY (`idAllergy`);
+
+--
+-- Index pour la table `TCategory`
+--
+ALTER TABLE `TCategory`
+  ADD PRIMARY KEY (`idCategory`),
+  ADD KEY `fk_idSubCategoryC_idx` (`idSubCategory`);
 
 --
 -- Index pour la table `TDiet`
@@ -238,7 +195,9 @@ ALTER TABLE `TFavorites`
 -- Index pour la table `TFood`
 --
 ALTER TABLE `TFood`
-  ADD PRIMARY KEY (`idFood`);
+  ADD PRIMARY KEY (`idFood`),
+  ADD KEY `fk_idUnitF_idx` (`idUnitF`),
+  ADD KEY `fk_idCategoryF_idx` (`idCategoryF`);
 
 --
 -- Index pour la table `THistory`
@@ -259,6 +218,12 @@ ALTER TABLE `TRecipe`
 ALTER TABLE `TStock`
   ADD PRIMARY KEY (`idUserS`,`idFood`),
   ADD KEY `fk_idFood_idx` (`idFood`);
+
+--
+-- Index pour la table `TUnit`
+--
+ALTER TABLE `TUnit`
+  ADD PRIMARY KEY (`idUnit`);
 
 --
 -- Index pour la table `TUser`
@@ -290,6 +255,11 @@ ALTER TABLE `TUserDiet`
 ALTER TABLE `TAllergy`
   MODIFY `idAllergy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT pour la table `TCategory`
+--
+ALTER TABLE `TCategory`
+  MODIFY `idCategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT pour la table `TDiet`
 --
 ALTER TABLE `TDiet`
@@ -298,12 +268,17 @@ ALTER TABLE `TDiet`
 -- AUTO_INCREMENT pour la table `TFood`
 --
 ALTER TABLE `TFood`
-  MODIFY `idFood` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idFood` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT pour la table `TRecipe`
 --
 ALTER TABLE `TRecipe`
   MODIFY `idRecipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5648450;
+--
+-- AUTO_INCREMENT pour la table `TUnit`
+--
+ALTER TABLE `TUnit`
+  MODIFY `idUnit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `TUser`
 --
@@ -319,11 +294,24 @@ ALTER TABLE `TUserDiet`
 --
 
 --
+-- Contraintes pour la table `TCategory`
+--
+ALTER TABLE `TCategory`
+  ADD CONSTRAINT `fk_idSubCategoryC` FOREIGN KEY (`idSubCategory`) REFERENCES `TCategory` (`idCategory`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Contraintes pour la table `TFavorites`
 --
 ALTER TABLE `TFavorites`
   ADD CONSTRAINT `fk_idRecipeF` FOREIGN KEY (`idRecipeF`) REFERENCES `TRecipe` (`idRecipe`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_idUserF` FOREIGN KEY (`idUserF`) REFERENCES `TUser` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `TFood`
+--
+ALTER TABLE `TFood`
+  ADD CONSTRAINT `fk_idCategoryF` FOREIGN KEY (`idCategoryF`) REFERENCES `TCategory` (`idCategory`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_idUnitF` FOREIGN KEY (`idUnitF`) REFERENCES `TUnit` (`idUnit`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `THistory`
