@@ -23,9 +23,12 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".RegisterActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".ForgotPasswordActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".GridDetailActivity"></activity>
     </application>
 
 </manifest>

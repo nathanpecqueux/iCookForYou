@@ -37,7 +37,8 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                 startActivity(registerActivity);
                 break;
             case R.id.connectionButton:
-
+                Intent homeActivity = new Intent(ConnectionActivity.this, HomeActivity.class);
+                startActivity(homeActivity);
                 break;
             case R.id.forgotPassword:
                 Intent forgotPasswordActivity = new Intent(ConnectionActivity.this, ForgotPasswordActivity.class);
