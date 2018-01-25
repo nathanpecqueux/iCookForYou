@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ModifyProfileActivity" />
+        <activity android:name=".ProfileActivity" />
         <activity
             android:name=".ConnectionActivity"
             android:windowSoftInputMode="stateHidden" />
