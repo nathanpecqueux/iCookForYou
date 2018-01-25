@@ -1,24 +1,27 @@
 
 #Liste des aliments avec leurs quantités dans le stock de l'user 1
-SELECT U.name, U.firstname, F.idFood, F.name, F.quantity, F.unit, S.quantityS
-FROM TUser AS U, TFood AS F, TStock AS S
+SELECT U.name, U.firstname, F.idFood, F.name, F.quantity, UNI.name, S.quantityS
+FROM TUser AS U, TFood AS F, TStock AS S, TUnit AS UNI
 WHERE U.idUser = '1'
 AND U.idUser = S.idUserS
-AND S.idFood = F.idFood;
+AND S.idFood = F.idFood
+AND F.idUnitF = UNI.idUnit;
 
 #Quantité totale d'un aliment X pour l'utilisateur 1
-SELECT U.name, U.firstname, F.name, (F.quantity*S.quantityS) AS QuantityTotal, F.unit
-FROM TUser AS U, TFood AS F, TStock AS S
+SELECT U.name, U.firstname, F.name, (F.quantity*S.quantityS) AS QuantityTotal, UNI.name
+FROM TUser AS U, TFood AS F, TStock AS S, TUnit AS UNI
 WHERE U.idUser = '1'
 AND S.idFood = F.idFood
-AND F.name = "lait";
+AND F.name = "lait"
+AND F.idUnitF = UNI.idUnit;
 
 #Quantité totale des aliments dans le stock de l'utilisateur 1
-SELECT U.name, U.firstname, F.name, (F.quantity*S.quantityS) AS QuantityTotal, F.unit
-FROM TUser AS U, TFood AS F, TStock AS S
+SELECT U.name, U.firstname, F.name, (F.quantity*S.quantityS) AS QuantityTotal, UNI.name
+FROM TUser AS U, TFood AS F, TStock AS S, TUnit AS UNI
 WHERE U.idUser = '1'
 AND U.idUser = S.idUserS
-AND S.idFood = F.idFood;
+AND S.idFood = F.idFood
+AND F.idUnitF = UNI.idUnit;
 
 #Afficher l'historique des recettes de l'user 1
 SELECT U.name, U.firstname, H.idUserH, H.idRecipeH
@@ -39,10 +42,24 @@ WHERE U.idUser = '1'
 AND U.idUser = F.idUserF;
 
 #Afficher les aliments qui correspond à la catégorie 1
+SELECT F.name, F.idCategoryF
+FROM TFood AS F, TCategory AS C
+WHERE F.idCategoryF = 1
+AND F.idCategoryF = C.idCategory;
 
 #Afficher les sous categories de la categorie 1
+#Pas encore fonctonnelle
+SELECT C.name AS CatFarine, C.name AS SubCatFarine
+FROM TCategory AS C
+WHERE C.idCategory = 1;
 
 #Afficher toutes les categories des aliments du stock de l'utilisateur 1
+SELECT U.name AS UserName, C.name AS CategoryName
+FROM TCategory AS C, TUser AS U, TFood AS F, TStock AS S
+WHERE U.idUser = '1'
+AND U.idUser = S.idUserS
+AND S.idFood = F.idFood
+AND F.idCategoryF = C.idCategory;
 
 
 
