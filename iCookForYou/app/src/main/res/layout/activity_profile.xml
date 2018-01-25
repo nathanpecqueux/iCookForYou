@@ -15,62 +15,65 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Modifiez votre profil"
-               android:padding="8dp"
-               android:textColor="#fff"
-               android:textSize="25sp"
-               android:layout_gravity="center"
-               android:layout_marginTop="40dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Votre profil"
+                android:padding="8dp"
+                android:textColor="#fff"
+                android:textSize="25sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"/>
 
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
-                <EditText
-                    android:id="@+id/editTextNom"
+                <TextView
+                    android:id="@+id/textViewNom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/ic_person_white_24dp"
                     android:drawablePadding="12dp"
                     android:ems="10"
+                    android:hint="Lebegue"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textColorHint="#fff"
                     android:textColor="#fff"/>
 
-                <EditText
-                    android:id="@+id/editTextPrenom"
+                <TextView
+                    android:id="@+id/textViewPrenom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/ic_person_white_24dp"
                     android:drawablePadding="12dp"
                     android:ems="10"
+                    android:hint="Clément"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textColorHint="#fff"
                     android:textColor="#fff"
-                    android:layout_toRightOf="@+id/editTextNom"/>
+                    android:layout_toRightOf="@+id/textViewNom"/>
             </RelativeLayout>
 
 
 
 
-            <EditText
-                android:id="@+id/editTextMdp"
+            <TextView
+                android:id="@+id/textViewMdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:ems="10"
                 android:drawablePadding="12dp"
                 android:padding="8dp"
+                android:hint="XXX"
                 android:textColorHint="#fff"
                 android:textColor="#fff"
                 android:maxLines="1"
@@ -78,30 +81,15 @@
                 android:layout_marginTop="4dp"
                 android:drawableLeft="@drawable/ic_lock_white_24dp"/>
 
-            <EditText
-                android:id="@+id/editTextVerifMdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:drawablePadding="12dp"
-                android:padding="8dp"
-                android:textColorHint="#fff"
-                android:textColor="#fff"
-                android:maxLines="1"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="4dp"
-                android:drawableLeft="@drawable/ic_lock_white_24dp"/>
-
-
-            <EditText
-                android:id="@+id/editTextMail"
+            <TextView
+                android:id="@+id/textViewMail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_person_white_24dp"
                 android:drawablePadding="12dp"
                 android:ems="10"
+                android:hint="lebegue.clement@gmail.com"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
@@ -136,6 +124,7 @@
                     android:padding="8dp"
                     android:textSize="17sp"
                     android:layout_marginLeft="20dp"
+                    android:clickable="false"
                     />
                 <android.support.v7.widget.AppCompatCheckBox
                     android:id="@+id/checkboxVegetarian"
@@ -147,8 +136,10 @@
                     android:textSize="17sp"
                     android:layout_marginLeft="100dp"
                     android:layout_toRightOf="@+id/checkboxVegan"
+                    android:clickable="false"
                     />
             </RelativeLayout>
+
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/checkboxNoGluten"
                 android:layout_width="wrap_content"
@@ -158,19 +149,12 @@
                 android:padding="8dp"
                 android:textSize="17sp"
                 android:layout_marginLeft="20dp"
+                android:clickable="false"
                 />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#fff"
-                android:layout_marginTop="20dp"/>
-
-            <Button
-                android:id="@+id/buttonAllergy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="110dp"
-                android:text="Modifier vos allergies"
                 android:layout_marginTop="20dp"/>
 
             <TextView
@@ -187,14 +171,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:layout_marginLeft="20dp"/>
 
             <Button
-                android:id="@+id/buttonValiderProfil"
+                android:id="@+id/buttonModifierProfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_signup"
-                android:text="Valider le profil"
+                android:text="Modifier le profil"
                 android:textColor="#fff"
                 android:textAllCaps="false"
                 android:padding="16dp"

@@ -1,6 +1,7 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 
 public class ModifyProfileActivity extends AppCompatActivity implements View.OnClickListener{
 
-    //Variables pour afficher la liste des allergies
+
+
+    //Variables pour Pop-up
     AlertDialog.Builder builder;
-    String [] allergies ={"Allergie 1","Allergie 2"};
-    boolean[] checkedAllergies=new boolean[allergies.length];
     AlertDialog ad;
 
     //Variables xml
@@ -37,14 +38,20 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
 
     TextView textViewAllergy=null;
 
-
-    //Tableau de String répértoriant les allergies de l'utilisateur
+    //Tableaux répertoriant les allergies de l'utilisateur
+    String[] allergies ={"Allergie 1","Allergie 2","Allergie 3"};
+    boolean[] checkedAllergies=new boolean[allergies.length];
     ArrayList<String> userAllergy=new ArrayList<String>();
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_profil);
+
+        //Initialisation
         builder=new AlertDialog.Builder(this);
 
         editTextNom=(TextView) findViewById(R.id.editTextNom);
@@ -66,10 +73,53 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         buttonValiderProfil.setOnClickListener(this);
         checkboxVegan.setOnClickListener(this);
         checkboxVegetarian.setOnClickListener(this);
+
+
+        //On récupère l'intent
+        Intent intentFromProfileActivity=getIntent();
+
+        //On initialise tout les champs du profil avec les données de l'intent
+        initializeModifyProfile(intentFromProfileActivity);
+    }
+
+
+    //Fonction qui initialise les champs du profil avec les données de l'intent
+    public void initializeModifyProfile(Intent intentFromProfileActivity){
+        editTextNom.setText(intentFromProfileActivity.getStringExtra("Nom"));
+        editTextPrenom.setText(intentFromProfileActivity.getStringExtra("Prenom"));
+        editTextMdp.setText(intentFromProfileActivity.getStringExtra("Mdp"));
+        editTextVerifMdp.setText(intentFromProfileActivity.getStringExtra("Mdp"));
+        editTextMail.setText(intentFromProfileActivity.getStringExtra("Mail"));
+
+        boolean temp=(intentFromProfileActivity.getBooleanExtra("Vegan",false));
+        if(temp==true){
+            checkboxVegan.setChecked(true);
+        }else{
+            checkboxVegan.setChecked(false);
+        }
+        temp=(intentFromProfileActivity.getBooleanExtra("Vegetarian",false));
+        if(temp==true){
+            checkboxVegetarian.setChecked(true);
+        }else{
+            checkboxVegetarian.setChecked(false);
+        }
+        temp=(intentFromProfileActivity.getBooleanExtra("NoGluten",false));
+        if(temp==true){
+            checkboxNoGluten.setChecked(true);
+        }else{
+            checkboxNoGluten.setChecked(false);
+        }
+
+        userAllergy=intentFromProfileActivity.getStringArrayListExtra("Allergy");
+        refreshTextViewAllergy();
+
+
+        checkedAllergies=intentFromProfileActivity.getBooleanArrayExtra("AllergyId");
     }
 
 
 
+    //Fonction qui gère les clics sur les boutons
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.buttonAllergy:
@@ -77,7 +127,9 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
                 ad.show();
                 break;
             case R.id.buttonValiderProfil:
-
+                Intent intentModifyProfileActivity=new Intent(ModifyProfileActivity.this,ProfileActivity.class);
+                startActivity(intentModifyProfileActivity);
+                finish();
                 break;
             case R.id.checkboxVegan:
                 if(checkboxVegetarian.isChecked()){
@@ -92,6 +144,8 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         }
 }
 
+
+    //Permet de rafraichir le tableau des allergies de l'utilisateur
     public ArrayList<String> refreshUserAllergy(){
         userAllergy.clear();
         for(int i=0; i<checkedAllergies.length;i++){
@@ -102,6 +156,7 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         return userAllergy;
     }
 
+    //Rafraichit le TextView des allergies de l'utilisateur
     public void refreshTextViewAllergy(){
         //Remplissage du String pour le TextView
         String temp=new String();
@@ -115,16 +170,17 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         textViewAllergy.setText(temp);
     }
 
-
+    //Créer le builder pour la pop-up des allergies
     public void createBuilder(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("Sélectionnez vos allergies");
         builder.setItems(allergies,null);
+
 
         builder.setPositiveButton("Valider",null);
         builder.setMultiChoiceItems(allergies, checkedAllergies, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which, boolean checked) {
-                Toast.makeText(getApplicationContext(),allergies[which],Toast.LENGTH_SHORT);
                 userAllergy=refreshUserAllergy();
                 refreshTextViewAllergy();
             }
