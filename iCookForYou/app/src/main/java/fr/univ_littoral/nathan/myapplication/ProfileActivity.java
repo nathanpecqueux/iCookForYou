@@ -1,7 +1,7 @@
 package fr.univ_littoral.nathan.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProfileActivity extends Activity implements View.OnClickListener {
 
     //Variables xml
     TextView textViewNom =null;
@@ -53,13 +53,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         userAllergy.add("Allergie 1");
         checkedAllergies[0]=true;
-
+        checkboxVegan.setChecked(true);
         refreshProfil();
     }
 
     public void refreshProfil(){
         setTextViewUserAllergy();
-        checkboxVegan.setChecked(true);
     }
 
     public void setTextViewUserAllergy() {
@@ -89,6 +88,38 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         intentModifyProfileActivity.putExtra("Allergy", userAllergy);
         intentModifyProfileActivity.putExtra("AllergyId", checkedAllergies);
-        startActivity(intentModifyProfileActivity);
+        startActivityForResult(intentModifyProfileActivity,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==1){
+            textViewNom.setHint(data.getStringExtra("NomModif"));
+            textViewPrenom.setHint(data.getStringExtra("PrenomModif"));
+            textViewMdp.setHint(data.getStringExtra("MdpModif"));
+            textViewMail.setHint(data.getStringExtra("MailModif"));
+
+            boolean temp=(data.getBooleanExtra("VeganModif",false));
+            if(temp==true){
+                checkboxVegan.setChecked(true);
+            }else{
+                checkboxVegan.setChecked(false);
+            }
+            temp=(data.getBooleanExtra("VegetarianModif",false));
+            if(temp==true){
+                checkboxVegetarian.setChecked(true);
+            }else{
+                checkboxVegetarian.setChecked(false);
+            }
+            temp=(data.getBooleanExtra("NoGlutenModif",false));
+            if(temp==true){
+                checkboxNoGluten.setChecked(true);
+            }else{
+                checkboxNoGluten.setChecked(false);
+            }
+            userAllergy=data.getStringArrayListExtra("AllergyModif");
+
+            setTextViewUserAllergy();
+        }
     }
 }
