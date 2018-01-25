@@ -18,12 +18,12 @@
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="Gestion de votre profil"
+               android:text="Modifiez votre profil"
                android:padding="8dp"
                android:textColor="#fff"
                android:textSize="25sp"
                android:layout_gravity="center"
-               android:layout_marginTop="80dp"/>
+               android:layout_marginTop="40dp"/>
 
 
             <RelativeLayout
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
                 <EditText
-                    android:id="@+id/nom"
+                    android:id="@+id/editTextNom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -46,7 +46,7 @@
                     android:textColor="#fff"/>
 
                 <EditText
-                    android:id="@+id/prenom"
+                    android:id="@+id/editTextPrenom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -59,13 +59,30 @@
                     android:padding="8dp"
                     android:textColorHint="#fff"
                     android:textColor="#fff"
-                    android:layout_toRightOf="@id/nom"/>
+                    android:layout_toRightOf="@+id/editTextNom"/>
             </RelativeLayout>
 
 
 
 
             <EditText
+                android:id="@+id/editTextMdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:drawablePadding="12dp"
+                android:padding="8dp"
+                android:hint="XXX"
+                android:textColorHint="#fff"
+                android:textColor="#fff"
+                android:maxLines="1"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="4dp"
+                android:drawableLeft="@drawable/ic_lock_white_24dp"/>
+
+            <EditText
+                android:id="@+id/editTextVerifMdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -82,7 +99,7 @@
 
 
             <EditText
-                android:id="@+id/mail"
+                android:id="@+id/editTextMail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -112,11 +129,11 @@
                 android:layout_marginTop="20dp"
                 />
 
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <RadioButton
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/checkboxVegan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vegan"
@@ -125,24 +142,28 @@
                     android:textSize="17sp"
                     android:layout_marginLeft="20dp"
                     />
-                <RadioButton
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/checkboxVegetarian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vegetarien"
                     android:textColor="#fff"
                     android:padding="8dp"
                     android:textSize="17sp"
+                    android:layout_marginLeft="100dp"
+                    android:layout_toRightOf="@+id/checkboxVegan"
                     />
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sans Gluten"
-                    android:textColor="#fff"
-                    android:padding="8dp"
-                    android:textSize="17sp"
-                    />
-            </RadioGroup>
-
+            </RelativeLayout>
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/checkboxNoGluten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sans Gluten"
+                android:textColor="#fff"
+                android:padding="8dp"
+                android:textSize="17sp"
+                android:layout_marginLeft="20dp"
+                />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -150,19 +171,35 @@
                 android:layout_marginTop="20dp"/>
 
             <Button
-                android:id="@+id/boutonAllergie"
+                android:id="@+id/buttonAllergy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="110dp"
                 android:text="Modifier vos allergies"
                 android:layout_marginTop="20dp"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vos allergies :"
+                android:padding="8dp"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/textViewAllergy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="16sp"/>
 
             <Button
+                android:id="@+id/buttonValiderProfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_signup"
-                android:text="Modifier le profil"
+                android:text="Valider le profil"
                 android:textColor="#fff"
                 android:textAllCaps="false"
                 android:padding="16dp"
