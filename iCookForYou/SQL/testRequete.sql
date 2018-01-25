@@ -38,3 +38,13 @@ FROM TUser AS U, TFavorites AS F
 WHERE U.idUser = '1'
 AND U.idUser = F.idUserF;
 
+#Afficher les aliments qui correspond à la catégorie 1
+
+#Afficher les sous categories de la categorie 1
+
+#Afficher toutes les categories des aliments du stock de l'utilisateur 1
+
+
+
+
+
