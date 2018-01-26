@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Jeu 25 Janvier 2018 à 10:53
+-- Généré le :  Ven 26 Janvier 2018 à 14:52
 -- Version du serveur :  10.1.26-MariaDB-0+deb9u1
 -- Version de PHP :  7.0.19-1
 
@@ -39,8 +39,8 @@ CREATE TABLE `TAllergy` (
 
 CREATE TABLE `TCategory` (
   `idCategory` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `idSubCategory` int(11) DEFAULT NULL
+  `name` varchar(45) NOT NULL,
+  `idParentCategory` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -62,7 +62,7 @@ CREATE TABLE `TDiet` (
 
 CREATE TABLE `TFavorites` (
   `idUserF` int(11) NOT NULL,
-  `idRecipeF` int(11) DEFAULT NULL
+  `idRecipeF` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -99,7 +99,19 @@ CREATE TABLE `THistory` (
 
 CREATE TABLE `TRecipe` (
   `idRecipe` int(11) NOT NULL,
-  `nameProvider` varchar(45) NOT NULL
+  `idProviderR` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `TRecipeProvider`
+--
+
+CREATE TABLE `TRecipeProvider` (
+  `idRecipeProvider` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `url` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -122,7 +134,7 @@ CREATE TABLE `TStock` (
 
 CREATE TABLE `TUnit` (
   `idUnit` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL
+  `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -176,7 +188,7 @@ ALTER TABLE `TAllergy`
 --
 ALTER TABLE `TCategory`
   ADD PRIMARY KEY (`idCategory`),
-  ADD KEY `fk_idSubCategoryC_idx` (`idSubCategory`);
+  ADD KEY `fk_idSubCategoryC_idx` (`idParentCategory`);
 
 --
 -- Index pour la table `TDiet`
@@ -210,7 +222,14 @@ ALTER TABLE `THistory`
 -- Index pour la table `TRecipe`
 --
 ALTER TABLE `TRecipe`
-  ADD PRIMARY KEY (`idRecipe`);
+  ADD PRIMARY KEY (`idRecipe`),
+  ADD KEY `fk_idProviderR_idx` (`idProviderR`);
+
+--
+-- Index pour la table `TRecipeProvider`
+--
+ALTER TABLE `TRecipeProvider`
+  ADD PRIMARY KEY (`idRecipeProvider`);
 
 --
 -- Index pour la table `TStock`
@@ -268,27 +287,32 @@ ALTER TABLE `TDiet`
 -- AUTO_INCREMENT pour la table `TFood`
 --
 ALTER TABLE `TFood`
-  MODIFY `idFood` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idFood` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `TRecipe`
 --
 ALTER TABLE `TRecipe`
-  MODIFY `idRecipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5648450;
+  MODIFY `idRecipe` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `TRecipeProvider`
+--
+ALTER TABLE `TRecipeProvider`
+  MODIFY `idRecipeProvider` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `TUnit`
 --
 ALTER TABLE `TUnit`
-  MODIFY `idUnit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idUnit` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `TUser`
 --
 ALTER TABLE `TUser`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `TUserDiet`
 --
 ALTER TABLE `TUserDiet`
-  MODIFY `idUserUD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUserUD` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Contraintes pour les tables exportées
 --
@@ -297,7 +321,7 @@ ALTER TABLE `TUserDiet`
 -- Contraintes pour la table `TCategory`
 --
 ALTER TABLE `TCategory`
-  ADD CONSTRAINT `fk_idSubCategoryC` FOREIGN KEY (`idSubCategory`) REFERENCES `TCategory` (`idCategory`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_idSubCategoryC` FOREIGN KEY (`idParentCategory`) REFERENCES `TCategory` (`idCategory`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `TFavorites`
@@ -319,6 +343,12 @@ ALTER TABLE `TFood`
 ALTER TABLE `THistory`
   ADD CONSTRAINT `fk_idRecipeH` FOREIGN KEY (`idRecipeH`) REFERENCES `TRecipe` (`idRecipe`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_idUserH` FOREIGN KEY (`idUserH`) REFERENCES `TUser` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `TRecipe`
+--
+ALTER TABLE `TRecipe`
+  ADD CONSTRAINT `fk_idProviderR` FOREIGN KEY (`idProviderR`) REFERENCES `TRecipeProvider` (`idRecipeProvider`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `TStock`
