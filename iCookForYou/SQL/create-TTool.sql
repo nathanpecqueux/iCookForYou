@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Lun 29 Janvier 2018 à 00:23
+-- Généré le :  Mar 30 Janvier 2018 à 10:02
 -- Version du serveur :  10.1.26-MariaDB-0+deb9u1
 -- Version de PHP :  7.0.19-1
 
@@ -129,11 +129,11 @@ CREATE TABLE `TStock` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `TTools`
+-- Structure de la table `TTool`
 --
 
-CREATE TABLE `TTools` (
-  `idTools` int(11) NOT NULL,
+CREATE TABLE `TTool` (
+  `idTool` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -156,8 +156,8 @@ CREATE TABLE `TUnit` (
 
 CREATE TABLE `TUser` (
   `idUser` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `firstname` varchar(45) NOT NULL,
+  `lastName` varchar(45) NOT NULL,
+  `firstName` varchar(45) NOT NULL,
   `mail` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `weight(kg)` decimal(5,2) DEFAULT NULL,
@@ -192,12 +192,12 @@ CREATE TABLE `TUserDiet` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `TUserTools`
+-- Structure de la table `TUserTool`
 --
 
-CREATE TABLE `TUserTools` (
+CREATE TABLE `TUserTool` (
   `idUserUT` int(11) NOT NULL,
-  `idToolsUT` int(11) NOT NULL
+  `idToolUT` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -266,10 +266,10 @@ ALTER TABLE `TStock`
   ADD KEY `fk_idFood_idx` (`idFood`);
 
 --
--- Index pour la table `TTools`
+-- Index pour la table `TTool`
 --
-ALTER TABLE `TTools`
-  ADD PRIMARY KEY (`idTools`);
+ALTER TABLE `TTool`
+  ADD PRIMARY KEY (`idTool`);
 
 --
 -- Index pour la table `TUnit`
@@ -298,11 +298,11 @@ ALTER TABLE `TUserDiet`
   ADD KEY `fk_idDietUD_idx` (`idDietUD`);
 
 --
--- Index pour la table `TUserTools`
+-- Index pour la table `TUserTool`
 --
-ALTER TABLE `TUserTools`
-  ADD PRIMARY KEY (`idUserUT`,`idToolsUT`),
-  ADD KEY `fk_idToolsUT_idx` (`idToolsUT`);
+ALTER TABLE `TUserTool`
+  ADD PRIMARY KEY (`idUserUT`,`idToolUT`),
+  ADD KEY `fk_idToolUT_idx` (`idToolUT`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -339,10 +339,10 @@ ALTER TABLE `TRecipe`
 ALTER TABLE `TRecipeProvider`
   MODIFY `idRecipeProvider` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `TTools`
+-- AUTO_INCREMENT pour la table `TTool`
 --
-ALTER TABLE `TTools`
-  MODIFY `idTools` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `TTool`
+  MODIFY `idTool` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `TUnit`
 --
@@ -417,10 +417,10 @@ ALTER TABLE `TUserDiet`
   ADD CONSTRAINT `fk_idUserUD` FOREIGN KEY (`idUserUD`) REFERENCES `TUser` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `TUserTools`
+-- Contraintes pour la table `TUserTool`
 --
-ALTER TABLE `TUserTools`
-  ADD CONSTRAINT `fk_idToolsUT` FOREIGN KEY (`idToolsUT`) REFERENCES `TTools` (`idTools`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ALTER TABLE `TUserTool`
+  ADD CONSTRAINT `fk_idToolUT` FOREIGN KEY (`idToolUT`) REFERENCES `TTool` (`idTool`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_idUserUT` FOREIGN KEY (`idUserUT`) REFERENCES `TUser` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
