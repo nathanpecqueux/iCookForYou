@@ -1,6 +1,7 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -126,20 +128,28 @@ public class ModifyProfileActivity extends Activity implements View.OnClickListe
                 ad.show();
                 break;
             case R.id.buttonValiderProfil:
-                Intent intentModifyProfileActivity=new Intent();
-                intentModifyProfileActivity.putExtra("NomModif",editTextNom.getText().toString());
-                intentModifyProfileActivity.putExtra("PrenomModif",editTextPrenom.getText().toString());
-                intentModifyProfileActivity.putExtra("MdpModif",editTextMdp.getText().toString());
-                intentModifyProfileActivity.putExtra("MailModif",editTextMail.getText().toString());
+                if(editTextMdp.getText().toString().equals(editTextVerifMdp.getEditableText().toString())) {
+                    Intent intentModifyProfileActivity = new Intent();
+                    intentModifyProfileActivity.putExtra("NomModif", editTextNom.getText().toString());
+                    intentModifyProfileActivity.putExtra("PrenomModif", editTextPrenom.getText().toString());
+                    intentModifyProfileActivity.putExtra("MdpModif", editTextMdp.getText().toString());
+                    intentModifyProfileActivity.putExtra("MailModif", editTextMail.getText().toString());
 
-                intentModifyProfileActivity.putExtra("VeganModif",checkboxVegan.isChecked());
-                intentModifyProfileActivity.putExtra("VegetarianModif",checkboxVegetarian.isChecked());
-                intentModifyProfileActivity.putExtra("NoGlutenModif",checkboxNoGluten.isChecked());
+                    intentModifyProfileActivity.putExtra("VeganModif", checkboxVegan.isChecked());
+                    intentModifyProfileActivity.putExtra("VegetarianModif", checkboxVegetarian.isChecked());
+                    intentModifyProfileActivity.putExtra("NoGlutenModif", checkboxNoGluten.isChecked());
 
-                intentModifyProfileActivity.putExtra("AllergyModif", userAllergy);
-                intentModifyProfileActivity.putExtra("AllergyIdModif", checkedAllergies);
-                setResult(2,intentModifyProfileActivity);
-                finish();
+                    intentModifyProfileActivity.putExtra("AllergyModif", userAllergy);
+                    intentModifyProfileActivity.putExtra("AllergyIdModif", checkedAllergies);
+                    setResult(2, intentModifyProfileActivity);
+                    finish();
+                }else {
+                    Context context=getApplicationContext();
+                    CharSequence text="Les mots de passe sont différents";
+                    int duration =Toast.LENGTH_SHORT;
+                    Toast toast=Toast.makeText(context,text,duration);
+                    toast.show();
+                }
                 break;
             case R.id.checkboxVegan:
                 if(checkboxVegetarian.isChecked()){

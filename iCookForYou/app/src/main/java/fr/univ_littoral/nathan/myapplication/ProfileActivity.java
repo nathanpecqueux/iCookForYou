@@ -1,8 +1,13 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -55,6 +60,36 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
         checkedAllergies[0]=true;
         checkboxVegan.setChecked(true);
         refreshProfil();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu_profil,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.menuProfilAccueil:
+                Intent intentAccueil = new Intent(ProfileActivity.this, ConnectionActivity.class);
+                startActivity(intentAccueil);
+                break;
+            case R.id.menuProfilAPropos:
+                AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                builder.setTitle("A propos de ...")
+                        .setMessage("ICookForYou\n\nApplication créée par :\n\nBomy François\nLebegue Clément\nLeblanc Alexandre\nPecqueux Nathan");
+                builder.show();
+                break;
+            case R.id.menuProfilQuitter:
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                break;
+        }
+        return true;
     }
 
     public void refreshProfil(){
