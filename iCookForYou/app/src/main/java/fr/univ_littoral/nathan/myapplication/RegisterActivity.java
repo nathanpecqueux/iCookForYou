@@ -1,6 +1,7 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class RegisterActivity extends Activity implements View.OnClickListener{
@@ -65,10 +68,24 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.menuProfilAPropos:
-                android.app.AlertDialog.Builder builder=new android.app.AlertDialog.Builder(this);
-                builder.setTitle("A propos de ...")
-                        .setMessage("ICookForYou\n\nApplication créée par :\n\nBomy François\nLebegue Clément\nLeblanc Alexandre\nPecqueux Nathan");
-                builder.show();
+                Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.layout_propos);
+                dialog.setCancelable(true);
+                //there are a lot of settings, for dialog, check them all out!
+                dialog.setTitle("A propos de l'application");
+                //set up text
+                TextView text = (TextView) dialog.findViewById(R.id.TextView01);
+                text.setText("Application créée par :");
+                TextView text2 = (TextView) dialog.findViewById(R.id.TextView02);
+                text2.setText("Bomy François\nLebegue Clément\nLeblanc Alexandre\nPecqueux Nathan");
+                TextView text3 = (TextView) dialog.findViewById(R.id.TextView03);
+                text3.setText("Version 1.0");
+
+                //set up image view
+                ImageView img = (ImageView) dialog.findViewById(R.id.ImageView01);
+                img.setImageResource(R.drawable.logo_propos);
+
+                dialog.show();
                 break;
             case R.id.menuProfilQuitter:
                 Intent intent = new Intent(Intent.ACTION_MAIN);
