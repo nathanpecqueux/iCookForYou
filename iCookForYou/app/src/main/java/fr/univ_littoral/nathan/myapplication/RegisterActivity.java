@@ -66,27 +66,26 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case R.id.menuProfilAPropos:
-                Dialog dialog = new Dialog(this);
-                dialog.setContentView(R.layout.layout_propos);
-                dialog.setCancelable(true);
-                //there are a lot of settings, for dialog, check them all out!
-                dialog.setTitle("A propos de l'application");
-                //set up text
-                TextView text = (TextView) dialog.findViewById(R.id.TextView01);
-                text.setText("Application créée par :");
-                TextView text2 = (TextView) dialog.findViewById(R.id.TextView02);
-                text2.setText("Bomy François\nLebegue Clément\nLeblanc Alexandre\nPecqueux Nathan");
-                TextView text3 = (TextView) dialog.findViewById(R.id.TextView03);
-                text3.setText("Version 1.0");
+        switch (item.getItemId()){ case R.id.menuProfilAPropos:
+            Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.layout_propos);
+            dialog.setCancelable(true);
+            //there are a lot of settings, for dialog, check them all out!
+            dialog.setTitle("A propos de l'application");
+            //set up text
+            TextView text = (TextView) dialog.findViewById(R.id.TextView01);
+            text.setText("Application créée par :");
+            TextView text2 = (TextView) dialog.findViewById(R.id.TextView02);
+            text2.setText("Bomy François\nLebegue Clément\nLeblanc Alexandre\nPecqueux Nathan");
+            TextView text3 = (TextView) dialog.findViewById(R.id.TextView03);
+            text3.setText("Version 1.0,  02/02/2018");
 
-                //set up image view
-                ImageView img = (ImageView) dialog.findViewById(R.id.ImageView01);
-                img.setImageResource(R.drawable.logo_propos);
+            //set up image view
+            ImageView img = (ImageView) dialog.findViewById(R.id.ImageView01);
+            img.setImageResource(R.drawable.logo_propos);
 
-                dialog.show();
-                break;
+            dialog.show();
+            break;
             case R.id.menuProfilQuitter:
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);

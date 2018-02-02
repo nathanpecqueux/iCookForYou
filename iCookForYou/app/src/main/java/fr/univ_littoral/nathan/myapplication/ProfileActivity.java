@@ -92,10 +92,10 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
                 TextView text2 = (TextView) dialog.findViewById(R.id.TextView02);
                 text2.setText("Bomy François\nLebegue Clément\nLeblanc Alexandre\nPecqueux Nathan");
                 TextView text3 = (TextView) dialog.findViewById(R.id.TextView03);
-                text3.setText("Version 1.0");
+                text3.setText("Version 1.0,  02/02/2018");
 
                 //set up image view
-               ImageView img = (ImageView) dialog.findViewById(R.id.ImageView01);
+                ImageView img = (ImageView) dialog.findViewById(R.id.ImageView01);
                 img.setImageResource(R.drawable.logo_propos);
 
                 dialog.show();
