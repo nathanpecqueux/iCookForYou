@@ -14,15 +14,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
+
+import static fr.univ_littoral.nathan.myapplication.sampledata.Recipe.getRecipesFromFile;
+
 public class HomeActivity extends AppCompatActivity{
+
+    private ListView mRecipeListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        mRecipeListView = (ListView) findViewById(R.id.recipe_list_view);
+        final ArrayList<Recipe> recipeList = getRecipesFromFile("recipes.json", this);
+        String[] listItems = new String[recipeList.size()];
+        for(int i=0;i<recipeList.size();i++){
+            Recipe recipe = recipeList.get(i);
+            listItems[i] = recipe.title;
+        }
+
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_expandable_list_item_1, listItems);
+        mRecipeListView.setAdapter(adapter);
     }
 }
