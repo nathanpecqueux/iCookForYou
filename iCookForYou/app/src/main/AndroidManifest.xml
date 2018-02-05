@@ -18,13 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ModifyProfileActivity">
-        </activity>
+        <activity android:name=".ModifyProfileActivity"></activity>
         <activity
             android:name=".ProfileActivity"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".ConnectionActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -35,7 +32,9 @@
             android:name=".ForgotPasswordActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".GridDetailActivity"></activity>
+        <activity
+            android:name=".HomeRecipesActivity"
+            android:label="@string/title_activity_home_recipes"></activity>
     </application>
 
 </manifest>
