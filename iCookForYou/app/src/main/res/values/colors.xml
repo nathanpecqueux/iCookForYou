@@ -5,9 +5,10 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorBackgroundGrey">#2c2d30</color>
     <color name="blue_grey_800_50p">#E237474f</color>
-    <color name="list_divider">#d9d9d9</color>
-    <color name="list_row_start_color">#ffffff</color>
-    <color name="list_row_end_color">#ffffff</color>
-    <color name="list_row_hover_start_color">#ebeef0</color>
-    <color name="list_row_hover_end_color">#ebeef0</color>
+    <color name="colorLowCarb">#663399</color>
+    <color name="colorBalanced">#4183D7</color>
+    <color name="colorMediumCarb">#D2527F</color>
+    <color name="colorLowSodium">#F4D03F</color>
+    <color name="colorLowFat">#F2784B</color>
+    <color name="colorVegetarian">#26A65B</color>
 </resources>

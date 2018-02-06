@@ -33,8 +33,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".HomeActivity" />
         <activity
-            android:name=".HomeRecipesActivity"
-            android:label="@string/title_activity_home_recipes"></activity>
+            android:name=".HomeRecipesActivity"></activity>
     </application>
 
 </manifest>
