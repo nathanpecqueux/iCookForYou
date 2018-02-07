@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Ven 26 Janvier 2018 à 14:52
+-- Généré le :  Mer 07 Février 2018 à 15:43
 -- Version du serveur :  10.1.26-MariaDB-0+deb9u1
 -- Version de PHP :  7.0.19-1
 
@@ -31,6 +31,18 @@ CREATE TABLE `TAllergy` (
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Contenu de la table `TAllergy`
+--
+
+INSERT INTO `TAllergy` (`idAllergy`, `name`) VALUES
+(1, 'arachides'),
+(2, 'fruit à écales'),
+(3, 'lait de vache'),
+(4, 'oeufs'),
+(5, 'poissons'),
+(6, 'fruits de mer');
+
 -- --------------------------------------------------------
 
 --
@@ -43,6 +55,15 @@ CREATE TABLE `TCategory` (
   `idParentCategory` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Contenu de la table `TCategory`
+--
+
+INSERT INTO `TCategory` (`idCategory`, `name`, `idParentCategory`) VALUES
+(1, 'farine', NULL),
+(2, 'farine de blé', 1),
+(3, 'farine de blé T110', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -54,6 +75,15 @@ CREATE TABLE `TDiet` (
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Contenu de la table `TDiet`
+--
+
+INSERT INTO `TDiet` (`idDiet`, `name`) VALUES
+(1, 'vegan'),
+(2, 'vegetarien'),
+(3, 'sans gluten');
+
 -- --------------------------------------------------------
 
 --
@@ -64,6 +94,14 @@ CREATE TABLE `TFavorites` (
   `idUserF` int(11) NOT NULL,
   `idRecipeF` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `TFavorites`
+--
+
+INSERT INTO `TFavorites` (`idUserF`, `idRecipeF`) VALUES
+(1, 16969),
+(2, 16969);
 
 -- --------------------------------------------------------
 
@@ -80,6 +118,16 @@ CREATE TABLE `TFood` (
   `idCategoryF` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Contenu de la table `TFood`
+--
+
+INSERT INTO `TFood` (`idFood`, `name`, `quantity`, `idUnitF`, `codeEAN`, `idCategoryF`) VALUES
+(1, 'lait', 1, 1, 156, 1),
+(2, 'poisson', 1, 3, 95641, NULL),
+(3, 'farine de blé T110', 500, 2, 9854, 3),
+(4, 'oeufs', 6, 3, 845, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -91,6 +139,13 @@ CREATE TABLE `THistory` (
   `idRecipeH` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Contenu de la table `THistory`
+--
+
+INSERT INTO `THistory` (`idUserH`, `idRecipeH`) VALUES
+(2, 16969);
+
 -- --------------------------------------------------------
 
 --
@@ -101,6 +156,13 @@ CREATE TABLE `TRecipe` (
   `idRecipe` int(11) NOT NULL,
   `idProviderR` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `TRecipe`
+--
+
+INSERT INTO `TRecipe` (`idRecipe`, `idProviderR`) VALUES
+(16969, 2);
 
 -- --------------------------------------------------------
 
@@ -114,6 +176,14 @@ CREATE TABLE `TRecipeProvider` (
   `url` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Contenu de la table `TRecipeProvider`
+--
+
+INSERT INTO `TRecipeProvider` (`idRecipeProvider`, `name`, `url`) VALUES
+(1, 'wecook', 'http://api.wecook.fr/'),
+(2, 'marmiton', 'http://www.marmiton.org/');
+
 -- --------------------------------------------------------
 
 --
@@ -126,6 +196,37 @@ CREATE TABLE `TStock` (
   `quantityS` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Contenu de la table `TStock`
+--
+
+INSERT INTO `TStock` (`idUserS`, `idFood`, `quantityS`) VALUES
+(1, 1, 6),
+(1, 3, 2),
+(2, 2, 8),
+(3, 1, 1),
+(3, 2, 3),
+(3, 3, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `TTool`
+--
+
+CREATE TABLE `TTool` (
+  `idTool` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `TTool`
+--
+
+INSERT INTO `TTool` (`idTool`, `name`) VALUES
+(1, 'four'),
+(2, 'thermomix');
+
 -- --------------------------------------------------------
 
 --
@@ -137,6 +238,15 @@ CREATE TABLE `TUnit` (
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Contenu de la table `TUnit`
+--
+
+INSERT INTO `TUnit` (`idUnit`, `name`) VALUES
+(1, 'litre'),
+(2, 'gramme'),
+(3, 'unit');
+
 -- --------------------------------------------------------
 
 --
@@ -145,11 +255,25 @@ CREATE TABLE `TUnit` (
 
 CREATE TABLE `TUser` (
   `idUser` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `firstname` varchar(45) NOT NULL,
+  `lastName` varchar(45) NOT NULL,
+  `firstName` varchar(45) NOT NULL,
   `mail` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL
+  `password` varchar(45) NOT NULL,
+  `weight(kg)` decimal(5,2) DEFAULT NULL,
+  `size(cm)` int(3) DEFAULT NULL,
+  `age` int(3) DEFAULT NULL,
+  `sex` enum('man','woman') DEFAULT NULL,
+  `physicalActivity` enum('sedentary','active','athlete') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `TUser`
+--
+
+INSERT INTO `TUser` (`idUser`, `lastName`, `firstName`, `mail`, `password`, `weight(kg)`, `size(cm)`, `age`, `sex`, `physicalActivity`) VALUES
+(1, 'Pecqueux', 'nathan', 'nathan@gmail.com', 'nathan', '65.00', 178, 22, 'man', 'active'),
+(2, 'Lebegue', 'Clement', 'clement@hotmail.fr', 'clement', '80.00', 190, 25, 'woman', 'athlete'),
+(3, 'Bomy', 'Francois', 'fr@gmail.com', 'franfran', '120.00', 180, 23, 'man', 'sedentary');
 
 -- --------------------------------------------------------
 
@@ -162,6 +286,15 @@ CREATE TABLE `TUserAllergy` (
   `idAllergyUA` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Contenu de la table `TUserAllergy`
+--
+
+INSERT INTO `TUserAllergy` (`idUserUA`, `idAllergyUA`) VALUES
+(1, 2),
+(1, 5),
+(2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -172,6 +305,33 @@ CREATE TABLE `TUserDiet` (
   `idUserUD` int(11) NOT NULL,
   `idDietUD` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `TUserDiet`
+--
+
+INSERT INTO `TUserDiet` (`idUserUD`, `idDietUD`) VALUES
+(2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `TUserTool`
+--
+
+CREATE TABLE `TUserTool` (
+  `idUserUT` int(11) NOT NULL,
+  `idToolUT` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `TUserTool`
+--
+
+INSERT INTO `TUserTool` (`idUserUT`, `idToolUT`) VALUES
+(1, 1),
+(1, 2),
+(2, 2);
 
 --
 -- Index pour les tables exportées
@@ -239,6 +399,12 @@ ALTER TABLE `TStock`
   ADD KEY `fk_idFood_idx` (`idFood`);
 
 --
+-- Index pour la table `TTool`
+--
+ALTER TABLE `TTool`
+  ADD PRIMARY KEY (`idTool`);
+
+--
 -- Index pour la table `TUnit`
 --
 ALTER TABLE `TUnit`
@@ -265,6 +431,13 @@ ALTER TABLE `TUserDiet`
   ADD KEY `fk_idDietUD_idx` (`idDietUD`);
 
 --
+-- Index pour la table `TUserTool`
+--
+ALTER TABLE `TUserTool`
+  ADD PRIMARY KEY (`idUserUT`,`idToolUT`),
+  ADD KEY `fk_idToolUT_idx` (`idToolUT`);
+
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -272,7 +445,7 @@ ALTER TABLE `TUserDiet`
 -- AUTO_INCREMENT pour la table `TAllergy`
 --
 ALTER TABLE `TAllergy`
-  MODIFY `idAllergy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idAllergy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `TCategory`
 --
@@ -287,32 +460,37 @@ ALTER TABLE `TDiet`
 -- AUTO_INCREMENT pour la table `TFood`
 --
 ALTER TABLE `TFood`
-  MODIFY `idFood` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idFood` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `TRecipe`
 --
 ALTER TABLE `TRecipe`
-  MODIFY `idRecipe` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRecipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16970;
 --
 -- AUTO_INCREMENT pour la table `TRecipeProvider`
 --
 ALTER TABLE `TRecipeProvider`
-  MODIFY `idRecipeProvider` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRecipeProvider` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `TTool`
+--
+ALTER TABLE `TTool`
+  MODIFY `idTool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `TUnit`
 --
 ALTER TABLE `TUnit`
-  MODIFY `idUnit` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUnit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `TUser`
 --
 ALTER TABLE `TUser`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `TUserDiet`
 --
 ALTER TABLE `TUserDiet`
-  MODIFY `idUserUD` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUserUD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Contraintes pour les tables exportées
 --
@@ -370,6 +548,13 @@ ALTER TABLE `TUserAllergy`
 ALTER TABLE `TUserDiet`
   ADD CONSTRAINT `fk_idDietUD` FOREIGN KEY (`idDietUD`) REFERENCES `TDiet` (`idDiet`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_idUserUD` FOREIGN KEY (`idUserUD`) REFERENCES `TUser` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `TUserTool`
+--
+ALTER TABLE `TUserTool`
+  ADD CONSTRAINT `fk_idToolUT` FOREIGN KEY (`idToolUT`) REFERENCES `TTool` (`idTool`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_idUserUT` FOREIGN KEY (`idUserUT`) REFERENCES `TUser` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Mar 30 Janvier 2018 à 10:02
+-- Généré le :  Mer 07 Février 2018 à 15:42
 -- Version du serveur :  10.1.26-MariaDB-0+deb9u1
 -- Version de PHP :  7.0.19-1
 
@@ -312,52 +312,52 @@ ALTER TABLE `TUserTool`
 -- AUTO_INCREMENT pour la table `TAllergy`
 --
 ALTER TABLE `TAllergy`
-  MODIFY `idAllergy` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAllergy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `TCategory`
 --
 ALTER TABLE `TCategory`
-  MODIFY `idCategory` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `TDiet`
 --
 ALTER TABLE `TDiet`
-  MODIFY `idDiet` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDiet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `TFood`
 --
 ALTER TABLE `TFood`
-  MODIFY `idFood` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idFood` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `TRecipe`
 --
 ALTER TABLE `TRecipe`
-  MODIFY `idRecipe` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRecipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16970;
 --
 -- AUTO_INCREMENT pour la table `TRecipeProvider`
 --
 ALTER TABLE `TRecipeProvider`
-  MODIFY `idRecipeProvider` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRecipeProvider` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `TTool`
 --
 ALTER TABLE `TTool`
-  MODIFY `idTool` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTool` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `TUnit`
 --
 ALTER TABLE `TUnit`
-  MODIFY `idUnit` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUnit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `TUser`
 --
 ALTER TABLE `TUser`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `TUserDiet`
 --
 ALTER TABLE `TUserDiet`
-  MODIFY `idUserUD` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUserUD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Contraintes pour les tables exportées
 --
