@@ -31,8 +31,6 @@ import org.json.JSONObject;
 
 public class Recipe {
 
-    public static final String TAG = fr.univ_littoral.nathan.myapplication.sampledata.Recipe.class.getSimpleName();
-
     public String title;
     public String description;
     public String imageUrl;
@@ -45,20 +43,23 @@ public class Recipe {
         try {
             // Load data
             String jsonString = loadJsonFromAsset("recipes.json", context);
-            JSONObject json = new JSONObject(jsonString);
-            JSONArray recipes = json.getJSONArray("recipes");
+            System.out.println(jsonString);
+            if(jsonString!=null){
+                JSONObject json = new JSONObject(jsonString);
+                JSONArray recipes = json.getJSONArray("recipes");
 
-            // Get Recipe objects from data
-            for(int i = 0; i < recipes.length(); i++){
-                Recipe recipe = new Recipe();
+                // Get Recipe objects from data
+                for(int i = 0; i < recipes.length(); i++) {
+                    Recipe recipe = new Recipe();
 
-                recipe.title = recipes.getJSONObject(i).getString("title");
-                recipe.description = recipes.getJSONObject(i).getString("description");
-                recipe.imageUrl = recipes.getJSONObject(i).getString("image");
-                recipe.instructionUrl = recipes.getJSONObject(i).getString("url");
-                recipe.label = recipes.getJSONObject(i).getString("dietLabel");
+                    recipe.title = recipes.getJSONObject(i).getString("title");
+                    recipe.description = recipes.getJSONObject(i).getString("description");
+                    recipe.imageUrl = recipes.getJSONObject(i).getString("image");
+                    recipe.instructionUrl = recipes.getJSONObject(i).getString("url");
+                    recipe.label = recipes.getJSONObject(i).getString("dietLabel");
 
-                recipeList.add(recipe);
+                    recipeList.add(recipe);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

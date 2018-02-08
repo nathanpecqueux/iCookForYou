@@ -100,7 +100,7 @@ public class RecipeAdapter extends BaseAdapter {
                 .ic_launcher).into(thumbnailImageView);
 
         // Style text views
-        Typeface titleTypeFace = Typeface.createFromAsset(mContext.getAssets(),
+       /* Typeface titleTypeFace = Typeface.createFromAsset(mContext.getAssets(),
                 "fonts/JosefinSans-Bold.ttf");
         titleTextView.setTypeface(titleTypeFace);
         Typeface subtitleTypeFace = Typeface.createFromAsset(mContext.getAssets(),
@@ -108,7 +108,7 @@ public class RecipeAdapter extends BaseAdapter {
         subtitleTextView.setTypeface(subtitleTypeFace);
         Typeface detailTypeFace = Typeface.createFromAsset(mContext.getAssets(),
                 "fonts/Quicksand-Bold.otf");
-        detailTextView.setTypeface(detailTypeFace);
+        detailTextView.setTypeface(detailTypeFace);*/
         detailTextView.setTextColor(android.support.v4.content.ContextCompat.getColor(mContext, LABEL_COLORS
                 .get(recipe.label)));
 
