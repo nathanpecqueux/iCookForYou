@@ -34,8 +34,9 @@ android:orientation="vertical"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:padding="8dp"
-            android:textColorHint="#fff"
-            android:textColor="#fff"/>
+            android:text="nathan@gmail.com"
+            android:textColor="#fff"
+            android:textColorHint="#fff" />
 
         <View
             android:layout_width="match_parent"
@@ -46,17 +47,18 @@ android:orientation="vertical"
             android:id="@+id/connectionPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:drawablePadding="12dp"
-            android:padding="8dp"
-            android:hint="Mot de passe"
-            android:textColorHint="#fff"
-            android:textColor="#fff"
-            android:maxLines="1"
-            android:background="@android:color/transparent"
             android:layout_marginTop="4dp"
-            android:drawableLeft="@drawable/ic_lock_white_24dp"/>
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_lock_white_24dp"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="Mot de passe"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:text="nathan"
+            android:textColor="#fff"
+            android:textColorHint="#fff" />
 
         <View
             android:layout_width="match_parent"
@@ -104,6 +106,17 @@ android:orientation="vertical"
             android:padding="16dp"
             android:clickable="true"
             android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/erreur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email ou mot de passe incorrect !"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
     </LinearLayout>
 

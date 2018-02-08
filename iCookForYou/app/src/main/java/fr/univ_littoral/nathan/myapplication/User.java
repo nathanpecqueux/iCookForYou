@@ -1,4 +1,4 @@
-package fr.univ_littoral.nathan.testvolley;
+package fr.univ_littoral.nathan.myapplication;
 
 /**
  * Created by nathan on 07/02/18.
