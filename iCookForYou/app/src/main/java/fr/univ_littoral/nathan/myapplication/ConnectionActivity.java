@@ -31,7 +31,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
     TextView erreur;
 
     //private static final String URL_USERS = "http://192.168.5.46/MyApi/Api.php";
-    private static final String URL_USERS = "http://51.255.164.53/Api.php";
+    private static final String URL_USERS = "http://51.255.164.53/php/connexionUser.php";
 
     List<User> userList;
 

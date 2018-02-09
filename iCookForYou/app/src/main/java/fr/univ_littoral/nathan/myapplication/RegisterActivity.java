@@ -13,6 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegisterActivity extends Activity implements View.OnClickListener{
 
     static String[] allergies={"arachides","fruits à écales","lait de vache","oeufs","poissons","fruits de mer","soya","blé","graines de sésame"};
@@ -30,6 +40,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
     EditText registerMail;
     EditText registerPassword;
     EditText registerConfirmPassword;
+
+    //private static final String URL_USERS = "http://192.168.5.46/MyApi/Api.php";
+    private static final String URL_USERS = "http://51.255.164.53/php/registerUser.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +76,31 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.registerButton:
                 if(checkRegister()){
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERS,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String ServerResponse) {}
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError volleyError) {}
+                            }) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
+
+                            params.put("lastName", String.valueOf(registerName.getText()));
+                            params.put("firstName", String.valueOf(registerFirstName.getText()));
+                            params.put("mail", String.valueOf(registerMail.getText()));
+                            params.put("password", String.valueOf(registerPassword.getText()));
+
+                            return params;
+                        }
+
+                    };
+                    RequestQueue requestQueue = Volley.newRequestQueue(RegisterActivity.this);
+                    requestQueue.add(stringRequest);
+
                     System.out.println("Inscription réussie");
                     break;
                 }
