@@ -29,10 +29,9 @@ import java.util.Map;
 public class RegisterActivity extends Activity implements View.OnClickListener{
 
     static String[] allergy;
-    //static String[] allergy ={"arachides","fruits à écales","lait de vache","oeufs","poissons","fruits de mer","soya","blé","graines de sésame"};
-    static String[] diets={"Végétarien","Vegan","Sans gluten"};
+    static String[] diet;
     boolean[] checkedAllergyItems;
-    boolean[] checkedDietItems=new boolean[diets.length];
+    boolean[] checkedDietItems;
     AlertDialog addAllergy;
     AlertDialog addDiet;
     Button allergiesButton;
@@ -45,16 +44,18 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
     EditText registerPassword;
     EditText registerConfirmPassword;
 
-    //private static final String URL_USERS = "http://192.168.5.46/MyApi/Api.php";
     private static final String URL_USERS = "http://51.255.164.53/php/registerUser.php";
     private static final String URL_USERALLERGY = "http://51.255.164.53/php/registerUserAllergy.php";
     private static final String URL_ALLERGY = "http://51.255.164.53/php/allergy.php";
+    private static final String URL_DIET = "http://51.255.164.53/php/diet.php";
+    private static final String URL_USERDIET = "http://51.255.164.53/php/registerUserDiet.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         setAllergy();
+        setDiet();
         allergiesButton=(Button) findViewById(R.id.registeredAllergies);
         dietButton=(Button) findViewById(R.id.registeredDiet);
         registerButton=(Button) findViewById(R.id.registerButton);
@@ -91,7 +92,16 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                         }
                     }
                     for(String i : allergyIndex) {
-                        saveAllergy(i);
+                        saveAllergy(String.valueOf(registerMail.getText()),i);
+                    }
+                    ArrayList<String> dietIndex = new ArrayList<>();
+                    for(int i = 0; i< checkedDietItems.length; i++){
+                        if(checkedDietItems[i]==true){
+                            dietIndex.add((i+1)+"");
+                        }
+                    }
+                    for(String i : dietIndex) {
+                        saveDiet(String.valueOf(registerMail.getText()),i);
                     }
                     System.out.println("Inscription réussie");
                     break;
@@ -132,8 +142,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         requestQueue.add(stringRequest);
     }
 
-    public void saveAllergy(String i) {
-        final String a = i;
+    public void saveAllergy(String mail, String i) {
+        final String index = i;
+        final String email = mail;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERALLERGY,
                 new Response.Listener<String>() {
                     @Override
@@ -146,7 +157,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("allergy",a);
+                params.put("mail",email);
+                params.put("allergy",index);
                 return params;
             }
 
@@ -187,9 +199,66 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
+    public void saveDiet(String mail, String i) {
+        final String index = i;
+        final String email = mail;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERDIET,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String ServerResponse) {}
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {}
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mail",email);
+                params.put("diet",index);
+                return params;
+            }
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(RegisterActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
+    public void setDiet() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DIET,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray array = new JSONArray(response);
+
+                            diet = new String[array.length()];
+                            checkedDietItems = new boolean[diet.length];
+
+                            for (int i = 0; i < array.length(); i++) {
+
+                                JSONObject jsonAllergy = array.getJSONObject(i);
+
+                                diet[i]=jsonAllergy.getString("name");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                    }
+                });
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
     public void alertAllergies(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle("Selectionnez vos allergy");
+        builder.setTitle("Selectionnez vos diet");
 
         builder.setNegativeButton("Annuler",null);
         builder.setPositiveButton("Confirmer", null);
@@ -208,10 +277,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
         builder.setNegativeButton("Annuler",null);
         builder.setPositiveButton("Confirmer", null);
-        builder.setMultiChoiceItems(diets, checkedDietItems, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(diet, checkedDietItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                Toast.makeText(getApplicationContext(), diets[which], Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), diet[which], Toast.LENGTH_SHORT).show();
             }
         });
         addDiet =builder.create();
