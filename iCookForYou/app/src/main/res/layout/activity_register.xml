@@ -28,10 +28,10 @@
                 android:layout_marginTop="50dp"/>
 
             <EditText
-                android:layout_marginTop="30dp"
                 android:id="@+id/registeredName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_person_white_24dp"
                 android:drawablePadding="12dp"
@@ -40,8 +40,9 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textColorHint="#fff"
-                android:textColor="#fff"/>
+                android:text="test"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
 
             <View
                 android:layout_width="match_parent"
@@ -52,17 +53,18 @@
                 android:id="@+id/registeredFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_person_white_24dp"
                 android:drawablePadding="12dp"
                 android:ems="10"
                 android:hint="Prénom"
-                android:layout_marginTop="10dp"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textColorHint="#fff"
-                android:textColor="#fff"/>
+                android:text="test"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
 
             <View
                 android:layout_width="match_parent"
@@ -71,9 +73,9 @@
 
             <EditText
                 android:id="@+id/registeredMail"
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_email_white_24dp"
                 android:drawablePadding="12dp"
@@ -82,8 +84,9 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textColorHint="#fff"
-                android:textColor="#fff"/>
+                android:text="test@gmail.com"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
 
             <View
                 android:layout_width="match_parent"
@@ -95,16 +98,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:drawablePadding="12dp"
-                android:padding="8dp"
-                android:hint="Mot de passe"
-                android:textColorHint="#fff"
-                android:textColor="#fff"
-                android:maxLines="1"
                 android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_lock_white_24dp"/>
+                android:drawableLeft="@drawable/ic_lock_white_24dp"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="Mot de passe"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:text="test"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
 
             <View
                 android:layout_width="match_parent"
@@ -115,17 +119,18 @@
                 android:id="@+id/registeredConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:drawablePadding="12dp"
-                android:padding="8dp"
-                android:hint="Confirmation de mot de passe"
-                android:textColorHint="#fff"
-                android:textColor="#fff"
-                android:maxLines="1"
-                android:background="@android:color/transparent"
                 android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/ic_lock_white_24dp"/>
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_lock_white_24dp"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="Confirmation de mot de passe"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:text="test"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
 
             <View
                 android:layout_width="match_parent"

@@ -37,7 +37,7 @@ public class ModifyProfileActivity extends Activity implements View.OnClickListe
 
     TextView textViewAllergy=null;
 
-    //Tableaux répertoriant les allergies de l'utilisateur
+    //Tableaux répertoriant les allergy de l'utilisateur
     String[] allergies ={"Allergie 1","Allergie 2","Allergie 3"};
     boolean[] checkedAllergies=new boolean[allergies.length];
     ArrayList<String> userAllergy=new ArrayList<String>();
@@ -155,7 +155,7 @@ public class ModifyProfileActivity extends Activity implements View.OnClickListe
 }
 
 
-    //Permet de rafraichir le tableau des allergies de l'utilisateur
+    //Permet de rafraichir le tableau des allergy de l'utilisateur
     public ArrayList<String> refreshUserAllergy(){
         userAllergy.clear();
         for(int i=0; i<checkedAllergies.length;i++){
@@ -166,7 +166,7 @@ public class ModifyProfileActivity extends Activity implements View.OnClickListe
         return userAllergy;
     }
 
-    //Rafraichit le TextView des allergies de l'utilisateur
+    //Rafraichit le TextView des allergy de l'utilisateur
     public void refreshTextViewAllergy(){
         //Remplissage du String pour le TextView
         String temp=new String();
@@ -180,10 +180,10 @@ public class ModifyProfileActivity extends Activity implements View.OnClickListe
         textViewAllergy.setText(temp);
     }
 
-    //Créer le builder pour la pop-up des allergies
+    //Créer le builder pour la pop-up des allergy
     public void createBuilder(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle("Sélectionnez vos allergies");
+        builder.setTitle("Sélectionnez vos allergy");
         builder.setItems(allergies,null);
 
 
