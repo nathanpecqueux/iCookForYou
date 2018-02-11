@@ -18,6 +18,9 @@ import fr.univ_littoral.nathan.myapplication.R;
 
 public class RecipeAdapter extends BaseAdapter {
 
+
+    String internetUrl = "http://i.imgur.com/DvpvklR.png";
+
     public static final String TAG = RecipeAdapter.class.getSimpleName();
     public static final HashMap<String, Integer> LABEL_COLORS = new HashMap<String, Integer>()
     {{
@@ -96,8 +99,8 @@ public class RecipeAdapter extends BaseAdapter {
         detailTextView.setText(recipe.label);
 
         // Use Picasso to load the image. Temporarily have a placeholder in case it's slow to load
-        Picasso.with(mContext).load(recipe.imageUrl).placeholder(R.mipmap
-                .ic_launcher).into(thumbnailImageView);
+        Picasso.with(mContext).setLoggingEnabled(true);
+        Picasso.with(mContext).load(recipe.imageUrl).placeholder(R.drawable.logo).error(R.drawable.background_food).into(thumbnailImageView);
 
         // Style text views
        /* Typeface titleTypeFace = Typeface.createFromAsset(mContext.getAssets(),
