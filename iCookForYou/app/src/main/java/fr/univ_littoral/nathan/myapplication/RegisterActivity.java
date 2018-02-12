@@ -2,6 +2,7 @@ package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RegisterActivity extends Activity implements View.OnClickListener{
@@ -43,12 +46,15 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
     EditText registerMail;
     EditText registerPassword;
     EditText registerConfirmPassword;
+    List<User> userList;
+    TextView erreur;
 
     private static final String URL_USERS = "http://51.255.164.53/php/registerUser.php";
     private static final String URL_USERALLERGY = "http://51.255.164.53/php/registerUserAllergy.php";
     private static final String URL_ALLERGY = "http://51.255.164.53/php/allergy.php";
     private static final String URL_DIET = "http://51.255.164.53/php/diet.php";
     private static final String URL_USERDIET = "http://51.255.164.53/php/registerUserDiet.php";
+    private static final String URL_CONNEXION = "http://51.255.164.53/php/connexionUser.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         registerButton.setOnClickListener(this);
         dietButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
+        erreur=(TextView) findViewById(R.id.erreur);
+        erreur.setOnClickListener(this);
     }
 
     @Override
@@ -84,34 +92,98 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.registerButton:
                 if(checkRegister()){
-                    saveUser();
-                    ArrayList<String> allergyIndex = new ArrayList<>();
-                    for(int i = 0; i< checkedAllergyItems.length; i++){
-                        if(checkedAllergyItems[i]==true){
-                            allergyIndex.add((i+1)+"");
+                    final String mail = String.valueOf(registerMail.getText());
+                    userList = new ArrayList<>();
+                    loadUser(new CallBack() {
+                        @Override
+                        public void onSuccess(List<User> userList) {
+                            for (User u : userList) {
+                                if (u.getMail().equals(mail)) {
+                                    erreur.setText("Email déjà utilisé !");
+                                    erreur.setTextColor(Color.RED);
+                                    erreur.setVisibility(View.VISIBLE);
+                                    return;
+                                }
+                            }
+                            saveUser();
+                            ArrayList<String> allergyIndex = new ArrayList<>();
+                            for(int i = 0; i< checkedAllergyItems.length; i++){
+                                if(checkedAllergyItems[i]==true){
+                                    allergyIndex.add((i+1)+"");
+                                }
+                            }
+                            for(String i : allergyIndex) {
+                                saveAllergy(String.valueOf(registerMail.getText()),i);
+                            }
+                            ArrayList<String> dietIndex = new ArrayList<>();
+                            for(int i = 0; i< checkedDietItems.length; i++){
+                                if(checkedDietItems[i]==true){
+                                    dietIndex.add((i+1)+"");
+                                }
+                            }
+                            for(String i : dietIndex) {
+                                saveDiet(String.valueOf(registerMail.getText()),i);
+                            }
+                            erreur.setText("Inscription réussi !");
+                            erreur.setTextColor(Color.GREEN);
+                            erreur.setVisibility(View.VISIBLE);
                         }
-                    }
-                    for(String i : allergyIndex) {
-                        saveAllergy(String.valueOf(registerMail.getText()),i);
-                    }
-                    ArrayList<String> dietIndex = new ArrayList<>();
-                    for(int i = 0; i< checkedDietItems.length; i++){
-                        if(checkedDietItems[i]==true){
-                            dietIndex.add((i+1)+"");
+                        @Override
+                        public void onFail(String msg) {
+                            erreur.setText("Problème de connexion au serveur !");
+                            erreur.setTextColor(Color.RED);
+                            erreur.setVisibility(View.VISIBLE);
                         }
-                    }
-                    for(String i : dietIndex) {
-                        saveDiet(String.valueOf(registerMail.getText()),i);
-                    }
-                    System.out.println("Inscription réussie");
+                    });
                     break;
                 }
-                System.out.println("Inscription échouée");
+                erreur.setText("Erreur dans l'inscription");
+                erreur.setTextColor(Color.RED);
+                erreur.setVisibility(View.VISIBLE);
                 break;
             case R.id.cancelButton:
                 finish();
                 break;
         }
+    }
+
+    private void loadUser(final CallBack onCallBack) {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_CONNEXION,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray array = new JSONArray(response);
+
+                            for (int i = 0; i < array.length(); i++) {
+
+                                JSONObject user = array.getJSONObject(i);
+
+                                userList.add(new User(
+                                        user.getString("mail"),
+                                        user.getString("password")
+                                ));
+                            }
+                            onCallBack.onSuccess(userList);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            onCallBack.onFail(e.toString());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                    }
+                });
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+    public interface CallBack {
+        void onSuccess(List<User> userList);
+        void onFail(String msg);
     }
 
     public void saveUser() {

@@ -168,45 +168,56 @@
                 />
 
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_gravity="center">
+                <Button
+                    android:id="@+id/registerButton"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/background_signup"
+                    android:clickable="true"
+                    android:padding="16dp"
+                    android:text="S'inscrire"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_signup"
-        android:text="S'inscrire"
-        android:textColor="#fff"
-        android:textAllCaps="false"
-        android:padding="16dp"
-        android:clickable="true"
-        style="@style/Base.TextAppearance.AppCompat.Body2"
-        android:layout_marginTop="24dp"
-        android:textSize="18sp"
-        />
+                <Button
+                    android:id="@+id/cancelButton"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/background_signup"
+                    android:clickable="true"
+                    android:padding="18dp"
+                    android:text="Annuler"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_signup"
-        android:text="Annuler"
-        android:textColor="#fff"
-        android:textAllCaps="false"
-        android:padding="18dp"
-        android:clickable="true"
-        style="@style/Base.TextAppearance.AppCompat.Body2"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="24dp"
-        android:textSize="18sp"
-        />
+            </LinearLayout>
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/erreur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:text="Email déjà utilisé !"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
         </LinearLayout>
 
     </ScrollView>
