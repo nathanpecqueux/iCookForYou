@@ -1,6 +1,7 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectionActivity extends Activity implements View.OnClickListener{
+public class ConnectionActivity extends Activity implements View.OnClickListener {
 
     Button registerButton;
     Button connectionButton;
@@ -39,12 +40,12 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
-        registerButton=(Button) findViewById(R.id.gotoregisterButton);
-        connectionButton=(Button) findViewById(R.id.connectionButton);
-        connectionMail=(EditText) findViewById(R.id.connectionMail);
-        connectionPassword=(EditText) findViewById(R.id.connectionPassword);
-        forgotPassword=(TextView) findViewById(R.id.forgotPassword);
-        erreur=(TextView) findViewById(R.id.erreur);
+        registerButton = (Button) findViewById(R.id.gotoregisterButton);
+        connectionButton = (Button) findViewById(R.id.connectionButton);
+        connectionMail = (EditText) findViewById(R.id.connectionMail);
+        connectionPassword = (EditText) findViewById(R.id.connectionPassword);
+        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
+        erreur = (TextView) findViewById(R.id.erreur);
         registerButton.setOnClickListener(this);
         connectionButton.setOnClickListener(this);
         forgotPassword.setOnClickListener(this);
@@ -53,7 +54,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.gotoregisterButton:
                 Intent registerActivity = new Intent(ConnectionActivity.this, RegisterActivity.class);
                 startActivity(registerActivity);
@@ -68,7 +69,21 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                         for (User u : userList) {
                             if (u.getMail().equals(mail) && u.getPassword().equals(password)) {
                                 // Connection Correct :)
+                                getApplicationContext()
+                                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                                        .edit()
+                                        .putBoolean("isLoggedIn", true)
+                                        .putString("login", u.getMail())
+                                        .apply();
+
                                 System.out.println("Envoie vers l'intention HomeActivity !!!!!");
+
+                                // Récupérer login :
+                                String myString = getApplicationContext()
+                                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                                        .getString("login", null);
+                                System.out.println("login stocké dans l'appli : "+myString);
+
 //                                Intent homeActivity = new Intent(ConnectionActivity.this, HomeActivity.class);
 //                                startActivity(homeActivity);
                                 return;
@@ -76,6 +91,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                         }
                         erreur.setVisibility(View.VISIBLE);
                     }
+
                     @Override
                     public void onFail(String msg) {
                         System.out.println("Problème de connexion au serveur !");
@@ -125,6 +141,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
 
     public interface CallBack {
         void onSuccess(List<User> userList);
+
         void onFail(String msg);
     }
 
