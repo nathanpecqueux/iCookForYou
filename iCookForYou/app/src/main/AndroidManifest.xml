@@ -3,9 +3,6 @@
     package="fr.univ_littoral.nathan.myapplication">
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-
     <application
         android:name=".MyApp"
         android:allowBackup="true"

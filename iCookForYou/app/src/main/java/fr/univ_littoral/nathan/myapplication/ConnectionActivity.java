@@ -1,6 +1,7 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -130,8 +131,8 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                                         .getString("login", null);
                                 System.out.println("login stocké dans l'appli : "+myString);
 
-//                                Intent homeActivity = new Intent(ConnectionActivity.this, HomeActivity.class);
-//                                startActivity(homeActivity);
+                                Intent homeActivity = new Intent(ConnectionActivity.this, HomeActivity.class);
+                                startActivity(homeActivity);
                                 return;
                             }
                         }
