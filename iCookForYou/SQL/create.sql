@@ -354,11 +354,6 @@ ALTER TABLE `TUnit`
 ALTER TABLE `TUser`
   MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT pour la table `TUserDiet`
---
-ALTER TABLE `TUserDiet`
-  MODIFY `idUserUD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
 -- Contraintes pour les tables exportées
 --
 
