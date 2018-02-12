@@ -32,4 +32,22 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     testCompile 'junit:junit:4.12'
 
+
+    //add these for lines
+    compile 'com.android.volley:volley:1.1.0-rc1'
+    //compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+    compile 'com.github.bumptech.glide:glide:4.2.0'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
+
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
+}
+
+allprojects {
+    repositories {
+        jcenter()
+
+        //add these two lines here
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+    }
 }
