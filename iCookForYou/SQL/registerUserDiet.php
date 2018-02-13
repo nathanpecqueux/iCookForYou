@@ -18,9 +18,6 @@ $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME,0,'/var/run/mysqld/mysqld.
  
  $diet = $_POST['diet'];
 
- $reponse = $conn->query('SELECT MAX(idUser) FROM TUser');
-
- 
  $Sql_Query = "insert into TUserDiet (idUserUD,idDietUD) values ((SELECT MAX(idUser) FROM TUser),'$diet')";
 
  if(mysqli_query($conn,$Sql_Query)){

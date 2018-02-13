@@ -18,9 +18,6 @@ $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME,0,'/var/run/mysqld/mysqld.
  
  $allergy = $_POST['allergy'];
 
- $reponse = $conn->query('SELECT MAX(idUser) FROM TUser');
-
- 
  $Sql_Query = "insert into TUserAllergy (idUserUA,idAllergyUA) values ((SELECT MAX(idUser) FROM TUser),'$allergy')";
 
  if(mysqli_query($conn,$Sql_Query)){
