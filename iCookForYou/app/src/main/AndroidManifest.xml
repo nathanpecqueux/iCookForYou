@@ -13,18 +13,16 @@
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
-        </activity>
-        <activity android:name=".ModifyProfileActivity"></activity>
-        <activity
-            android:name=".ProfileActivity"
-            android:windowSoftInputMode="stateHidden">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ModifyProfileActivity"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".ConnectionActivity"
             android:windowSoftInputMode="stateHidden" />
