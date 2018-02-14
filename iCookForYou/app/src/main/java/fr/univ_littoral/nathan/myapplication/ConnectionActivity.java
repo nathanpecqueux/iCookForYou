@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -141,7 +143,12 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
 
                     @Override
                     public void onFail(String msg) {
-                        System.out.println("Problème de connexion au serveur !");
+                        System.out.println("az");
+                        Toast toast = new Toast(getApplicationContext());
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setText("Mot de passe érroné");
+                        toast.show();
                     }
                 });
                 break;

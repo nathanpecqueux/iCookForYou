@@ -42,9 +42,14 @@ public class HomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Recipe selectedRecipe = recipeList.get(position);
 
-                Intent detailIntent = new Intent(context, HomeRecipesActivity.class);
+                Intent detailIntent = new Intent(context, RecipeActivity.class);
                 detailIntent.putExtra("title", selectedRecipe.title);
-                detailIntent.putExtra("url", selectedRecipe.instructionUrl);
+                detailIntent.putExtra("servings", selectedRecipe.servings);
+                detailIntent.putExtra("time", selectedRecipe.time);
+                detailIntent.putExtra("difficulty", selectedRecipe.difficulty);
+                detailIntent.putExtra("imageUrl", selectedRecipe.imageUrl);
+                detailIntent.putExtra("ingredientLines", (ArrayList<String>)selectedRecipe.ingredientLines);
+                detailIntent.putExtra("step", (ArrayList<String>)selectedRecipe.step);
 
                 startActivity(detailIntent);
             }
