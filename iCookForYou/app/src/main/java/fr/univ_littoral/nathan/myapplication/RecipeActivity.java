@@ -1,5 +1,6 @@
 package fr.univ_littoral.nathan.myapplication;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -66,7 +67,7 @@ public class RecipeActivity extends AppCompatActivity {
         step=intentReceive.getStringArrayListExtra("step");
 
         imageRecipe=(ImageView) findViewById(R.id.imageRecipe);
-        Picasso.with(this).load(imageUrl).placeholder(R.drawable.logo).error(R.drawable.background_food).resize(300,200).into(imageRecipe);
+        Picasso.with(this).load(imageUrl).resize(300,200).into(imageRecipe);
 
 
         textViewTitreRecette = (TextView) findViewById(R.id.textViewTitreRecette);
@@ -91,13 +92,17 @@ public class RecipeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuRecetteAccueil:
-                Intent intentAccueil = new Intent(RecipeActivity.this, ConnectionActivity.class);
+                Intent intentAccueil = new Intent(RecipeActivity.this, HomeActivity.class);
                 startActivity(intentAccueil);
                 break;
             case R.id.menuRecetteProfil:
                 Intent intentProfil = new Intent(RecipeActivity.this, ProfileActivity.class);
                 startActivity(intentProfil);
                 break;
+            case R.id.menuRecetteStock:
+                /*Intent intentStock = new Intent(RecipeActivity.this, StockActivity.class);
+                startActivity(intentStock);
+                break;*/
             case R.id.menuRecetteAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
@@ -129,8 +134,6 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     public void codeBouchon() {
-
-        System.out.println(step);
         textViewTitreRecette.setText(title);
         textViewNbPersonnes.setHint("Personnes :"+servings);
         textViewDifficulte.setHint("Difficulté :"+difficulty);

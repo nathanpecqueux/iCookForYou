@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ProfileActivity">
+    tools:context=".HomeActivity">
 
-    <item android:title="Accueil"
-        android:id="@+id/menuProfilAccueil"/>
+    <item android:title="Profil"
+        android:id="@+id/menuListProfil"/>
     <item android:title="Stock"
-        android:id="@+id/menuProfilStock"/>
+        android:id="@+id/menuListStock"/>
     <item android:title="A propos de ..."
-        android:id="@+id/menuProfilAPropos"/>
+        android:id="@+id/menuListAPropos"/>
     <item android:title="Quitter"
-        android:id="@+id/menuProfilQuitter"/>
+        android:id="@+id/menuListQuit"/>
 
 </menu>

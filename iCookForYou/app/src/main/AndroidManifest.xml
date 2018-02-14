@@ -7,7 +7,6 @@
         android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -18,10 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ModifyProfileActivity">
+        <activity android:name=".ModifyProfileActivity"
+            android:label="Modifier le profil">
         </activity>
         <activity
             android:name=".ProfileActivity"
+            android:label="Votre profil"
             android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
@@ -33,12 +34,15 @@
         <activity
             android:name=".ForgotPasswordActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".HomeActivity"
+            android:label="Liste des recettes"/>
         <activity
-            android:name=".HomeRecipesActivity">
+            android:name=".HomeRecipesActivity"
+            android:label="Liste des recettes">
         </activity>
         <activity
-            android:name=".RecipeActivity">
+            android:name=".RecipeActivity"
+            android:label="A vos fourneaux !">
         </activity>
     </application>
 

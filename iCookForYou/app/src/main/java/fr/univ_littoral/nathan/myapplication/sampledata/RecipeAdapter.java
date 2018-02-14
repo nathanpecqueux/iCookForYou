@@ -19,8 +19,6 @@ import fr.univ_littoral.nathan.myapplication.R;
 public class RecipeAdapter extends BaseAdapter {
 
 
-    String internetUrl = "http://i.imgur.com/DvpvklR.png";
-
     public static final String TAG = RecipeAdapter.class.getSimpleName();
     public static final HashMap<String, Integer> LABEL_COLORS = new HashMap<String, Integer>()
     {{

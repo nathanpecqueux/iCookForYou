@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ProfileActivity extends Activity implements View.OnClickListener {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     //Variables xml
     TextView textViewNom =null;
@@ -77,9 +77,13 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.menuProfilAccueil:
-                Intent intentAccueil = new Intent(ProfileActivity.this, ConnectionActivity.class);
+                Intent intentAccueil = new Intent(ProfileActivity.this, HomeActivity.class);
                 startActivity(intentAccueil);
                 break;
+            case R.id.menuProfilStock:
+                /*Intent intentStock = new Intent(ProfileActivity.this, StockActivity.class);
+                startActivity(intentStock);
+                break;*/
             case R.id.menuProfilAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
