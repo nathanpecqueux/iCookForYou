@@ -1,0 +1,21 @@
+{
+  "ingredients": [
+    {
+      "name": "carottes",
+      "quantity" : "4",
+      "unity":""
+    },
+
+    {
+      "name": "crevettes",
+      "quantity" : "2",
+      "unity":""
+    },
+
+    {
+      "name": "pâtes",
+      "quantity" : "500",
+      "unity":"g"
+    }
+  ]
+}

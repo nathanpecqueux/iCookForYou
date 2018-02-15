@@ -16,7 +16,7 @@ public class RecipeTest {
     }
 
     public RecipeTest(String name, String thumbnailUrl, double rating,
-                  ArrayList<String> Steps, ArrayList<Double> calories, ArrayList<Ingredients> ingredients) {
+                  ArrayList<String> Steps, ArrayList<Double> calories, ArrayList<Ingredient> ingredients) {
         this.name = name;
         this.thumbnailUrl = thumbnailUrl;
         this.rating = rating;

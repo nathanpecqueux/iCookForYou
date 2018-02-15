@@ -415,10 +415,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         if(!isValidEmail(registerMail.getText().toString())){
             return false;
         }
-        if(!isValidPassword(registerPassword.getText().toString(),registerConfirmPassword.getText().toString())){
-            return false;
-        }
-        return true;
+        return isValidPassword(registerPassword.getText().toString(), registerConfirmPassword.getText().toString());
     }
 
     public final static boolean isValidEmail(String email){
