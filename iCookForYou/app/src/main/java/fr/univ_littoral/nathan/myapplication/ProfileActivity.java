@@ -1,6 +1,5 @@
 package fr.univ_littoral.nathan.myapplication;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +25,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -45,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private static final String URL_USERS = "http://51.255.164.53/php/selectUserById.php";
     private static final String URL_ALLERGY = "http://51.255.164.53/php/selectNameAllergyUser.php";
     private static final String URL_DIET = "http://51.255.164.53/php/selectIdDietUser.php";
+    private static final String URL_ALL = "http://51.255.164.53/php/allergy.php";
 
     Button buttonModifierProfil = null;
 
@@ -52,8 +51,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     //Tableau répertoriant les allergies de l'utilisateur
     ArrayList<String> userAllergy = new ArrayList<String>();
-    int nombreAllergy = 3;
-    boolean[] checkedAllergies = new boolean[nombreAllergy];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +71,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         textViewAllergy = (TextView) findViewById(R.id.textViewAllergy);
 
         buttonModifierProfil.setOnClickListener(this);
+
+
+        getApplicationContext()
+                .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean("isLoggedIn", true)
+//                .putString("login", "clement@hotmail.fr")
+                .putString("login", "nathan@gmail.com")
+                .apply();
 
         //userAllergy.add("Allergie 1");
         //checkedAllergies[0] = true;
@@ -139,10 +145,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-//    public void refreshProfil() {
-//        setTextViewUserAllergy();
-//    }
-
     public void setTextViewUserAllergy() {
         String temp = "";
         for (int i = 0; i < userA.size(); i++) {
@@ -167,8 +169,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         intentModifyProfileActivity.putExtra("Vegetarian", checkboxVegetarian.isChecked());
         intentModifyProfileActivity.putExtra("NoGluten", checkboxNoGluten.isChecked());
 
-        intentModifyProfileActivity.putExtra("Allergy", userAllergy);
-        intentModifyProfileActivity.putExtra("AllergyId", checkedAllergies);
+        intentModifyProfileActivity.putExtra("Allergy", userA);
+//        intentModifyProfileActivity.putExtra("AllergyId", checkedAllergies);
         startActivityForResult(intentModifyProfileActivity, 1);
     }
 
@@ -242,7 +244,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 String mail = getApplicationContext()
                         .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                         .getString("login", null);
-                params.put("mail",mail);
+                params.put("mail", mail);
                 return params;
             }
 
@@ -281,7 +283,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 String mail = getApplicationContext()
                         .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                         .getString("login", null);
-                params.put("mail",mail);
+                params.put("mail", mail);
                 return params;
             }
 
@@ -301,11 +303,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject diet = array.getJSONObject(i);
                                 int id = diet.getInt("idDiet");
-                                if(id==1) {
+                                if (id == 1) {
                                     checkboxVegan.setChecked(true);
-                                }else if(id == 2) {
+                                } else if (id == 2) {
                                     checkboxVegetarian.setChecked(true);
-                                }else if(id==3) {
+                                } else if (id == 3) {
                                     checkboxNoGluten.setChecked(true);
                                 }
                             }
@@ -326,7 +328,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 String mail = getApplicationContext()
                         .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                         .getString("login", null);
-                params.put("mail",mail);
+                params.put("mail", mail);
                 return params;
             }
 
@@ -334,4 +336,5 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         Volley.newRequestQueue(this).add(stringRequest);
     }
+
 }
