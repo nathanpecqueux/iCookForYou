@@ -1,5 +1,6 @@
 package fr.univ_littoral.nathan.myapplication;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,8 +15,13 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
+import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -24,22 +30,46 @@ public class RecipeActivity extends AppCompatActivity {
     TextView textViewDifficulte;
     TextView textViewTempsPrep;
     TextView textViewTotalEtape;
+    ImageView imageRecipe;
+
+    String title;
+    String difficulty;
+    String time;
+    String servings;
+    String imageUrl;
 
     TableLayout tableLayoutIngredients;
     TableRow row; // création d'un élément : ligne
     TextView tv1, tv2;
     List<String> col1 = new ArrayList<String>();
     List<String> col2 = new ArrayList<String>();
-    List<String> etapes = new ArrayList<String>();
+    List<String> step = new ArrayList<String>();
 
-    private String[] ingredients = new String[]{
-            "Pâtes", "Jambon", "Sel"
-    };
+
+    List<String> ingredientLines = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
+
+        final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
+
+        RecipeAdapter adapter = new RecipeAdapter(this, recipeList);
+
+        Intent intentReceive=getIntent();
+        title=intentReceive.getStringExtra("title");
+        difficulty=intentReceive.getStringExtra("difficulty");
+        time=intentReceive.getStringExtra("time");
+        servings=intentReceive.getStringExtra("servings");
+        imageUrl=intentReceive.getStringExtra("imageUrl");
+        ingredientLines=intentReceive.getStringArrayListExtra("ingredientLines");
+        step=intentReceive.getStringArrayListExtra("step");
+
+        imageRecipe=(ImageView) findViewById(R.id.imageRecipe);
+        Picasso.with(this).load(imageUrl).resize(300,200).into(imageRecipe);
+
+
         textViewTitreRecette = (TextView) findViewById(R.id.textViewTitreRecette);
         textViewNbPersonnes = (TextView) findViewById(R.id.textViewNbPersonnes);
         textViewDifficulte = (TextView) findViewById(R.id.textViewDifficulte);
@@ -62,13 +92,17 @@ public class RecipeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuRecetteAccueil:
-                Intent intentAccueil = new Intent(RecipeActivity.this, ConnectionActivity.class);
+                Intent intentAccueil = new Intent(RecipeActivity.this, HomeActivity.class);
                 startActivity(intentAccueil);
                 break;
             case R.id.menuRecetteProfil:
                 Intent intentProfil = new Intent(RecipeActivity.this, ProfileActivity.class);
                 startActivity(intentProfil);
                 break;
+            case R.id.menuRecetteStock:
+                /*Intent intentStock = new Intent(RecipeActivity.this, StockActivity.class);
+                startActivity(intentStock);
+                break;*/
             case R.id.menuRecetteAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
@@ -88,10 +122,6 @@ public class RecipeActivity extends AppCompatActivity {
                 img.setImageResource(R.drawable.logo_propos);
 
                 dialog.show();
-                /*AlertDialog.Builder builder=new AlertDialog.Builder(this);
-                builder.setTitle("A propos de ...")
-                        .setMessage("ICookForYou\n\nApplication créée par :\n\nBomy François\nLebegue Clément\nLeblanc Alexandre\nPecqueux Nathan");
-                builder.show();*/
                 break;
             case R.id.menuRecetteQuitter:
                 Intent intentQuitter = new Intent(Intent.ACTION_MAIN);
@@ -104,13 +134,13 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     public void codeBouchon() {
-        textViewTitreRecette.setText("Pâtes aux jambon");
-        textViewNbPersonnes.setHint("Personnes : 4");
-        textViewDifficulte.setHint("Difficulté : 5*");
-        textViewTempsPrep.setHint("Temps : 10min");
+        textViewTitreRecette.setText(title);
+        textViewNbPersonnes.setHint("Personnes :"+servings);
+        textViewDifficulte.setHint("Difficulté :"+difficulty);
+        textViewTempsPrep.setHint("Temps :"+time+"min");
 
-        separateIngredients(ingredients);
-        int compteur = ingredients.length;
+        separateIngredients(ingredientLines);
+        int compteur = ingredientLines.size();
         int i;
 
         //Remplissage tableaux ingrédients
@@ -161,32 +191,26 @@ public class RecipeActivity extends AppCompatActivity {
             tableLayoutIngredients.addView(row);
         }
 
-        //Etapes
-        etapes.add("Faites bouillir de l'eau salé");
-        etapes.add("Une fois l'eau portée à ébullition, y plonger les pâtes");
-        etapes.add("Attendre le temps indiqué sur la boite, pendant ce temps, couper le jambon en petit morceau");
-        etapes.add("Une fois le temps écoulé, égoutter les pâtes et servir chaud");
-
         affichageEtapes();
     }
 
     public void affichageEtapes() {
         String totalEtape = new String();
         int temp;
-        for (int i = 0; i < etapes.size(); i++) {
+        for (int i = 0; i < step.size(); i++) {
             temp = i + 1;
             totalEtape += "Etape " + temp + " :\n";
-            totalEtape += "       " + etapes.get(i) + "\n\n";
+            totalEtape += "       " + step.get(i) + "\n\n";
         }
         textViewTotalEtape.setText(totalEtape);
     }
 
-    public void separateIngredients(String[] ingredients) {
-        for (int j = 0; j < ingredients.length; j++) {
+    public void separateIngredients(List<String> ingredients) {
+        for (int j = 0; j < ingredients.size(); j++) {
             if (j % 2 == 0) {
-                col1.add(ingredients[j]);
+                col1.add(ingredients.get(j));
             } else {
-                col2.add(ingredients[j]);
+                col2.add(ingredients.get(j));
             }
         }
     }
