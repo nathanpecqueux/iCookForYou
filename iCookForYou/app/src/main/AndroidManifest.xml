@@ -39,14 +39,11 @@
         <activity android:name=".HomeActivity"
             android:label="Liste des recettes"/>
         <activity
-            android:name=".HomeRecipesActivity"
-            android:label="Liste des recettes">
-        </activity>
-        <activity
             android:name=".RecipeActivity"
             android:label="A vos fourneaux !">
         </activity>
-        <activity android:name=".StockActivity" />
+        <activity android:name=".StockActivity"
+            android:label="Votre stock !"/>
     </application>
 
 </manifest>

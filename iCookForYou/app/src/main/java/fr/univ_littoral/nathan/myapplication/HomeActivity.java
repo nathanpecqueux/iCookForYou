@@ -79,8 +79,8 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intentProfil);
                 break;
             case R.id.menuListStock:
-                /*Intent intentStock = new Intent(HomeActivity.this, StockActivity.class);
-                startActivity(intentStock);*/
+                Intent intentStock = new Intent(HomeActivity.this, StockActivity.class);
+                startActivity(intentStock);
                 break;
             case R.id.menuListAPropos:
                 Dialog dialog = new Dialog(this);

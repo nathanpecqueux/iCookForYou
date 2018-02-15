@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -100,9 +101,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intentAccueil);
                 break;
             case R.id.menuProfilStock:
-                /*Intent intentStock = new Intent(ProfileActivity.this, StockActivity.class);
+                Intent intentStock = new Intent(ProfileActivity.this, StockActivity.class);
                 startActivity(intentStock);
-                break;*/
+                break;
             case R.id.menuProfilAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);

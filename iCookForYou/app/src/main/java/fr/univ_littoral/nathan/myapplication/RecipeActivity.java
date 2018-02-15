@@ -100,9 +100,9 @@ public class RecipeActivity extends AppCompatActivity {
                 startActivity(intentProfil);
                 break;
             case R.id.menuRecetteStock:
-                /*Intent intentStock = new Intent(RecipeActivity.this, StockActivity.class);
+                Intent intentStock = new Intent(RecipeActivity.this, StockActivity.class);
                 startActivity(intentStock);
-                break;*/
+                break;
             case R.id.menuRecetteAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
