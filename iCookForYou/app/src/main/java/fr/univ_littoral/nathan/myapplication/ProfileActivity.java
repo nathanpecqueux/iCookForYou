@@ -1,13 +1,10 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,66 +13,88 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ProfileActivity extends Activity implements View.OnClickListener {
 
     //Variables xml
-    TextView textViewNom =null;
-    TextView textViewPrenom =null;
-    TextView textViewMdp =null;
-    TextView textViewMail =null;
+    TextView textViewNom = null;
+    TextView textViewPrenom = null;
+    TextView textViewMdp = null;
+    TextView textViewMail = null;
+    ArrayList<String> userA;
 
-    android.support.v7.widget.AppCompatCheckBox checkboxVegan=null;
-    android.support.v7.widget.AppCompatCheckBox checkboxVegetarian=null;
-    android.support.v7.widget.AppCompatCheckBox checkboxNoGluten=null;
+    android.support.v7.widget.AppCompatCheckBox checkboxVegan = null;
+    android.support.v7.widget.AppCompatCheckBox checkboxVegetarian = null;
+    android.support.v7.widget.AppCompatCheckBox checkboxNoGluten = null;
 
-    Button buttonModifierProfil=null;
+    private static final String URL_USERS = "http://51.255.164.53/php/selectUserById.php";
+    private static final String URL_ALLERGY = "http://51.255.164.53/php/selectNameAllergyUser.php";
 
-    TextView textViewAllergy=null;
+    Button buttonModifierProfil = null;
+
+    TextView textViewAllergy = null;
 
     //Tableau répertoriant les allergies de l'utilisateur
-    ArrayList<String> userAllergy=new ArrayList<String>();
-    int nombreAllergy =3;
-    boolean[] checkedAllergies=new boolean[nombreAllergy];
-
+    ArrayList<String> userAllergy = new ArrayList<String>();
+    int nombreAllergy = 3;
+    boolean[] checkedAllergies = new boolean[nombreAllergy];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        textViewNom =(TextView) findViewById(R.id.textViewNom);
-        textViewPrenom =(TextView) findViewById(R.id.textViewPrenom);
-        textViewMdp =(TextView) findViewById(R.id.textViewMdp);
-        textViewMail =(TextView) findViewById(R.id.textViewMail);
+        textViewNom = (TextView) findViewById(R.id.textViewNom);
+        textViewPrenom = (TextView) findViewById(R.id.textViewPrenom);
+        textViewMdp = (TextView) findViewById(R.id.textViewMdp);
+        textViewMail = (TextView) findViewById(R.id.textViewMail);
 
-        checkboxVegan=(android.support.v7.widget.AppCompatCheckBox) findViewById(R.id.checkboxVegan);
-        checkboxVegetarian=(android.support.v7.widget.AppCompatCheckBox) findViewById(R.id.checkboxVegetarian);
-        checkboxNoGluten=(android.support.v7.widget.AppCompatCheckBox) findViewById(R.id.checkboxNoGluten);
+        checkboxVegan = (android.support.v7.widget.AppCompatCheckBox) findViewById(R.id.checkboxVegan);
+        checkboxVegetarian = (android.support.v7.widget.AppCompatCheckBox) findViewById(R.id.checkboxVegetarian);
+        checkboxNoGluten = (android.support.v7.widget.AppCompatCheckBox) findViewById(R.id.checkboxNoGluten);
 
-        buttonModifierProfil=(Button) findViewById(R.id.buttonModifierProfil);
+        buttonModifierProfil = (Button) findViewById(R.id.buttonModifierProfil);
 
-        textViewAllergy=(TextView) findViewById(R.id.textViewAllergy);
+        textViewAllergy = (TextView) findViewById(R.id.textViewAllergy);
 
         buttonModifierProfil.setOnClickListener(this);
 
-        userAllergy.add("Allergie 1");
-        checkedAllergies[0]=true;
-        checkboxVegan.setChecked(true);
-        refreshProfil();
+        //userAllergy.add("Allergie 1");
+        //checkedAllergies[0] = true;
+        userA = new ArrayList<String>();
+
+        findAllergy();
+
+        //checkboxVegan.setChecked(true);
+        //refreshProfil();
+
+        findUser();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.menu_profil,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_profil, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.menuProfilAccueil:
                 Intent intentAccueil = new Intent(ProfileActivity.this, ConnectionActivity.class);
                 startActivity(intentAccueil);
@@ -113,70 +132,156 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
         }
         return true;
     }
-
-    public void refreshProfil(){
-        setTextViewUserAllergy();
-    }
+//
+//    public void refreshProfil() {
+//        setTextViewUserAllergy();
+//    }
 
     public void setTextViewUserAllergy() {
-        String temp=new String();
-        for(int i=0; i<userAllergy.size();i++){
-            if(i==userAllergy.size()-1) {
-                temp += userAllergy.get(i);
-            }else{
-                temp+=userAllergy.get(i)+", ";
+        String temp = "";
+        for (int i = 0; i < userA.size(); i++) {
+            if (i == userA.size() - 1) {
+                temp += userA.get(i);
+            } else {
+                temp += userA.get(i) + ", ";
             }
         }
         textViewAllergy.setText(temp);
     }
 
-
     @Override
     public void onClick(View view) {
-        Intent intentModifyProfileActivity=new Intent(ProfileActivity.this,ModifyProfileActivity.class);
-        intentModifyProfileActivity.putExtra("Nom",textViewNom.getHint().toString());
-        intentModifyProfileActivity.putExtra("Prenom",textViewPrenom.getHint().toString());
-        intentModifyProfileActivity.putExtra("Mdp",textViewMdp.getHint().toString());
-        intentModifyProfileActivity.putExtra("Mail",textViewMail.getHint().toString());
+        Intent intentModifyProfileActivity = new Intent(ProfileActivity.this, ModifyProfileActivity.class);
+        intentModifyProfileActivity.putExtra("Nom", textViewNom.getText().toString());
+        intentModifyProfileActivity.putExtra("Prenom", textViewPrenom.getText().toString());
+        intentModifyProfileActivity.putExtra("Mdp", textViewMdp.getText().toString());
+        intentModifyProfileActivity.putExtra("Mail", textViewMail.getText().toString());
 
-        intentModifyProfileActivity.putExtra("Vegan",checkboxVegan.isChecked());
-        intentModifyProfileActivity.putExtra("Vegetarian",checkboxVegetarian.isChecked());
-        intentModifyProfileActivity.putExtra("NoGluten",checkboxNoGluten.isChecked());
+        intentModifyProfileActivity.putExtra("Vegan", checkboxVegan.isChecked());
+        intentModifyProfileActivity.putExtra("Vegetarian", checkboxVegetarian.isChecked());
+        intentModifyProfileActivity.putExtra("NoGluten", checkboxNoGluten.isChecked());
 
         intentModifyProfileActivity.putExtra("Allergy", userAllergy);
         intentModifyProfileActivity.putExtra("AllergyId", checkedAllergies);
-        startActivityForResult(intentModifyProfileActivity,1);
+        startActivityForResult(intentModifyProfileActivity, 1);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==1){
-            textViewNom.setHint(data.getStringExtra("NomModif"));
-            textViewPrenom.setHint(data.getStringExtra("PrenomModif"));
-            textViewMdp.setHint(data.getStringExtra("MdpModif"));
-            textViewMail.setHint(data.getStringExtra("MailModif"));
+        if (requestCode == 1) {
+            textViewNom.setText(data.getStringExtra("NomModif"));
+            textViewPrenom.setText(data.getStringExtra("PrenomModif"));
+            textViewMdp.setText(data.getStringExtra("MdpModif"));
+            textViewMail.setText(data.getStringExtra("MailModif"));
 
-            boolean temp=(data.getBooleanExtra("VeganModif",false));
-            if(temp==true){
+            boolean temp = (data.getBooleanExtra("VeganModif", false));
+            if (temp == true) {
                 checkboxVegan.setChecked(true);
-            }else{
+            } else {
                 checkboxVegan.setChecked(false);
             }
-            temp=(data.getBooleanExtra("VegetarianModif",false));
-            if(temp==true){
+            temp = (data.getBooleanExtra("VegetarianModif", false));
+            if (temp == true) {
                 checkboxVegetarian.setChecked(true);
-            }else{
+            } else {
                 checkboxVegetarian.setChecked(false);
             }
-            temp=(data.getBooleanExtra("NoGlutenModif",false));
-            if(temp==true){
+            temp = (data.getBooleanExtra("NoGlutenModif", false));
+            if (temp == true) {
                 checkboxNoGluten.setChecked(true);
-            }else{
+            } else {
                 checkboxNoGluten.setChecked(false);
             }
-            userAllergy=data.getStringArrayListExtra("AllergyModif");
+            userAllergy = data.getStringArrayListExtra("AllergyModif");
 
             setTextViewUserAllergy();
         }
     }
+
+    private void findAllergy() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ALLERGY,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray array = new JSONArray(response);
+
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject allergy = array.getJSONObject(i);
+                                userA.add(allergy.getString("name"));
+                            }
+                            setTextViewUserAllergy();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                String mail = getApplicationContext()
+                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        .getString("login", null);
+                params.put("mail",mail);
+                return params;
+            }
+
+        };
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+    private void findUser() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray array = new JSONArray(response);
+
+                                JSONObject user = array.getJSONObject(0);
+
+                                User u = new User(
+                                        user.getString("lastName"),
+                                        user.getString("firstName"),
+                                        user.getString("mail"),
+                                        user.getString("password")
+                                );
+
+                            textViewNom.setText(u.getLastName());
+                            textViewPrenom.setText(u.getFirstName());
+                            textViewMail.setText(u.getMail());
+                            textViewMdp.setText(u.getPassword());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                String mail = getApplicationContext()
+                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        .getString("login", null);
+                params.put("mail",mail);
+                return params;
+            }
+
+        };
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
 }

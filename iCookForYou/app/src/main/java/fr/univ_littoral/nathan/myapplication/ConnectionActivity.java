@@ -58,7 +58,6 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
         erreur.setOnClickListener(this);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater=getMenuInflater();
