@@ -1,43 +1,39 @@
 package fr.univ_littoral.nathan.myapplication;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import fr.univ_littoral.nathan.myapplication.sampledata.Ingredient;
+import fr.univ_littoral.nathan.myapplication.sampledata.IngredientAdapter;
 import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
 import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
-
-public class HomeActivity extends AppCompatActivity {
+public class StockActivity extends AppCompatActivity {
 
     private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_stock);
 
         final Context context = this;
 
         // Get data to display
-        final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
+        final ArrayList<Ingredient> ingredientList = Ingredient.getIngredientsFromFile("ingredients.json", this);
 
         // Create adapter
-        RecipeAdapter adapter = new RecipeAdapter(this, recipeList);
+        IngredientAdapter adapter = new IngredientAdapter(this, ingredientList);
 
         // Create list view
-        mListView = (ListView) findViewById(R.id.recipe_list_view);
+        mListView = (ListView) findViewById(R.id.ingredients_list_view);
         mListView.setAdapter(adapter);
 
         // Set what happens when a list view item is clicked
@@ -45,11 +41,12 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Recipe selectedRecipe = recipeList.get(position);
+                Ingredient selectedIngredient = ingredientList.get(position);
 
                 Intent detailIntent = new Intent(context, Recipe.class);
-                detailIntent.putExtra("title", selectedRecipe.title);
-                detailIntent.putExtra("url", selectedRecipe.instructionUrl);
+                detailIntent.putExtra("name", selectedIngredient.name);
+                detailIntent.putExtra("quantity", selectedIngredient.quantity);
+                detailIntent.putExtra("unity", selectedIngredient.unity);
 
                 startActivity(detailIntent);
             }
