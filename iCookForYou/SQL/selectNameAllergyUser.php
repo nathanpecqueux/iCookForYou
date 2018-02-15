@@ -29,14 +29,14 @@ WHERE mail = '$mail';");
  //binding results to the query 
  $stmt->bind_result($name);
  
- $user = array(); 
+ $allergy = array(); 
  
  //traversing through all the result 
  while($stmt->fetch()){
  $temp = array();
  $temp['name'] = $name;
- array_push($user, $temp);
+ array_push($allergy, $temp);
  }
  
  //displaying the result in json format 
- echo json_encode($user);
+ echo json_encode($allergy);

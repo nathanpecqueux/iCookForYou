@@ -44,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private static final String URL_USERS = "http://51.255.164.53/php/selectUserById.php";
     private static final String URL_ALLERGY = "http://51.255.164.53/php/selectNameAllergyUser.php";
+    private static final String URL_DIET = "http://51.255.164.53/php/selectIdDietUser.php";
 
     Button buttonModifierProfil = null;
 
@@ -76,14 +77,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         //userAllergy.add("Allergie 1");
         //checkedAllergies[0] = true;
-        userA = new ArrayList<String>();
-
-        findAllergy();
-
         //checkboxVegan.setChecked(true);
         //refreshProfil();
+        userA = new ArrayList<String>();
 
         findUser();
+        findAllergy();
+        findDiet();
+
     }
 
     @Override
@@ -137,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
         return true;
     }
-//
+
 //    public void refreshProfil() {
 //        setTextViewUserAllergy();
 //    }
@@ -203,6 +204,53 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    private void findUser() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray array = new JSONArray(response);
+
+                            JSONObject user = array.getJSONObject(0);
+
+                            User u = new User(
+                                    user.getString("lastName"),
+                                    user.getString("firstName"),
+                                    user.getString("mail"),
+                                    user.getString("password")
+                            );
+
+                            textViewNom.setText(u.getLastName());
+                            textViewPrenom.setText(u.getFirstName());
+                            textViewMail.setText(u.getMail());
+                            textViewMdp.setText(u.getPassword());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                String mail = getApplicationContext()
+                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        .getString("login", null);
+                params.put("mail",mail);
+                return params;
+            }
+
+        };
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
     private void findAllergy() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ALLERGY,
                 new Response.Listener<String>() {
@@ -242,27 +290,25 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
-    private void findUser() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERS,
+    private void findDiet() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DIET,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONArray array = new JSONArray(response);
 
-                                JSONObject user = array.getJSONObject(0);
-
-                                User u = new User(
-                                        user.getString("lastName"),
-                                        user.getString("firstName"),
-                                        user.getString("mail"),
-                                        user.getString("password")
-                                );
-
-                            textViewNom.setText(u.getLastName());
-                            textViewPrenom.setText(u.getFirstName());
-                            textViewMail.setText(u.getMail());
-                            textViewMdp.setText(u.getPassword());
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject diet = array.getJSONObject(i);
+                                int id = diet.getInt("idDiet");
+                                if(id==1) {
+                                    checkboxVegan.setChecked(true);
+                                }else if(id == 2) {
+                                    checkboxVegetarian.setChecked(true);
+                                }else if(id==3) {
+                                    checkboxNoGluten.setChecked(true);
+                                }
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -288,5 +334,4 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         Volley.newRequestQueue(this).add(stringRequest);
     }
-
 }
