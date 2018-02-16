@@ -12,21 +12,20 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"></activity>
+        <activity
+            android:name=".ModifyProfileActivity"
+            android:label="Modifier le profil"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="Votre profil"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ModifyProfileActivity"
-            android:label="Modifier le profil"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
-        <activity
-            android:name=".ProfileActivity"
-            android:label="Votre profil"
-            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".ConnectionActivity"
@@ -37,14 +36,16 @@
         <activity
             android:name=".ForgotPasswordActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".HomeActivity"
-            android:label="Liste des recettes"/>
+        <activity
+            android:name=".HomeActivity"
+            android:label="Liste des recettes" />
         <activity
             android:name=".RecipeActivity"
-            android:label="A vos fourneaux !">
+            android:label="A vos fourneaux !"></activity>
+        <activity
+            android:name=".StockActivity"
+            android:label="Votre stock !">
         </activity>
-        <activity android:name=".StockActivity"
-            android:label="Votre stock !"/>
     </application>
 
 </manifest>

@@ -18,19 +18,18 @@ public class Ingredient {
     public String quantity;
     public String unity;
 
-    public static ArrayList<Ingredient> getIngredientsFromFile(String filename, Context context){
+    public static ArrayList<Ingredient> getIngredientsFromFile(String filename, Context context) {
         final ArrayList<Ingredient> ingredientsList = new ArrayList<>();
 
         try {
             // Load data
             String jsonString = loadJsonFromAsset("ingredients.json", context);
-            System.out.println(jsonString);
-            if(jsonString!=null){
+            if (jsonString != null) {
                 JSONObject json = new JSONObject(jsonString);
                 JSONArray ingredients = json.getJSONArray("ingredients");
 
                 // Get Recipe objects from data
-                for(int i = 0; i < ingredients.length(); i++) {
+                for (int i = 0; i < ingredients.length(); i++) {
                     Ingredient ingredient = new Ingredient();
 
                     ingredient.name = ingredients.getJSONObject(i).getString("name");
@@ -58,8 +57,7 @@ public class Ingredient {
             is.read(buffer);
             is.close();
             json = new String(buffer, "UTF-8");
-        }
-        catch (java.io.IOException ex) {
+        } catch (java.io.IOException ex) {
             ex.printStackTrace();
             return null;
         }
