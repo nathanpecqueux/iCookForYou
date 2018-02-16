@@ -43,14 +43,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private static final String URL_USERS = "http://51.255.164.53/php/selectUserById.php";
     private static final String URL_ALLERGY = "http://51.255.164.53/php/selectNameAllergyUser.php";
     private static final String URL_DIET = "http://51.255.164.53/php/selectIdDietUser.php";
-    private static final String URL_ALL = "http://51.255.164.53/php/allergy.php";
 
     Button buttonModifierProfil = null;
 
     TextView textViewAllergy = null;
-
-    //Tableau répertoriant les allergies de l'utilisateur
-    ArrayList<String> userAllergy = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +73,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                 .edit()
                 .putBoolean("isLoggedIn", true)
-//                .putString("login", "clement@hotmail.fr")
-                .putString("login", "nathan@gmail.com")
+                .putString("login", "clement@hotmail.fr")
+//                .putString("login", "nathan@gmail.com")
                 .apply();
 
-        //userAllergy.add("Allergie 1");
-        //checkedAllergies[0] = true;
-        //checkboxVegan.setChecked(true);
-        //refreshProfil();
         userA = new ArrayList<String>();
 
         findUser();
@@ -130,10 +122,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 img.setImageResource(R.drawable.logo_propos);
 
                 dialog.show();
-                /*AlertDialog.Builder builder=new AlertDialog.Builder(this);
-                builder.setTitle("A propos de ...")
-                        .setMessage("ICookForYou\n\nApplication créée par :\n\nBomy François\nLebegue Clément\nLeblanc Alexandre\nPecqueux Nathan");
-                builder.show();*/
                 break;
             case R.id.menuProfilQuitter:
                 Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -170,7 +158,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         intentModifyProfileActivity.putExtra("NoGluten", checkboxNoGluten.isChecked());
 
         intentModifyProfileActivity.putExtra("Allergy", userA);
-//        intentModifyProfileActivity.putExtra("AllergyId", checkedAllergies);
         startActivityForResult(intentModifyProfileActivity, 1);
     }
 
@@ -200,7 +187,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             } else {
                 checkboxNoGluten.setChecked(false);
             }
-            userAllergy = data.getStringArrayListExtra("AllergyModif");
+            userA = data.getStringArrayListExtra("AllergyModif");
 
             setTextViewUserAllergy();
         }

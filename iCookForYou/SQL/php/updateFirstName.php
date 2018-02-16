@@ -1,5 +1,5 @@
 <?php 
-
+ 
  //database constants
  define('DB_HOST', '127.0.0.1');
  define('DB_USER', 'root');
@@ -16,25 +16,16 @@ $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME,0,'/var/run/mysqld/mysqld.
  die();
  }
  
- //creating a query
- $stmt = $conn->prepare("SELECT idAllergy, name FROM TAllergy;");
+ $firstName = $_POST['firstName'];
+ $mail = $_POST['mail'];
  
- //executing the query 
- $stmt->execute();
+ $Sql_Query = "UPDATE TUser SET firstName = '$firstName' WHERE mail = '$mail'";
  
- //binding results to the query 
- $stmt->bind_result($idAllergy, $name);
- 
- $allergy = array(); 
- 
- //traversing through all the result 
- while($stmt->fetch()){
- $temp = array();
- $temp['name'] = $name; 
- array_push($allergy, $temp);
+ if(mysqli_query($conn,$Sql_Query)){
+ echo 'Data Inserted Successfully';
  }
- 
- //displaying the result in json format 
- echo json_encode($allergy, JSON_UNESCAPED_UNICODE);
-
+ else{
+ echo 'Try Again';
+ }
+ mysqli_close($conn);
 
