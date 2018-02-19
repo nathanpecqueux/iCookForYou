@@ -1,6 +1,5 @@
 package fr.univ_littoral.nathan.myapplication;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +25,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,15 +42,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private static final String URL_USERS = "http://51.255.164.53/php/selectUserById.php";
     private static final String URL_ALLERGY = "http://51.255.164.53/php/selectNameAllergyUser.php";
+    private static final String URL_DIET = "http://51.255.164.53/php/selectIdDietUser.php";
 
     Button buttonModifierProfil = null;
 
     TextView textViewAllergy = null;
-
-    //Tableau répertoriant les allergies de l'utilisateur
-    ArrayList<String> userAllergy = new ArrayList<String>();
-    int nombreAllergy = 3;
-    boolean[] checkedAllergies = new boolean[nombreAllergy];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +68,21 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         buttonModifierProfil.setOnClickListener(this);
 
-        //userAllergy.add("Allergie 1");
-        //checkedAllergies[0] = true;
+
+        getApplicationContext()
+                .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean("isLoggedIn", true)
+//                .putString("login", "clement@hotmail.fr")
+                .putString("login", "nathan@gmail.com")
+                .apply();
+
         userA = new ArrayList<String>();
 
-        findAllergy();
-
-        //checkboxVegan.setChecked(true);
-        //refreshProfil();
-
         findUser();
+        findAllergy();
+        findDiet();
+
     }
 
     @Override
@@ -123,10 +122,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 img.setImageResource(R.drawable.logo_propos);
 
                 dialog.show();
-                /*AlertDialog.Builder builder=new AlertDialog.Builder(this);
-                builder.setTitle("A propos de ...")
-                        .setMessage("ICookForYou\n\nApplication créée par :\n\nBomy François\nLebegue Clément\nLeblanc Alexandre\nPecqueux Nathan");
-                builder.show();*/
                 break;
             case R.id.menuProfilQuitter:
                 Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -137,10 +132,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
         return true;
     }
-//
-//    public void refreshProfil() {
-//        setTextViewUserAllergy();
-//    }
 
     public void setTextViewUserAllergy() {
         String temp = "";
@@ -166,8 +157,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         intentModifyProfileActivity.putExtra("Vegetarian", checkboxVegetarian.isChecked());
         intentModifyProfileActivity.putExtra("NoGluten", checkboxNoGluten.isChecked());
 
-        intentModifyProfileActivity.putExtra("Allergy", userAllergy);
-        intentModifyProfileActivity.putExtra("AllergyId", checkedAllergies);
+        intentModifyProfileActivity.putExtra("Allergy", userA);
         startActivityForResult(intentModifyProfileActivity, 1);
     }
 
@@ -197,10 +187,57 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             } else {
                 checkboxNoGluten.setChecked(false);
             }
-            userAllergy = data.getStringArrayListExtra("AllergyModif");
+            userA = data.getStringArrayListExtra("AllergyModif");
 
             setTextViewUserAllergy();
         }
+    }
+
+    private void findUser() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray array = new JSONArray(response);
+
+                            JSONObject user = array.getJSONObject(0);
+
+                            User u = new User(
+                                    user.getString("lastName"),
+                                    user.getString("firstName"),
+                                    user.getString("mail"),
+                                    user.getString("password")
+                            );
+
+                            textViewNom.setText(u.getLastName());
+                            textViewPrenom.setText(u.getFirstName());
+                            textViewMail.setText(u.getMail());
+                            textViewMdp.setText(u.getPassword());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                String mail = getApplicationContext()
+                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        .getString("login", null);
+                params.put("mail", mail);
+                return params;
+            }
+
+        };
+
+        Volley.newRequestQueue(this).add(stringRequest);
     }
 
     private void findAllergy() {
@@ -233,7 +270,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 String mail = getApplicationContext()
                         .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                         .getString("login", null);
-                params.put("mail",mail);
+                params.put("mail", mail);
                 return params;
             }
 
@@ -242,27 +279,25 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
-    private void findUser() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERS,
+    private void findDiet() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DIET,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONArray array = new JSONArray(response);
 
-                                JSONObject user = array.getJSONObject(0);
-
-                                User u = new User(
-                                        user.getString("lastName"),
-                                        user.getString("firstName"),
-                                        user.getString("mail"),
-                                        user.getString("password")
-                                );
-
-                            textViewNom.setText(u.getLastName());
-                            textViewPrenom.setText(u.getFirstName());
-                            textViewMail.setText(u.getMail());
-                            textViewMdp.setText(u.getPassword());
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject diet = array.getJSONObject(i);
+                                int id = diet.getInt("idDiet");
+                                if (id == 1) {
+                                    checkboxVegan.setChecked(true);
+                                } else if (id == 2) {
+                                    checkboxVegetarian.setChecked(true);
+                                } else if (id == 3) {
+                                    checkboxNoGluten.setChecked(true);
+                                }
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -280,7 +315,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 String mail = getApplicationContext()
                         .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                         .getString("login", null);
-                params.put("mail",mail);
+                params.put("mail", mail);
                 return params;
             }
 

@@ -19,24 +19,24 @@ $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME,0,'/var/run/mysqld/mysqld.
   $mail = $_POST['mail'];
  
  //creating a query
- $stmt = $conn->prepare("SELECT name FROM TAllergy INNER JOIN TUserAllergy ON idAllergyUA = idAllergy 
-INNER JOIN TUser ON idUserUA = idUser
+ $stmt = $conn->prepare("SELECT idDietUD FROM TUserDiet 
+INNER JOIN TUser ON idUserUD = idUser
 WHERE mail = '$mail';");
  
  //executing the query 
  $stmt->execute();
  
  //binding results to the query 
- $stmt->bind_result($name);
+ $stmt->bind_result($idDiet);
  
- $user = array(); 
+ $diet = array(); 
  
  //traversing through all the result 
  while($stmt->fetch()){
  $temp = array();
- $temp['name'] = $name;
- array_push($user, $temp);
+ $temp['idDiet'] = $idDiet;
+ array_push($diet, $temp);
  }
  
  //displaying the result in json format 
- echo json_encode($user);
+ echo json_encode($diet);

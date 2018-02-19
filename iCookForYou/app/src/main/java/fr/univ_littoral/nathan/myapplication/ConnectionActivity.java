@@ -124,14 +124,6 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                                         .putString("login", u.getMail())
                                         .apply();
 
-                                System.out.println("Envoie vers l'intention HomeActivity !!!!!");
-
-                                // Récupérer login :
-                                String myString = getApplicationContext()
-                                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-                                        .getString("login", null);
-                                System.out.println("login stocké dans l'appli : "+myString);
-
                                 Intent homeActivity = new Intent(ConnectionActivity.this, HomeActivity.class);
                                 startActivity(homeActivity);
                                 return;
@@ -146,7 +138,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                         Toast toast = new Toast(getApplicationContext());
                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                         toast.setDuration(Toast.LENGTH_LONG);
-                        toast.setText("Mot de passe érroné");
+                        toast.setText("Mot de passe erroné");
                         toast.show();
                     }
                 });
