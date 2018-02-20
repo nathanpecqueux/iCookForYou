@@ -68,15 +68,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         buttonModifierProfil.setOnClickListener(this);
 
-
-        getApplicationContext()
-                .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-                .edit()
-                .putBoolean("isLoggedIn", true)
-//                .putString("login", "clement@hotmail.fr")
-                .putString("login", "nathan@gmail.com")
-                .apply();
-
         userA = new ArrayList<String>();
 
         findUser();
