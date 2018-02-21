@@ -149,10 +149,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         intentModifyProfileActivity.putExtra("NoGluten", checkboxNoGluten.isChecked());
 
         intentModifyProfileActivity.putExtra("Allergy", userA);
-        startActivityForResult(intentModifyProfileActivity, 1);
+        startActivity(intentModifyProfileActivity);
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             textViewNom.setText(data.getStringExtra("NomModif"));
@@ -182,7 +182,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             setTextViewUserAllergy();
         }
-    }
+    }*/
 
     private void findUser() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERS,
