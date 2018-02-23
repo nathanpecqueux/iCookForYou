@@ -15,6 +15,8 @@ if (mysqli_connect_errno()) {
     die();
 }
 
+mysqli_set_charset($conn, "utf8");
+
 $mail = $_POST['mail'];
 
 // creating a query
@@ -47,3 +49,5 @@ while ($stmt->fetch()) {
 
 // displaying the result in json format
 echo json_encode($food);
+
+?>

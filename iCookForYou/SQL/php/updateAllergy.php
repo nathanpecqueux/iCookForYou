@@ -15,6 +15,8 @@ if (mysqli_connect_errno()) {
     die();
 }
 
+mysqli_set_charset($conn, "utf8");
+
 $idAllergy = $_POST['idAllergy'];
 $mail = $_POST['mail'];
 $action = $_POST['action'];
@@ -34,8 +36,7 @@ if (mysqli_query($conn, $Sql_Query)) {
 } else {
     echo 'Try Again';
 }
+
 mysqli_close($conn);
 
 ?>
-
-
