@@ -116,27 +116,27 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <android.support.v7.widget.AppCompatCheckBox
                     android:id="@+id/checkboxVegan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Vegan"
-                    android:textColor="#fff"
-                    android:padding="8dp"
-                    android:textSize="17sp"
                     android:layout_marginLeft="20dp"
-                    />
+                    android:padding="8dp"
+                    android:text="Végan"
+                    android:textColor="#fff"
+                    android:textSize="17sp" />
+
                 <android.support.v7.widget.AppCompatCheckBox
                     android:id="@+id/checkboxVegetarian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Vegetarien"
-                    android:textColor="#fff"
-                    android:padding="8dp"
-                    android:textSize="17sp"
                     android:layout_marginLeft="100dp"
                     android:layout_toRightOf="@+id/checkboxVegan"
-                    />
+                    android:padding="8dp"
+                    android:text="Végétarien"
+                    android:textColor="#fff"
+                    android:textSize="17sp" />
             </RelativeLayout>
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/checkboxNoGluten"

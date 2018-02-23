@@ -105,7 +105,8 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.gotoregisterButton:
                 Intent registerActivity = new Intent(ConnectionActivity.this, RegisterActivity.class);
-                startActivity(registerActivity);
+                startActivityForResult(registerActivity, 1);
+
                 break;
             case R.id.connectionButton:
                 final String mail = String.valueOf(connectionMail.getText());
@@ -189,5 +190,13 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
 
         void onFail(String msg);
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            connectionMail.setText(data.getStringExtra("mail"));
+            connectionPassword.setText(data.getStringExtra("password"));
+        }
+    }
+
 
 }
