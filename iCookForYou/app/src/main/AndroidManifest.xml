@@ -22,12 +22,11 @@
         <activity
             android:name=".ModifyProfileActivity"
             android:label="Modifier le profil"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ProfileActivity"
             android:label="Votre profil"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ConnectionActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -42,11 +41,14 @@
             android:label="Liste des recettes" />
         <activity
             android:name=".RecipeActivity"
-            android:label="A vos fourneaux !"></activity>
+            android:label="A vos fourneaux !" />
         <activity
             android:name=".StockActivity"
-            android:label="Votre stock !">
-        </activity>
+            android:label="Votre stock !" />
+        <activity android:name=".OneCubActivity"
+            android:label="Je sais pas quoi mettre !" />
+        <activity android:name=".AskStockActivity"
+            android:label="Je sais pas quoi mettre !" ></activity>
     </application>
 
 </manifest>

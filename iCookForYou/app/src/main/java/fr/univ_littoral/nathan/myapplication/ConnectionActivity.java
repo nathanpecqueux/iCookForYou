@@ -125,8 +125,8 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                                         .putString("login", u.getMail())
                                         .apply();
 
-                                Intent homeActivity = new Intent(ConnectionActivity.this, HomeActivity.class);
-                                startActivity(homeActivity);
+                                Intent indexActivity = new Intent(ConnectionActivity.this, HomeActivity.class);
+                                startActivity(indexActivity);
                                 return;
                             }
                         }
