@@ -10,6 +10,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -23,7 +25,7 @@ import java.util.List;
 import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
 import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends AppCompatActivity implements View.OnClickListener{
 
     TextView textViewTitreRecette;
     TextView textViewNbPersonnes;
@@ -31,6 +33,7 @@ public class RecipeActivity extends AppCompatActivity {
     TextView textViewTempsPrep;
     TextView textViewTotalEtape;
     ImageView imageRecipe;
+    Button buttonRealiser;
 
     String title;
     String difficulty;
@@ -76,7 +79,9 @@ public class RecipeActivity extends AppCompatActivity {
         textViewTempsPrep = (TextView) findViewById(R.id.textViewTempsPrep);
         textViewTotalEtape = (TextView) findViewById(R.id.textViewTotalEtape);
         tableLayoutIngredients = (TableLayout) findViewById(R.id.TableLayoutIngredients);
+        buttonRealiser=(Button) findViewById(R.id.buttonRealiser);
 
+        buttonRealiser.setOnClickListener(this);
         codeBouchon();
 
     }
@@ -213,5 +218,11 @@ public class RecipeActivity extends AppCompatActivity {
                 col2.add(ingredients.get(j));
             }
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intentStock=new Intent(RecipeActivity.this,StockActivity.class);
+        startActivity(intentStock);
     }
 }

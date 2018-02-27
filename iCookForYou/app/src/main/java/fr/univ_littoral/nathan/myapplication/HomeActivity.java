@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,16 +23,26 @@ import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
 import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ListView mListView;
+    private ImageButton imageButtonPlats;
+
+    /*
+    C'est cette variable là Nathan
+     */
+    boolean compteLie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        imageButtonPlats = (ImageButton) findViewById(R.id.imageButtonPlats);
+        imageButtonPlats.setOnClickListener(this);
+
         final Context context = this;
+        compteLie=false;
 
         // Get data to display
         final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
@@ -114,5 +126,16 @@ public class HomeActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+         if(compteLie==true){
+            Intent intentVotreStock = new Intent(HomeActivity.this,AskStockActivity.class);
+            startActivity(intentVotreStock);
+        }else if(compteLie==false){
+            Intent intentVosRecettes =new Intent(HomeActivity.this, OneCubActivity.class);
+            startActivity(intentVosRecettes);
+        }
     }
 }
