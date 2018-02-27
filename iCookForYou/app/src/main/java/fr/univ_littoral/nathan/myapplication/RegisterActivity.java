@@ -174,6 +174,13 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                             erreur.setText("Inscription réussi !");
                             erreur.setTextColor(Color.GREEN);
                             erreur.setVisibility(View.VISIBLE);
+                            Intent intentRegister = new Intent();
+
+                            intentRegister.putExtra("mail", registerMail.getText().toString());
+                            intentRegister.putExtra("password", registerPassword.getText().toString());
+                            setResult(2, intentRegister);
+
+                            finish();
                         }
                         @Override
                         public void onFail(String msg) {
