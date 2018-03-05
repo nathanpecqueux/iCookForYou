@@ -196,6 +196,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                 erreur.setVisibility(View.VISIBLE);
                 break;
             case R.id.cancelButton:
+                Intent intentRegister = new Intent();
+
+                setResult(1, intentRegister);
                 finish();
                 break;
         }

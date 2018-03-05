@@ -193,8 +193,10 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
-            connectionMail.setText(data.getStringExtra("mail"));
-            connectionPassword.setText(data.getStringExtra("password"));
+            if (resultCode == 2) {
+                connectionMail.setText(data.getStringExtra("mail"));
+                connectionPassword.setText(data.getStringExtra("password"));
+            }
         }
     }
 

@@ -46,9 +46,9 @@
             android:name=".StockActivity"
             android:label="Votre stock !" />
         <activity android:name=".OneCubActivity"
-            android:label="Je sais pas quoi mettre !" />
+            android:label="Onecub" />
         <activity android:name=".AskStockActivity"
-            android:label="Je sais pas quoi mettre !" ></activity>
+            android:label="Onecub" ></activity>
     </application>
 
 </manifest>
