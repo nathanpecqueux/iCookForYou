@@ -2,11 +2,12 @@ package fr.univ_littoral.nathan.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -25,48 +26,35 @@ import java.util.Map;
 
 import fr.univ_littoral.nathan.myapplication.sampledata.Ingredient;
 import fr.univ_littoral.nathan.myapplication.sampledata.IngredientAdapter;
-import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
-import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
+import fr.univ_littoral.nathan.myapplication.sampledata.ModifyAdapter;
 
-public class StockActivity extends AppCompatActivity implements View.OnClickListener{
+public class ModifyStockActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ListView mListView;
-    private Button addingredient;
+    private Button valider;
+    private Button annuler;
+    private ImageButton poubelle;
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
     Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stock);
+        setContentView(R.layout.activity_modify_stock);
+        context = this;
 
-        addingredient=(Button) findViewById(R.id.addingredient);
+        valider=(Button) findViewById(R.id.buttonValider);
+        annuler=(Button) findViewById(R.id.buttonAnnuler);
+        poubelle=(ImageButton) findViewById(R.id.imageButtonPoubelle);
 
-         context = this;
+        valider.setOnClickListener(this);
+        annuler.setOnClickListener(this);
+        poubelle.setOnClickListener(this);
 
         // Get data to display
         final ArrayList<Ingredient> ingredientList = Ingredient.getIngredientsFromFile("ingredients.json", this);
 
-        addingredient.setOnClickListener(this);
         findFood();
-
-
-//        // Set what happens when a list view item is clicked
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Ingredient selectedIngredient = ingredientList.get(position);
-//
-//                Intent detailIntent = new Intent(context, Recipe.class);
-//                detailIntent.putExtra("name", selectedIngredient.name);
-//                detailIntent.putExtra("quantity", selectedIngredient.quantity);
-//                detailIntent.putExtra("unity", selectedIngredient.unity);
-//
-//                startActivity(detailIntent);
-//            }
-//
-//        });
     }
 
 
@@ -95,7 +83,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
 
                             }
                             // Create adapter
-                            IngredientAdapter adapter = new IngredientAdapter(context, ingredientList);
+                            ModifyAdapter adapter = new ModifyAdapter(context, ingredientList);
 
 
                             // Create list view
@@ -129,8 +117,45 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View view) {
-        Intent intentAddStock=new Intent(StockActivity.this,ModifyStockActivity.class);
-        startActivity(intentAddStock);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.buttonValider:
+                /*
+
+
+
+
+
+                    //REQUETE BDD POUR CHANGER LES VALEURS
+
+
+
+
+
+                */
+                Intent intentOk = new Intent( ModifyStockActivity.this, StockActivity.class);
+                startActivity(intentOk);
+                break;
+            case R.id.buttonAnnuler:
+                Intent intentAnnuler = new Intent( ModifyStockActivity.this, StockActivity.class);
+                startActivity(intentAnnuler);
+                break;
+            case R.id.imageButtonPoubelle:
+                /*
+
+
+
+
+
+                    //ICI TU SUPPRIMES DANS LA BDD ET TU ACTUALISES OK ?!
+                    //EST-CE-QUE JE ME SUIS BIEN FAIS COMPRENDRE OU TU VEUX UN DESSIN PEUT-ETRE ?
+
+
+
+
+
+                 */
+                break;
+        }
     }
 }

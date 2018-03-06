@@ -45,10 +45,13 @@
         <activity
             android:name=".StockActivity"
             android:label="Votre stock !" />
-        <activity android:name=".OneCubActivity"
+        <activity
+            android:name=".OneCubActivity"
             android:label="Je sais pas quoi mettre !" />
-        <activity android:name=".AskStockActivity"
-            android:label="Je sais pas quoi mettre !" ></activity>
+        <activity
+            android:name=".AskStockActivity"
+            android:label="Je sais pas quoi mettre !" />
+        <activity android:name=".ModifyStockActivity"></activity>
     </application>
 
 </manifest>
