@@ -35,28 +35,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="12dp"
-            android:layout_toLeftOf="@+id/progressBar"
-            android:layout_toStartOf="@+id/progressBar"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
+            android:layout_marginTop="21dp"
+            android:layout_toLeftOf="@+id/buttonNon"
+            android:layout_toStartOf="@+id/buttonNon"
             android:text="Oui" />
 
         <Button
             android:id="@+id/buttonNon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/progressBar"
-            android:layout_toEndOf="@+id/progressBar"
-            android:layout_toRightOf="@+id/progressBar"
+            android:layout_alignBaseline="@+id/buttonOui"
+            android:layout_alignBottom="@+id/buttonOui"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="99dp"
+            android:layout_marginRight="99dp"
             android:text="Non" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/buttonOui"
-            android:layout_centerHorizontal="true"
-            android:progressDrawable="@drawable/circular_progress_bar" />
     </RelativeLayout>
 </LinearLayout>

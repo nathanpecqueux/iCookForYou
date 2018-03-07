@@ -1,16 +1,18 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 
 public class OneCubActivity extends Activity implements View.OnClickListener{
     private Button buttonOui;
     private Button buttonNon;
-    private ProgressBar spinner;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +21,7 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
 
         buttonOui = (Button) findViewById(R.id.buttonOui);
         buttonNon = (Button) findViewById(R.id.buttonNon);
-        spinner = (ProgressBar) findViewById(R.id.progressBar);
 
-        spinner.incrementProgressBy(10);
 
         buttonOui.setOnClickListener(this);
         buttonNon.setOnClickListener(this);
@@ -32,7 +32,7 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonOui:
-                spinner.setVisibility(View.VISIBLE);
+                download(v);
                 break;
             case R.id.buttonNon:
                 Intent intentAccueil = new Intent( OneCubActivity.this, HomeActivity.class);
@@ -40,4 +40,40 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
                 break;
         }
     }
+
+    public void download(View view){
+        progress = new ProgressDialog(OneCubActivity.this);
+        progress.setMax(100);
+        progress.setMessage("En cours de récupération");
+        progress.setTitle("Récupération de vos listes de courses");
+        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progress.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (progress.getProgress() <= progress
+                            .getMax()) {
+                        Thread.sleep(100);
+                        handle.sendMessage(handle.obtainMessage());
+                        if (progress.getProgress() == progress
+                                .getMax()) {
+                            progress.dismiss();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    Handler handle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            progress.incrementProgressBy(1);
+        }
+    };
+
 }
