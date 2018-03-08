@@ -45,11 +45,9 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
 
         valider=(Button) findViewById(R.id.buttonValider);
         annuler=(Button) findViewById(R.id.buttonAnnuler);
-        poubelle=(ImageButton) findViewById(R.id.imageButtonPoubelle);
 
         valider.setOnClickListener(this);
         annuler.setOnClickListener(this);
-        poubelle.setOnClickListener(this);
 
         // Get data to display
         final ArrayList<Ingredient> ingredientList = Ingredient.getIngredientsFromFile("ingredients.json", this);
@@ -120,41 +118,12 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonValider:
-                /*
-
-
-
-
-
-                    //REQUETE BDD POUR CHANGER LES VALEURS
-
-
-
-
-
-                */
                 Intent intentOk = new Intent( ModifyStockActivity.this, StockActivity.class);
                 startActivity(intentOk);
                 break;
             case R.id.buttonAnnuler:
                 Intent intentAnnuler = new Intent( ModifyStockActivity.this, StockActivity.class);
                 startActivity(intentAnnuler);
-                break;
-            case R.id.imageButtonPoubelle:
-                /*
-
-
-
-
-
-                    //ICI TU SUPPRIMES DANS LA BDD ET TU ACTUALISES OK ?!
-                    //EST-CE-QUE JE ME SUIS BIEN FAIS COMPRENDRE OU TU VEUX UN DESSIN PEUT-ETRE ?
-
-
-
-
-
-                 */
                 break;
         }
     }

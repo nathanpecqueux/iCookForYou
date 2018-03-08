@@ -47,14 +47,5 @@
             android:textColor="#FFFF"
             />
 
-
-        <ImageButton
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_toRightOf="@+id/ingredient_list_name"
-        android:background="@drawable/delete_button"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            />
     </RelativeLayout>
 </RelativeLayout>
