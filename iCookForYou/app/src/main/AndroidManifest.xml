@@ -58,6 +58,9 @@
         <activity
             android:name=".SelectIngredientActivity"
             android:label="Selectionner un ingrédient"/>
+        <activity
+            android:name=".ModifyStockActivity"
+            android:label="Modifier un ingrédient"/>
     </application>
 
 </manifest>

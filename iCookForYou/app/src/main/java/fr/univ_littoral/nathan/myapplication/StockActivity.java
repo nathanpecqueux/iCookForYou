@@ -52,7 +52,6 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         // Get data to display
         final ArrayList<Ingredient> ingredientList = Ingredient.getIngredientsFromFile("ingredients.json", this);
 
-        addingredient.setOnClickListener(this);
         findFood();
     }
 
