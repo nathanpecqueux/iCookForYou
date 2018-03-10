@@ -25,25 +25,34 @@
         android:text="Souhaitez-vous lier votre compte à OneCub ?"
         android:textSize="18sp"
         android:textColor="#fff"/>
-    
+
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/buttonOui"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
+            android:layout_marginTop="21dp"
+            android:layout_toLeftOf="@+id/buttonNon"
+            android:layout_toStartOf="@+id/buttonNon"
             android:text="Oui" />
+
         <Button
             android:id="@+id/buttonNon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Non"
-            android:layout_toRightOf="@+id/buttonOui"/>
+            android:layout_alignBaseline="@+id/buttonOui"
+            android:layout_alignBottom="@+id/buttonOui"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="99dp"
+            android:layout_marginRight="99dp"
+            android:text="Non" />
+
     </RelativeLayout>
 </LinearLayout>
