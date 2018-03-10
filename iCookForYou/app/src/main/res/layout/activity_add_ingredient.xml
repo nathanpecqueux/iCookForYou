@@ -1,0 +1,115 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.univ_littoral.nathan.myapplication.ConnectionActivity"
+    android:orientation="vertical"
+    android:background="#2c2d30">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/selectIngredient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_signup"
+                    android:ems="10"
+                    android:clickable="true"
+                    android:textColorHint="#fff"
+                    android:textColor="#fff"
+                    android:maxLines="2"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="4dp"
+                    android:text="Sélectionner ingrédient"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"/>
+
+                <EditText
+                    android:id="@+id/quantityIngredientText"
+                    android:layout_toRightOf="@id/selectIngredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#fff"
+                    android:textColor="#fff"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:textSize="15sp"
+                    android:hint="Quantité"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/ingredientTextAdd"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ingrédient"
+                android:textColor="#fff"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:id="@+id/unityTextAdd"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="unité"
+                android:textColor="#fff"
+                android:layout_marginTop="20dp"
+                />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <Button
+                    android:id="@+id/buttonCancelFood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_signup"
+                    android:text="Annuler"
+                    android:textColor="#fff"
+                    android:textAllCaps="false"
+                    android:clickable="true"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:textSize="18sp"
+                    android:layout_marginTop="20dp"
+                    />
+
+                <Button
+                    android:layout_toRightOf="@id/buttonCancelFood"
+                    android:layout_marginLeft="40dp"
+                    android:id="@+id/buttonValidateFood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_signup"
+                    android:text="Valider"
+                    android:textColor="#fff"
+                    android:textAllCaps="false"
+                    android:clickable="true"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:textSize="18sp"
+                    android:layout_marginTop="20dp"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
