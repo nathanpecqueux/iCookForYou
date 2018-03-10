@@ -45,30 +45,15 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         context = this;
 
         addFood = (Button) findViewById(R.id.addingredient);
-
         addFood.setOnClickListener(this);
+        modifyStock = (Button) findViewById(R.id.modifIngredient);
+        modifyStock.setOnClickListener(this);
 
         // Get data to display
         final ArrayList<Ingredient> ingredientList = Ingredient.getIngredientsFromFile("ingredients.json", this);
 
         addingredient.setOnClickListener(this);
         findFood();
-//        // Set what happens when a list view item is clicked
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Ingredient selectedIngredient = ingredientList.get(position);
-//
-//                Intent detailIntent = new Intent(context, Recipe.class);
-//                detailIntent.putExtra("name", selectedIngredient.name);
-//                detailIntent.putExtra("quantity", selectedIngredient.quantity);
-//                detailIntent.putExtra("unity", selectedIngredient.unity);
-//
-//                startActivity(detailIntent);
-//            }
-//
-//        });
     }
 
 
@@ -138,14 +123,9 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                 startActivityForResult(addingredientactivity, 1);
                 break;
             case R.id.modifIngredient:
-                Intent modifingredientactivity = new Intent(StockActivity.this, AddIngredientActivity.class);//Mettre l'activité de François
+                Intent modifingredientactivity = new Intent(StockActivity.this, ModifyStockActivity.class);//Mettre l'activité de François
                 startActivityForResult(modifingredientactivity, 1);
                 break;
         }
-    }
-    @Override
-    public void onClick(View view) {
-        Intent intentAddStock=new Intent(StockActivity.this,ModifyStockActivity.class);
-        startActivity(intentAddStock);
     }
 }
