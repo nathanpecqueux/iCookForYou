@@ -17,41 +17,37 @@ if (mysqli_connect_errno()) {
 
 mysqli_set_charset($conn, "utf8");
 
-$mail = $_POST['mail'];
+$nameFood = $_POST['nameFood'];
 
 // creating a query
-$food = $conn->prepare("select f.name
-from TFood f
-inner join TUnit u
-on f.idUnitF = u.idUnit
-inner join TStock s
-on f.idFood = s.idFood
-inner join TUser us
-on s.idUserS = us.idUser
-where us.mail = '$mail';");
+$stmt = $conn->prepare("
+SELECT 
+    u.name
+FROM
+    TUnit u
+        INNER JOIN
+    TFood f
+WHERE
+    f.idUnitF = u.idUnit
+        AND f.name = '$nameFood';
+");
 
 // executing the query
-$food->execute();
-$add = 1;
+$stmt->execute();
 
 // binding results to the query
-$food->bind_result($nameFood);
+$stmt->bind_result($name);
 
 $food = array();
 
 // traversing through all the result
-while ($food->fetch()) {
-		if($food==$name) {
-				$add = 0;
-		}
+while ($stmt->fetch()) {
+    $temp = array();
+    $temp['name'] = $name;
+    array_push($food, $temp);
 }
 
-if($add == 1) {
-		echo '1';
-}else{
-		echo '0';
-}
-
-mysqli_close($conn);
+// displaying the result in json format
+echo json_encode($food);
 
 ?>

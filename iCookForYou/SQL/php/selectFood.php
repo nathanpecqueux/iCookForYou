@@ -17,36 +17,31 @@ if (mysqli_connect_errno()) {
 
 mysqli_set_charset($conn, "utf8");
 
-$mail = $_POST['mail'];
+$saisie = $_POST['saisie'];
 
 // creating a query
-$stmt = $conn->prepare("SELECT 
-    f.name, s.quantityS, u.name
+$stmt = $conn->prepare("
+SELECT 
+    name
 FROM
-    TFood f
-        INNER JOIN
-    TUnit u ON f.idUnitF = u.idUnit
-        INNER JOIN
-    TStock s ON f.idFood = s.idFood
-        INNER JOIN
-    TUser us ON s.idUserS = us.idUser
+    TFood
 WHERE
-    us.mail = '$mail';");
+    name LIKE '$saisie%'
+ORDER BY name;
+");
 
 // executing the query
 $stmt->execute();
 
 // binding results to the query
-$stmt->bind_result($nameFood, $quantity, $nameUnit);
+$stmt->bind_result($name);
 
 $food = array();
 
 // traversing through all the result
 while ($stmt->fetch()) {
     $temp = array();
-    $temp['nameFood'] = $nameFood;
-    $temp['quantity'] = $quantity;
-    $temp['nameUnit'] = $nameUnit;
+    $temp['name'] = $name;
     array_push($food, $temp);
 }
 

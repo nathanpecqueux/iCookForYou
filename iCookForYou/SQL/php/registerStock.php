@@ -17,19 +17,29 @@ if (mysqli_connect_errno()) {
 
 mysqli_set_charset($conn, "utf8");
 
-$name = $_POST['name'];
-$quantity = $_POST['quantity'];
-$unit = $_POST['unit'];
+$quantityFood = $_POST['quantityFood'];
+$nameFood = $_POST['nameFood'];
+$mail = $_POST['mail'];
 
-$Sql_Query = "INSERT INTO TFood (name, quantity, idUnitF) VALUES ('$name', '$quantity', '$unit');"
+$Sql_Query = "
+INSERT TStock (idUserS,idFood, quantityS)
+	SELECT 
+		  u.idUser, idFood, $quantityFood
+	FROM
+		  TUser u,
+		  TFood f
+	WHERE
+		  u.mail = '$mail'
+		      AND f.name = '$nameFood';
+";
 
 if (mysqli_query($conn, $Sql_Query)) {
-		echo 'Data Inserted Successfully';
+    echo 'Data Inserted Successfully';
 } else {
-		echo 'Try Again';
+    echo 'Try Again';
 }
-
 
 mysqli_close($conn);
 
 ?>
+
