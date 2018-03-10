@@ -1,0 +1,80 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModifyStockActivity"
+    android:orientation="vertical"
+    android:background="#2c2d30">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Modifier vos ingrédients"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#fff"
+                android:textSize="26dp"
+                android:padding="16dp"
+                android:clickable="true"
+                android:layout_marginBottom="16dp"/>
+
+            <ListView
+                android:id="@+id/ingredients_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/buttonValider"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/background_login"
+                    android:clickable="true"
+                    android:padding="16dp"
+                    android:text="Valider"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:width="120dp"/>
+
+                <Button
+                    android:id="@+id/buttonAnnuler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_login"
+                    android:text="Annuler"
+                    android:textColor="@color/colorPrimary"
+                    android:textAllCaps="false"
+                    android:padding="16dp"
+                    android:clickable="true"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:layout_marginTop="24dp"
+                    android:textSize="18sp"
+                    android:layout_toRightOf="@+id/buttonValider"
+                    android:layout_marginLeft="25dp"
+                    android:width="120dp"
+                    />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
