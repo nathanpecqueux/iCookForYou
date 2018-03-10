@@ -135,7 +135,6 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
 
                     @Override
                     public void onFail(String msg) {
-                        System.out.println("az");
                         Toast toast = new Toast(getApplicationContext());
                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                         toast.setDuration(Toast.LENGTH_LONG);

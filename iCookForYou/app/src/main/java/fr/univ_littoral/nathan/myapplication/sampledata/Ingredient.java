@@ -65,4 +65,7 @@ public class Ingredient {
         return json;
     }
 
+    public String getName() {
+        return name;
+    }
 }

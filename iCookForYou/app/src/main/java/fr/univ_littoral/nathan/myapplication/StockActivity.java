@@ -31,7 +31,6 @@ import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 public class StockActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView mListView;
-    private Button addingredient;
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
     Context context;
     Button addFood;
@@ -49,9 +48,6 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         modifyStock = (Button) findViewById(R.id.modifIngredient);
         modifyStock.setOnClickListener(this);
 
-        // Get data to display
-        final ArrayList<Ingredient> ingredientList = Ingredient.getIngredientsFromFile("ingredients.json", this);
-
         findFood();
     }
 
@@ -65,7 +61,6 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                             final ArrayList<Ingredient> ingredientList = new ArrayList<>();
 
                             JSONArray array = new JSONArray(response);
-                            System.out.println(array);
 
                             // Get Recipe objects from data
                             for (int i = 0; i < array.length(); i++) {
@@ -104,7 +99,6 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                 String mail = getApplicationContext()
                         .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                         .getString("login", null);
-                System.out.println(mail);
                 params.put("mail", mail);
                 return params;
             }

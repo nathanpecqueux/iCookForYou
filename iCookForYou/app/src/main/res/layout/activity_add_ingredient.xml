@@ -23,31 +23,33 @@
 
                 <Button
                     android:id="@+id/selectIngredient"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_signup"
-                    android:ems="10"
-                    android:clickable="true"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff"
-                    android:maxLines="2"
-                    android:textAllCaps="false"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="4dp"
+                    android:background="@drawable/background_signup"
+                    android:clickable="true"
+                    android:ems="10"
+                    android:maxLines="2"
                     android:text="Sélectionner ingrédient"
-                    style="@style/Base.TextAppearance.AppCompat.Body2"/>
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff" />
 
                 <EditText
                     android:id="@+id/quantityIngredientText"
-                    android:layout_toRightOf="@id/selectIngredient"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@id/selectIngredient"
                     android:background="@android:color/transparent"
                     android:gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:textSize="15sp"
-                    android:hint="Quantité"/>
+                    android:hint="Quantité"
+                    android:inputType="numberDecimal"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:textSize="15sp" />
 
             </RelativeLayout>
 
@@ -63,13 +65,13 @@
 
             <TextView
                 android:id="@+id/unityTextAdd"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="unité"
-                android:textColor="#fff"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
-                />
+                android:text="unité"
+                android:textColor="#fff" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
