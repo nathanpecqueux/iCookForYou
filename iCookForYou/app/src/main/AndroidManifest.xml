@@ -45,10 +45,19 @@
         <activity
             android:name=".StockActivity"
             android:label="Votre stock !" />
-        <activity android:name=".OneCubActivity"
+        <activity
+            android:name=".OneCubActivity"
             android:label="Onecub" />
-        <activity android:name=".AskStockActivity"
-            android:label="Onecub" ></activity>
+        <activity
+            android:name=".AskStockActivity"
+            android:label="Onecub" />
+        <activity
+            android:name=".AddIngredientActivity"
+            android:label="Ajouter un ingrédient"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".SelectIngredientActivity"
+            android:label="Selectionner un ingrédient"/>
     </application>
 
 </manifest>

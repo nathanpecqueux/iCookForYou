@@ -28,29 +28,31 @@ import fr.univ_littoral.nathan.myapplication.sampledata.IngredientAdapter;
 import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
 import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
-public class StockActivity extends AppCompatActivity implements View.OnClickListener{
+public class StockActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView mListView;
     private Button addingredient;
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
     Context context;
+    Button addFood;
+    Button modifyStock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock);
 
-        addingredient=(Button) findViewById(R.id.addingredient);
+        context = this;
 
-         context = this;
+        addFood = (Button) findViewById(R.id.addingredient);
+
+        addFood.setOnClickListener(this);
 
         // Get data to display
         final ArrayList<Ingredient> ingredientList = Ingredient.getIngredientsFromFile("ingredients.json", this);
 
         addingredient.setOnClickListener(this);
         findFood();
-
-
 //        // Set what happens when a list view item is clicked
 //        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
@@ -82,7 +84,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                             System.out.println(array);
 
                             // Get Recipe objects from data
-                            for(int i = 0; i < array.length(); i++) {
+                            for (int i = 0; i < array.length(); i++) {
                                 Ingredient ingredient = new Ingredient();
 
                                 JSONObject jsonIng = array.getJSONObject(i);
@@ -128,6 +130,19 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.addingredient:
+                Intent addingredientactivity = new Intent(StockActivity.this, AddIngredientActivity.class);
+                startActivityForResult(addingredientactivity, 1);
+                break;
+            case R.id.modifIngredient:
+                Intent modifingredientactivity = new Intent(StockActivity.this, AddIngredientActivity.class);//Mettre l'activité de François
+                startActivityForResult(modifingredientactivity, 1);
+                break;
+        }
+    }
     @Override
     public void onClick(View view) {
         Intent intentAddStock=new Intent(StockActivity.this,ModifyStockActivity.class);
