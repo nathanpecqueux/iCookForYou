@@ -25,8 +25,6 @@ SELECT
     name
 FROM
     TFood
-WHERE
-    name LIKE '$saisie%'
 ORDER BY name;
 ");
 

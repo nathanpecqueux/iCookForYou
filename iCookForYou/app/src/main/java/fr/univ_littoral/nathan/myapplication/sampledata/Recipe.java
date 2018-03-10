@@ -53,7 +53,6 @@ public class Recipe {
         try {
             // Load data
             String jsonString = loadJsonFromAsset("recipes.json", context);
-            System.out.println(jsonString);
             if(jsonString!=null){
                 JSONObject json = new JSONObject(jsonString);
                 JSONArray recipes = json.getJSONArray("recipes");
