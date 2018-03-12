@@ -122,7 +122,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                 startActivityForResult(addingredientactivity, 1);
                 break;
             case R.id.modifIngredient:
-                Intent modifingredientactivity = new Intent(StockActivity.this, ModifyStockActivity.class);//Mettre l'activité de François
+                Intent modifingredientactivity = new Intent(StockActivity.this, SelectModifyIngredientActivity.class);
                 startActivityForResult(modifingredientactivity, 1);
                 break;
         }
