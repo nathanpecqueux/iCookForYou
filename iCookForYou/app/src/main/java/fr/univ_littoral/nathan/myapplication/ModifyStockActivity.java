@@ -5,10 +5,17 @@ import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,7 +26,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
+import java.security.cert.PolicyQualifierInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +47,8 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
     Context context;
 
+    ArrayList<Ingredient> ingredientList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,16 +57,13 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
 
         valider=(Button) findViewById(R.id.buttonValider);
         annuler=(Button) findViewById(R.id.buttonAnnuler);
+        mListView = (ListView) findViewById(R.id.ingredients_list_view);
 
         valider.setOnClickListener(this);
         annuler.setOnClickListener(this);
 
-        // Get data to display
-        final ArrayList<Ingredient> ingredientList = Ingredient.getIngredientsFromFile("ingredients.json", this);
-
         findFood();
     }
-
 
     private void findFood() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_FOOD,
@@ -65,7 +74,6 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
                             final ArrayList<Ingredient> ingredientList = new ArrayList<>();
 
                             JSONArray array = new JSONArray(response);
-                            System.out.println(array);
 
                             // Get Recipe objects from data
                             for(int i = 0; i < array.length(); i++) {
@@ -85,8 +93,8 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
 
 
                             // Create list view
-                            mListView = (ListView) findViewById(R.id.ingredients_list_view);
                             mListView.setAdapter(adapter);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -104,7 +112,6 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
                 String mail = getApplicationContext()
                         .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                         .getString("login", null);
-                System.out.println(mail);
                 params.put("mail", mail);
                 return params;
             }

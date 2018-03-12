@@ -147,10 +147,6 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
                         .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                         .getString("login", null);
 
-                System.out.println(selectedIngredient.getText());
-                System.out.println(quantity.getText());
-                System.out.println(mail);
-
                 // Paramètres de l'utilisateurs pour la première requête !
                 params.put("nameFood", String.valueOf(selectedIngredient.getText()));
                 params.put("quantityFood", String.valueOf(quantity.getText()));

@@ -49,8 +49,8 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         modifyStock.setOnClickListener(this);
 
         findFood();
-    }
 
+    }
 
     private void findFood() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_FOOD,
