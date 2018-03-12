@@ -33,7 +33,6 @@ public class Ingredient {
                     Ingredient ingredient = new Ingredient();
 
                     ingredient.name = ingredients.getJSONObject(i).getString("name");
-                    System.out.println(ingredient.name);
                     ingredient.quantity = ingredients.getJSONObject(i).getString("quantity");
                     ingredient.unity = ingredients.getJSONObject(i).getString("unity");
 
