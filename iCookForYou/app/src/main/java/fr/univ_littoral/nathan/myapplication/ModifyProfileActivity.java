@@ -391,19 +391,7 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
                 if (editTextMdp.getText().toString().equals(editTextVerifMdp.getEditableText().toString())) {
                     Intent intentFromProfileActivity = getIntent();
                     update(intentFromProfileActivity);
-                    /*Intent intentModifyProfileActivity = new Intent();
-                    intentModifyProfileActivity.putExtra("NomModif", editTextNom.getText().toString());
-                    intentModifyProfileActivity.putExtra("PrenomModif", editTextPrenom.getText().toString());
-                    intentModifyProfileActivity.putExtra("MdpModif", editTextMdp.getText().toString());
-                    intentModifyProfileActivity.putExtra("MailModif", editTextMail.getText().toString());
 
-                    intentModifyProfileActivity.putExtra("VeganModif", checkboxVegan.isChecked());
-                    intentModifyProfileActivity.putExtra("VegetarianModif", checkboxVegetarian.isChecked());
-                    intentModifyProfileActivity.putExtra("NoGlutenModif", checkboxNoGluten.isChecked());
-
-                    intentModifyProfileActivity.putExtra("AllergyModif", userAllergy);
-                    intentModifyProfileActivity.putExtra("AllergyIdModif", checkedAllergies);
-                    setResult(2, intentModifyProfileActivity);*/
                     Intent intentAccueil=new Intent(ModifyProfileActivity.this, HomeActivity.class);
                     startActivity(intentAccueil);
                 } else {
