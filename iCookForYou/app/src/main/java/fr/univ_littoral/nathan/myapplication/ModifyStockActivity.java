@@ -14,6 +14,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
+import fr.univ_littoral.nathan.myapplication.sampledata.Ingredient;
+
 public class ModifyStockActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button cancel;
