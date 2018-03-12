@@ -33,6 +33,18 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.buttonOui:
                 download(v);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(10000);
+                            Intent intentRecettes=new Intent(OneCubActivity.this,StockActivity.class);
+                            startActivity(intentRecettes);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 break;
             case R.id.buttonNon:
                 Intent intentAccueil = new Intent( OneCubActivity.this, HomeActivity.class);
