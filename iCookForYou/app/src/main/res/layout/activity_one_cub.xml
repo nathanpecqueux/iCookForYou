@@ -26,6 +26,43 @@
         android:textSize="18sp"
         android:textColor="#fff"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="8dp"
+        android:text="Pour vous proposer vos recettes, notre chef a besoin de connaître l'adresse mail sur laquelle est stockée vos listes de course"
+        android:textSize="14sp"
+        android:textColor="#fff"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:text="Adresse mail :"
+            android:textSize="18sp"
+            android:textColor="#fff"/>
+
+        <EditText
+            android:id="@+id/editTextMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewMail"
+            android:width="170dp"
+            android:textSize="18sp"
+            android:textColor="#fff"
+            />
+
+    </RelativeLayout>
+
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -34,24 +71,17 @@
             android:id="@+id/buttonOui"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="38dp"
-            android:layout_marginRight="38dp"
             android:layout_marginTop="21dp"
-            android:layout_toLeftOf="@+id/buttonNon"
-            android:layout_toStartOf="@+id/buttonNon"
-            android:text="Oui" />
+            android:layout_marginLeft="60dp"
+            android:text="Lier" />
 
         <Button
             android:id="@+id/buttonNon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/buttonOui"
-            android:layout_alignBottom="@+id/buttonOui"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="99dp"
-            android:layout_marginRight="99dp"
+            android:layout_toRightOf="@+id/buttonOui"
+            android:layout_marginTop="21dp"
+            android:layout_marginLeft="20dp"
             android:text="Non" />
 
     </RelativeLayout>

@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Qu'allez-vous manger aujourd'hui ?"
+                android:hint="Qu'allez-vous manger aujourd'hui ? \n\t\tLaissez notre chef vous aider"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:textSize="18dp"

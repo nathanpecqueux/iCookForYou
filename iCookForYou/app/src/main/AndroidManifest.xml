@@ -54,13 +54,14 @@
         <activity
             android:name=".AddIngredientActivity"
             android:label="Ajouter un ingrédient"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SelectIngredientActivity"
-            android:label="Selectionner un ingrédient"/>
+            android:label="Selectionner un ingrédient" />
         <activity
             android:name=".ModifyStockActivity"
-            android:label="Modifier un ingrédient"/>
+            android:label="Modifier un ingrédient" />
+        <activity android:name=".IndexActivity"></activity>
     </application>
 
 </manifest>
