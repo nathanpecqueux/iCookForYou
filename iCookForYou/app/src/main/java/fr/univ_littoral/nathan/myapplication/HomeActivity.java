@@ -18,7 +18,21 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
 import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
@@ -45,35 +59,46 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         compteLie=false;
 
         // Get data to display
-        final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
+        //final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
 
-        // Create adapter
-        RecipeAdapter adapter = new RecipeAdapter(this, recipeList);
+        try {
+            ArrayList<Recipe> recipes = null;
 
-        // Create list view
-        mListView = (ListView) findViewById(R.id.recipe_list_view);
-        mListView.setAdapter(adapter);
+            recipes = (new Recipe(null, null).search("jambon fromage courgette"));
 
-        // Set what happens when a list view item is clicked
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            // Create adapter
+            RecipeAdapter adapter = new RecipeAdapter(this, recipes);
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Recipe selectedRecipe = recipeList.get(position);
+            final ArrayList<Recipe> recipeList = recipes;
 
-                Intent detailIntent = new Intent(context, RecipeActivity.class);
-                detailIntent.putExtra("title", selectedRecipe.title);
-                detailIntent.putExtra("servings", selectedRecipe.servings);
-                detailIntent.putExtra("time", selectedRecipe.time);
-                detailIntent.putExtra("difficulty", selectedRecipe.difficulty);
-                detailIntent.putExtra("imageUrl", selectedRecipe.imageUrl);
-                detailIntent.putExtra("ingredientLines", (ArrayList<String>)selectedRecipe.ingredientLines);
-                detailIntent.putExtra("step", (ArrayList<String>)selectedRecipe.step);
+            // Create list view
+            mListView = (ListView) findViewById(R.id.recipe_list_view);
+            mListView.setAdapter(adapter);
 
-                startActivity(detailIntent);
-            }
+            // Set what happens when a list view item is clicked
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        });
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Recipe selectedRecipe = recipeList.get(position);
+
+                    Intent detailIntent = new Intent(context, RecipeActivity.class);
+                    detailIntent.putExtra("title", selectedRecipe.getTitle());
+                    detailIntent.putExtra("servings", selectedRecipe.getServings());
+                    detailIntent.putExtra("time", selectedRecipe.getTime());
+                    detailIntent.putExtra("difficulty", selectedRecipe.getDifficulty());
+                    detailIntent.putExtra("imageUrl", selectedRecipe.getImageUrl());
+                    detailIntent.putExtra("ingredientLines", (ArrayList<String>)selectedRecipe.getIngredientLines());
+                    detailIntent.putExtra("step", (ArrayList<String>)selectedRecipe.getStep());
+
+                    startActivity(detailIntent);
+                }
+
+            });
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -113,10 +138,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 img.setImageResource(R.drawable.logo_propos);
 
                 dialog.show();
-                /*AlertDialog.Builder builder=new AlertDialog.Builder(this);
-                builder.setTitle("A propos de ...")
-                        .setMessage("ICookForYou\n\nApplication créée par :\n\nBomy François\nLebegue Clément\nLeblanc Alexandre\nPecqueux Nathan");
-                builder.show();*/
                 break;
             case R.id.menuListQuit:
                 Intent intent = new Intent(Intent.ACTION_MAIN);
