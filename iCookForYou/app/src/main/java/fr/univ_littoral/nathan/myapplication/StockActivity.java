@@ -2,10 +2,9 @@ package fr.univ_littoral.nathan.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -25,8 +24,6 @@ import java.util.Map;
 
 import fr.univ_littoral.nathan.myapplication.sampledata.Ingredient;
 import fr.univ_littoral.nathan.myapplication.sampledata.IngredientAdapter;
-import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
-import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
 public class StockActivity extends AppCompatActivity implements View.OnClickListener {
 

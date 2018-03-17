@@ -31,7 +31,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import fr.univ_littoral.nathan.myapplication.sampledata.Ingredient;
-import fr.univ_littoral.nathan.myapplication.sampledata.IngredientAdapter;
 import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
 import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
@@ -133,10 +132,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             // Get Recipe objects from data
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject jsonIng = array.getJSONObject(i);
-                                ingrédients += jsonIng.getString("nameFood")+" ";
+                                ingrédients += jsonIng.getString("nameFood") + " ";
                             }
 
-                            Recipe recipe = new Recipe(null,null);
+                            Recipe recipe = new Recipe(null, null);
 
                             Recipe.getRecipes recipes = new Recipe.getRecipes();
 
@@ -153,10 +152,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             // Get data to display
                             //final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
                             final ArrayList<Recipe> recipeList = recipe.getResultRecipes();
-
-                            for (Recipe a : recipeList) {
-                                System.out.println(a);
-                            }
 
                             // Create adapter
                             RecipeAdapter adapter = new RecipeAdapter(context, recipeList);
@@ -178,8 +173,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                     detailIntent.putExtra("time", selectedRecipe.time);
                                     detailIntent.putExtra("difficulty", selectedRecipe.difficulty);
                                     detailIntent.putExtra("imageUrl", selectedRecipe.imageUrl);
-                                    detailIntent.putExtra("ingredientLines", (ArrayList<String>)selectedRecipe.ingredientLines);
-                                    detailIntent.putExtra("step", (ArrayList<String>)selectedRecipe.step);
+                                    detailIntent.putExtra("ingredientLines", (ArrayList<String>) selectedRecipe.ingredientLines);
+                                    detailIntent.putExtra("step", (ArrayList<String>) selectedRecipe.step);
 
                                     startActivity(detailIntent);
                                 }
