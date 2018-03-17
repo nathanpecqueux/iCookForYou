@@ -1,12 +1,13 @@
 package fr.univ_littoral.nathan.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class IndexActivity extends AppCompatActivity implements View.OnClickListener {
+public class IndexActivity extends Activity implements View.OnClickListener {
 
     Button buttonCestParti;
     @Override

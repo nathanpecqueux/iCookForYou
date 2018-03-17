@@ -9,7 +9,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import fr.univ_littoral.nathan.myapplication.sampledata.Ingredient;
 import fr.univ_littoral.nathan.myapplication.sampledata.IngredientAdapter;
@@ -32,6 +35,8 @@ import fr.univ_littoral.nathan.myapplication.sampledata.IngredientAdapter;
 public class OneCubActivity extends Activity implements View.OnClickListener{
     private Button buttonOui;
     private Button buttonNon;
+    private TextView erreur;
+    private EditText mail;
     private ProgressDialog progress;
 
     private static final String URL_ONECUB = "http://51.255.164.53/php/registerOnecub.php";
@@ -43,7 +48,8 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
 
         buttonOui = (Button) findViewById(R.id.buttonOui);
         buttonNon = (Button) findViewById(R.id.buttonNon);
-
+        erreur = (TextView) findViewById(R.id.erreur);
+        mail = (EditText) findViewById(R.id.editTextMail);
 
         buttonOui.setOnClickListener(this);
         buttonNon.setOnClickListener(this);
@@ -54,19 +60,29 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonOui:
-                download(v);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(10000);
-                            Intent intentRecettes=new Intent(OneCubActivity.this,StockActivity.class);
-                            startActivity(intentRecettes);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                if(checkMail()==false){
+                    erreur.setVisibility(View.VISIBLE);
+                }else {
+                    getApplicationContext()
+                            .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                            .edit()
+                            .putBoolean("onecub", true)
+                            .apply();
+                    erreur.setVisibility(View.INVISIBLE);
+                    download(v);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1500);
+                                Intent intentRecettes = new Intent(OneCubActivity.this, StockActivity.class);
+                                startActivity(intentRecettes);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }).start();
+                    }).start();
+                }
                 break;
             case R.id.buttonNon:
                 Intent intentAccueil = new Intent( OneCubActivity.this, HomeActivity.class);
@@ -138,4 +154,8 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
         requestQueue.add(stringRequest);
     }
 
+    public boolean checkMail() {
+        String m = String.valueOf(mail.getText());
+        return Pattern.matches("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$", m);
+    }
 }

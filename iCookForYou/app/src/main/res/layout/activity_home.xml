@@ -3,13 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#2c2d30">
 
-    <ImageButton
-        android:id="@+id/imageButtonPlats"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/onec"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/plats"/>
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/onecub" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Récupérer vos ingrédients via votre mail"
+            android:textAlignment="center"
+            android:textColor="@color/colorBalanced"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white" />
+
     <ListView
         android:id="@+id/recipe_list_view"
         android:layout_width="match_parent"

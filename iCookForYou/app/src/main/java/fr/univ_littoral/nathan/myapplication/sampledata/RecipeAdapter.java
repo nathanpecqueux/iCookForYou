@@ -68,8 +68,6 @@ public class RecipeAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.thumbnailImageView = (ImageView) convertView.findViewById(R.id.recipe_list_thumbnail);
             holder.titleTextView = (TextView) convertView.findViewById(R.id.recipe_list_title);
-            holder.subtitleTextView = (TextView) convertView.findViewById(R.id.recipe_list_subtitle);
-            holder.detailTextView = (TextView) convertView.findViewById(R.id.recipe_list_detail);
 
             // hang onto this holder for future recyclage
             convertView.setTag(holder);
@@ -91,15 +89,13 @@ public class RecipeAdapter extends BaseAdapter {
 
         // Update row view's textviews to display recipe information
         titleTextView.setText(recipe.getTitle());
-        subtitleTextView.setText(null);
-        detailTextView.setText(null);
 
         // Use Picasso to load the image. Temporarily have a placeholder in case it's slow to load
         Picasso.with(mContext).setLoggingEnabled(true);
 
 
         if(recipe.getImageUrl().equals("")) {
-            Picasso.with(mContext).load("https://vignette.wikia.nocookie.net/pandorahearts/images/7/70/No_image.jpg.png/revision/latest?cb=20121025132440").placeholder(R.drawable.logo).error(R.drawable.background_food).into(thumbnailImageView);
+            Picasso.with(mContext).load(R.drawable.noimage).placeholder(R.drawable.logo).error(R.drawable.background_food).into(thumbnailImageView);
 
         }else {
             Picasso.with(mContext).load(recipe.getImageUrl()).placeholder(R.drawable.logo).error(R.drawable.background_food).into(thumbnailImageView);

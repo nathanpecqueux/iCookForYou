@@ -13,44 +13,44 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="170dp"
+                android:layout_height="250dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/logo"/>
+                android:src="@drawable/logo" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:hint="Qu'allez-vous manger aujourd'hui ? \n\t\tLaissez notre chef vous aider"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:textSize="18dp"
+                android:textAlignment="center"
+                android:textColor="#fff"
                 android:textColorHint="#fff"
-                android:textColor="#fff"/>
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/buttonCestParti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="10dp"
-                android:text="C'est parti !"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:text="C'est parti !" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="A propos"
-                android:layout_marginTop="50dp"
                 android:layout_marginLeft="130dp"
-                android:textSize="12dp"
-                android:textColorHint="#fff"
+                android:layout_marginTop="50dp"
+                android:clickable="true"
                 android:textColor="#fff"
-                android:clickable="true"/>
+                android:textColorHint="#fff"
+                android:textSize="12dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

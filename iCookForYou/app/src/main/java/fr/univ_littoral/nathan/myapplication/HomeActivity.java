@@ -9,9 +9,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,7 +41,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private ListView mListView;
     private ImageButton imageButtonPlats;
-    boolean compteLie;
+    private LinearLayout onec;
+    private View view;
     Context context;
 
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
@@ -49,11 +52,25 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        imageButtonPlats = (ImageButton) findViewById(R.id.imageButtonPlats);
-        imageButtonPlats.setOnClickListener(this);
-
+        onec = (LinearLayout) findViewById(R.id.onec);
+        onec.setOnClickListener(this);
+        view = (View) findViewById(R.id.view);
         context = this;
-        compteLie = false;
+
+        Boolean onecub = getApplicationContext()
+                .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                .getBoolean("onecub", false);
+
+        if (onecub == true) {
+            ViewGroup.LayoutParams params = onec.getLayoutParams();
+            params.height = 0;
+            onec.setLayoutParams(params);
+            view.setVisibility(View.INVISIBLE);
+        } else {
+            ViewGroup.LayoutParams params = onec.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            onec.setLayoutParams(params);
+        }
 
         printRecipes();
 
@@ -109,13 +126,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (compteLie == true) {
-            Intent intentVotreStock = new Intent(HomeActivity.this, AskStockActivity.class);
-            startActivity(intentVotreStock);
-        } else if (compteLie == false) {
-            Intent intentVosRecettes = new Intent(HomeActivity.this, OneCubActivity.class);
-            startActivity(intentVosRecettes);
-        }
+        Intent intentVotreStock = new Intent(HomeActivity.this, OneCubActivity.class);
+        startActivity(intentVotreStock);
     }
 
     private void printRecipes() {

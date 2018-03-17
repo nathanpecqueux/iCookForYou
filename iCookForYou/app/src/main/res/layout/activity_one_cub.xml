@@ -11,10 +11,11 @@
     >
 
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/onecub"
-        android:layout_marginTop="20dp"/>
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/onecub" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,14 +31,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="8dp"
-        android:text="Pour vous proposer vos recettes, notre chef a besoin de connaître l'adresse mail sur laquelle est stockée vos listes de course"
-        android:textSize="14sp"
-        android:textColor="#fff"/>
+        android:paddingBottom="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="50dp"
+        android:text="Pour vous proposer vos recettes, notre chef a besoin de connaître l'adresse mail sur laquelle est stockée vos listes de courses."
+        android:textColor="#fff"
+        android:textSize="14sp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/textViewMail"
@@ -46,8 +52,8 @@
             android:layout_gravity="center"
             android:padding="8dp"
             android:text="Adresse mail :"
-            android:textSize="18sp"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/editTextMail"
@@ -55,18 +61,17 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/textViewMail"
             android:width="170dp"
-            android:textSize="18sp"
+            android:inputType="textWebEmailAddress"
             android:textColor="#fff"
-            />
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
 
-
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center_horizontal">
 
         <Button
             android:id="@+id/buttonOui"
@@ -74,17 +79,28 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="21dp"
-            android:layout_marginLeft="60dp"
             android:text="Lier" />
 
         <Button
             android:id="@+id/buttonNon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/buttonOui"
-            android:layout_marginTop="21dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="21dp"
+            android:layout_toRightOf="@+id/buttonOui"
             android:text="Non" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/erreur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Veuillez rentrer une adresse mail correct !"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
 </LinearLayout>

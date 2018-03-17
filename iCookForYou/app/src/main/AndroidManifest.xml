@@ -38,18 +38,15 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".HomeActivity"
-            android:label="Liste des recettes" />
+            android:label="Les recettes tirées de votre placard" />
         <activity
             android:name=".RecipeActivity"
-            android:label="A vos fourneaux !" />
+            android:label="A vous de jouer !" />
         <activity
             android:name=".StockActivity"
-            android:label="Votre stock !" />
+            android:label="Votre placard" />
         <activity
             android:name=".OneCubActivity"
-            android:label="Onecub" />
-        <activity
-            android:name=".AskStockActivity"
             android:label="Onecub" />
         <activity
             android:name=".AddIngredientActivity"

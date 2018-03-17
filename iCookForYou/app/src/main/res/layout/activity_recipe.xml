@@ -122,9 +122,8 @@
                 android:id="@+id/buttonRealiser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="60dp"
-                android:text="J'ai réalisé cette recette"/>
+                android:layout_gravity="center_horizontal"
+                android:text="J'ai réalisé cette recette" />
         </LinearLayout>
 
     </ScrollView>
