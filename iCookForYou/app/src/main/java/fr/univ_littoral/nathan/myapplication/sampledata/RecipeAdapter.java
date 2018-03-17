@@ -90,26 +90,20 @@ public class RecipeAdapter extends BaseAdapter {
         Recipe recipe = (Recipe) getItem(position);
 
         // Update row view's textviews to display recipe information
-        titleTextView.setText(recipe.title);
-        subtitleTextView.setText(recipe.description);
-        detailTextView.setText(recipe.label);
+        titleTextView.setText(recipe.getTitle());
+        subtitleTextView.setText(null);
+        detailTextView.setText(null);
 
         // Use Picasso to load the image. Temporarily have a placeholder in case it's slow to load
         Picasso.with(mContext).setLoggingEnabled(true);
-        Picasso.with(mContext).load(recipe.imageUrl).placeholder(R.drawable.logo).error(R.drawable.background_food).into(thumbnailImageView);
 
-        // Style text views
-       /* Typeface titleTypeFace = Typeface.createFromAsset(mContext.getAssets(),
-                "fonts/JosefinSans-Bold.ttf");
-        titleTextView.setTypeface(titleTypeFace);
-        Typeface subtitleTypeFace = Typeface.createFromAsset(mContext.getAssets(),
-                "fonts/JosefinSans-SemiBoldItalic.ttf");
-        subtitleTextView.setTypeface(subtitleTypeFace);
-        Typeface detailTypeFace = Typeface.createFromAsset(mContext.getAssets(),
-                "fonts/Quicksand-Bold.otf");
-        detailTextView.setTypeface(detailTypeFace);*/
-        detailTextView.setTextColor(android.support.v4.content.ContextCompat.getColor(mContext, LABEL_COLORS
-                .get(recipe.label)));
+
+        if(recipe.getImageUrl().equals("")) {
+            Picasso.with(mContext).load("https://vignette.wikia.nocookie.net/pandorahearts/images/7/70/No_image.jpg.png/revision/latest?cb=20121025132440").placeholder(R.drawable.logo).error(R.drawable.background_food).into(thumbnailImageView);
+
+        }else {
+            Picasso.with(mContext).load(recipe.getImageUrl()).placeholder(R.drawable.logo).error(R.drawable.background_food).into(thumbnailImageView);
+        }
 
         return convertView;
     }

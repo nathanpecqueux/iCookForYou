@@ -152,38 +152,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(intentModifyProfileActivity);
     }
 
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            textViewNom.setText(data.getStringExtra("NomModif"));
-            textViewPrenom.setText(data.getStringExtra("PrenomModif"));
-            textViewMdp.setText(data.getStringExtra("MdpModif"));
-            textViewMail.setText(data.getStringExtra("MailModif"));
-
-            boolean temp = (data.getBooleanExtra("VeganModif", false));
-            if (temp == true) {
-                checkboxVegan.setChecked(true);
-            } else {
-                checkboxVegan.setChecked(false);
-            }
-            temp = (data.getBooleanExtra("VegetarianModif", false));
-            if (temp == true) {
-                checkboxVegetarian.setChecked(true);
-            } else {
-                checkboxVegetarian.setChecked(false);
-            }
-            temp = (data.getBooleanExtra("NoGlutenModif", false));
-            if (temp == true) {
-                checkboxNoGluten.setChecked(true);
-            } else {
-                checkboxNoGluten.setChecked(false);
-            }
-            userA = data.getStringArrayListExtra("AllergyModif");
-
-            setTextViewUserAllergy();
-        }
-    }*/
-
     private void findUser() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERS,
                 new Response.Listener<String>() {
