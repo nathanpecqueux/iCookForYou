@@ -67,6 +67,7 @@
             android:name=".SelectModifyIngredientActivity"
             android:label="Selectionner un ingrédient"
             android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".IndexActivity"></activity>
     </application>
 
 </manifest>
