@@ -1,45 +1,38 @@
 package fr.univ_littoral.nathan.myapplication.sampledata;
 
 import android.content.Context;
-import android.util.Log;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import android.os.AsyncTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import fr.univ_littoral.nathan.myapplication.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Recipe {
 
-    private String title;
-    private Document page;
-    private String urlLink;
-    private String imageUrl;
-    private String servings;
-    private String difficulty;
-    private String time;
-    private ArrayList<String> ingredientLines = new ArrayList<String>();
-    private List<String> step = new ArrayList<String>();
+    public String title;
+    public Document page;
+    public String urlLink;
+    public String imageUrl;
+    public String servings;
+    public String difficulty;
+    public String time;
+    public ArrayList<String> ingredientLines = new ArrayList<String>();
+    public List<String> step = new ArrayList<String>();
+    public static ArrayList<Recipe> resultRecipes = new ArrayList<>();
 
     public Recipe(String name, String urlLink) {
         this.title = name;
@@ -160,10 +153,9 @@ public class Recipe {
     }
 
     public ArrayList<Recipe> search(String keyword)throws IOException {
-
         ArrayList<Recipe> resultRecipes = new ArrayList<>();
 
-        Document document = Jsoup.connect("http://www.marmiton.org/recettes/recherche.aspx?aqt=" + keyword).get();
+        Document document = Jsoup.connect("http://www.marmiton.org/recettes/recherche.aspx?aqt=" + "jambon").get();
 
         Element elementResultsList = document.getElementsByClass("recipe-results").first();
         Elements resultsElements = elementResultsList.getElementsByClass("recipe-card");
@@ -180,6 +172,44 @@ public class Recipe {
             resultRecipes.add(r);
 
         }
+        return resultRecipes;
+    }
+
+    public static class getRecipes extends AsyncTask<String, Void, Void> {
+        //ArrayList<Recipe> resultRecipes = new ArrayList<>();
+
+        String ingrédients = null;
+
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                ingrédients = params[0];
+
+                Document document = Jsoup.connect("http://www.marmiton.org/recettes/recherche.aspx?aqt=" + ingrédients).get();
+
+                Element elementResultsList = document.getElementsByClass("recipe-results").first();
+                Elements resultsElements = elementResultsList.getElementsByClass("recipe-card");
+
+                for (Element e : resultsElements) {
+                    Elements currentRecipeElement = e.getElementsByClass("recipe-card__title");
+                    String title = currentRecipeElement.first().ownText();
+                    String urlLink = "http://www.marmiton.org" + e.attr("href");
+
+                    Recipe r = new Recipe(title, urlLink);
+
+                    r.loadInformations();
+
+                    resultRecipes.add(r);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public ArrayList<Recipe> getResultRecipes() {
         return resultRecipes;
     }
 
@@ -254,7 +284,6 @@ public class Recipe {
     public void setStep(List<String> step) {
         this.step = step;
     }
-
 
     @Override
     public String toString() {

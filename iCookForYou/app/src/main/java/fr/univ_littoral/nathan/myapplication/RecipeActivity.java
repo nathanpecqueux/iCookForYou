@@ -70,8 +70,12 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         step=intentReceive.getStringArrayListExtra("step");
 
         imageRecipe=(ImageView) findViewById(R.id.imageRecipe);
-        Picasso.with(this).load(imageUrl).resize(300,200).into(imageRecipe);
 
+        if(imageUrl.equals("")){
+
+        }else{
+            Picasso.with(this).load(imageUrl).resize(450,300).into(imageRecipe);
+        }
 
         textViewTitreRecette = (TextView) findViewById(R.id.textViewTitreRecette);
         textViewNbPersonnes = (TextView) findViewById(R.id.textViewNbPersonnes);
