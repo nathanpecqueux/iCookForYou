@@ -115,7 +115,13 @@ public class Recipe {
                 result.add("1 " + ingredientName);
             } else {
                 float quantity = (float) parse((page.getElementsByClass("recipe-ingredient-qt").get(i).text()));
-                result.add(quantity + " " + ingredientName);
+                double decimale = quantity - (int) quantity;
+                if(decimale == 0){
+                    int q = (int) parse((page.getElementsByClass("recipe-ingredient-qt").get(i).text()));
+                    result.add(q + " " + ingredientName);
+                }else{
+                    result.add(quantity + " " + ingredientName);
+                }
             }
         }
         ingredientLines = result;
