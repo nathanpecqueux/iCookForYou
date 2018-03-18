@@ -51,7 +51,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         modifyStock = (Button) findViewById(R.id.modifIngredient);
         modifyStock.setOnClickListener(this);
 
-        System.out.println("create stock");
+        findFood();
     }
 
     @Override
