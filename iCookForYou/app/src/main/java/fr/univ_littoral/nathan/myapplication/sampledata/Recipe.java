@@ -39,7 +39,6 @@ public class Recipe {
         this.urlLink = urlLink;
     }
 
-
     public static ArrayList<Recipe> getRecipesFromFile(String filename, Context context){
         final ArrayList<Recipe> recipeList = new ArrayList<>();
 
@@ -118,9 +117,7 @@ public class Recipe {
                 float quantity = (float) parse((page.getElementsByClass("recipe-ingredient-qt").get(i).text()));
                 result.add(quantity + " " + ingredientName);
             }
-
         }
-
         ingredientLines = result;
 
         servings = page.getElementsByClass("title-2 recipe-infos__quantity__value").text();

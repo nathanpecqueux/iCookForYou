@@ -212,7 +212,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 params.put("mail", mail);
                 return params;
             }
-
         };
 
         Volley.newRequestQueue(this).add(stringRequest);
