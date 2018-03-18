@@ -56,9 +56,9 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
+        //final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
 
-        RecipeAdapter adapter = new RecipeAdapter(this, recipeList);
+        //RecipeAdapter adapter = new RecipeAdapter(this, recipeList);
 
         Intent intentReceive=getIntent();
         title=intentReceive.getStringExtra("title");
@@ -144,9 +144,9 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 
     public void codeBouchon() {
         textViewTitreRecette.setText(title);
-        textViewNbPersonnes.setHint("Personnes :"+servings);
-        textViewDifficulte.setHint("Difficulté :"+difficulty);
-        textViewTempsPrep.setHint("Temps :"+time+"min");
+        textViewNbPersonnes.setHint("Personnes :   "+servings);
+        textViewDifficulte.setHint("Difficulté :   "+difficulty);
+        textViewTempsPrep.setHint("Temps :   "+time);
 
         separateIngredients(ingredientLines);
         int compteur = ingredientLines.size();
@@ -206,8 +206,8 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     public void affichageEtapes() {
         String totalEtape = new String();
         int temp;
-        for (int i = 0; i < step.size(); i++) {
-            temp = i + 1;
+        for (int i = 1; i < step.size(); i++) {
+            temp = i;
             totalEtape += "Etape " + temp + " :\n";
             totalEtape += "       " + step.get(i) + "\n\n";
         }

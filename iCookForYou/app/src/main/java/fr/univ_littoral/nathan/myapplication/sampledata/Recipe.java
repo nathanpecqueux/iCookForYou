@@ -32,7 +32,7 @@ public class Recipe {
     public String time;
     public ArrayList<String> ingredientLines = new ArrayList<String>();
     public List<String> step = new ArrayList<String>();
-    public static ArrayList<Recipe> resultRecipes = new ArrayList<>();
+    public static ArrayList<Recipe> resultRecipes;
 
     public Recipe(String name, String urlLink) {
         this.title = name;
@@ -187,6 +187,8 @@ public class Recipe {
                 Element elementResultsList = document.getElementsByClass("recipe-results").first();
                 Elements resultsElements = elementResultsList.getElementsByClass("recipe-card");
 
+                resultRecipes = new ArrayList<>();
+
                 for (Element e : resultsElements) {
                     Elements currentRecipeElement = e.getElementsByClass("recipe-card__title");
                     String title = currentRecipeElement.first().ownText();
@@ -195,6 +197,7 @@ public class Recipe {
                     Recipe r = new Recipe(title, urlLink);
 
                     r.loadInformations();
+
 
                     resultRecipes.add(r);
                 }

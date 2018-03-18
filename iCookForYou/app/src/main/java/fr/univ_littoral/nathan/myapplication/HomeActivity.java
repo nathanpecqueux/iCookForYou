@@ -147,7 +147,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                 ingrédients += jsonIng.getString("nameFood") + " ";
                             }
 
-                            Recipe recipe = new Recipe(null, null);
+                            Recipe recipe = new Recipe(null,null);
 
                             Recipe.getRecipes recipes = new Recipe.getRecipes();
 
