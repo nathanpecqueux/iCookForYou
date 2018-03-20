@@ -11,13 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,18 +37,18 @@ public class Recipe {
         this.urlLink = urlLink;
     }
 
-    public static ArrayList<Recipe> getRecipesFromFile(String filename, Context context){
+    public static ArrayList<Recipe> getRecipesFromFile(String filename, Context context) {
         final ArrayList<Recipe> recipeList = new ArrayList<>();
 
         try {
             // Load data
             String jsonString = loadJsonFromAsset("recipes.json", context);
-            if(jsonString!=null){
+            if (jsonString != null) {
                 JSONObject json = new JSONObject(jsonString);
                 JSONArray recipes = json.getJSONArray("recipes");
 
                 // Get Recipe objects from data
-                for(int i = 0; i < recipes.length(); i++) {
+                for (int i = 0; i < recipes.length(); i++) {
                     Recipe recipe = new Recipe();
 
                     recipe.title = recipes.getJSONObject(i).getString("title");
@@ -92,8 +87,7 @@ public class Recipe {
             is.read(buffer);
             is.close();
             json = new String(buffer, "UTF-8");
-        }
-        catch (java.io.IOException ex) {
+        } catch (java.io.IOException ex) {
             ex.printStackTrace();
             return null;
         }
@@ -155,7 +149,7 @@ public class Recipe {
             } else {
                 imageUrl = "";
             }
-        }else if(infoToLoad.equals("list")){
+        } else if (infoToLoad.equals("list")) {
             page = Jsoup.connect(urlLink).get();
             ArrayList<String> result = new ArrayList<>();
 
@@ -203,10 +197,11 @@ public class Recipe {
 
                 resultRecipes = new ArrayList<>();
 
-                for (Element e : resultsElements) {
-                    Elements currentRecipeElement = e.getElementsByClass("recipe-card__title");
+//                for (Element e : resultsElements) {
+                for(int i=0; i<5; i++){
+                    Elements currentRecipeElement = resultsElements.get(i).getElementsByClass("recipe-card__title");
                     String title = currentRecipeElement.first().ownText();
-                    String urlLink = "http://www.marmiton.org" + e.attr("href");
+                    String urlLink = "http://www.marmiton.org" + resultsElements.get(i).attr("href");
 
                     Recipe r = new Recipe(title, urlLink);
 
@@ -215,6 +210,28 @@ public class Recipe {
                     resultRecipes.add(r);
                 }
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public static class getRecipe extends AsyncTask<String, Void, Void> {
+        //ArrayList<Recipe> resultRecipes = new ArrayList<>();
+
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                resultRecipes = new ArrayList<>();
+
+                String title = params[0];
+                String url = params[1];
+                Recipe r = new Recipe(title, url);
+
+                r.loadInformations(params[2]);
+
+                resultRecipes.add(r);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -21,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
 import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
@@ -40,6 +42,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     String time;
     String servings;
     String imageUrl;
+    String url;
 
     TableLayout tableLayoutIngredients;
     TableRow row; // création d'un élément : ligne
@@ -56,18 +59,34 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        //final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
-
-        //RecipeAdapter adapter = new RecipeAdapter(this, recipeList);
-
         Intent intentReceive=getIntent();
+        url=intentReceive.getStringExtra("url");
         title=intentReceive.getStringExtra("title");
-        difficulty=intentReceive.getStringExtra("difficulty");
-        time=intentReceive.getStringExtra("time");
-        servings=intentReceive.getStringExtra("servings");
-        imageUrl=intentReceive.getStringExtra("imageUrl");
-        ingredientLines=intentReceive.getStringArrayListExtra("ingredientLines");
-        step=intentReceive.getStringArrayListExtra("step");
+
+        Recipe r = new Recipe(title,url);
+
+        Recipe.getRecipe recipes = new Recipe.getRecipe();
+
+        recipes.execute(title, url, "all");
+
+        System.out.println(r.resultRecipes.size());
+
+        try {
+            recipes.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(r);
+
+        difficulty=r.resultRecipes.get(0).difficulty;
+        time=r.resultRecipes.get(0).time;
+        servings=r.resultRecipes.get(0).servings;
+        imageUrl=r.resultRecipes.get(0).imageUrl;
+        ingredientLines=r.resultRecipes.get(0).ingredientLines;
+        step=r.resultRecipes.get(0).step;
 
         imageRecipe=(ImageView) findViewById(R.id.imageRecipe);
 

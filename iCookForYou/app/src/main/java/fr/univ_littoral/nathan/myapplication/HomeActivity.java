@@ -212,6 +212,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                                     Intent detailIntent = new Intent(context, RecipeActivity.class);
                                     detailIntent.putExtra("url", selectedRecipe.urlLink);
+                                    detailIntent.putExtra("title", selectedRecipe.title);
 
                                     startActivity(detailIntent);
                                 }
