@@ -1,9 +1,12 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -43,6 +47,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton imageButtonPlats;
     private LinearLayout onec;
     private View view;
+    private ProgressBar loading;
     Context context;
 
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
@@ -51,6 +56,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        loading = (ProgressBar) findViewById(R.id.progressBar2);
+        load(view);
 
         onec = (LinearLayout) findViewById(R.id.onec);
         onec.setOnClickListener(this);
@@ -130,6 +138,25 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intentVotreStock);
     }
 
+    public void load(View view){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        if(loading.getProgress()==100){
+                            loading.setProgress(0);
+                        }
+                        Thread.sleep(50);
+                        loading.incrementProgressBy(10);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
     private void printRecipes() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_FOOD,
                 new Response.Listener<String>() {
@@ -147,13 +174,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                 ingrédients += jsonIng.getString("nameFood") + " ";
                             }
 
-                            Recipe recipe = new Recipe(null,null);
+                            Recipe recipe = new Recipe();
 
                             Recipe.getRecipes recipes = new Recipe.getRecipes();
 
-                            recipes.execute(ingrédients);
+                            recipes.execute(ingrédients, "list");
 
                             try {
+                                ViewGroup.LayoutParams params = loading.getLayoutParams();
+                                params.height = 0;
+                                loading.setLayoutParams(params);
                                 recipes.get();
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
@@ -163,7 +193,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                             // Get data to display
                             //final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
-                            final ArrayList<Recipe> recipeList = recipe.getResultRecipes();
+                            final ArrayList<Recipe> recipeList = recipe.resultRecipes;
 
                             // Create adapter
                             RecipeAdapter adapter = new RecipeAdapter(context, recipeList);
@@ -177,16 +207,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                                     Recipe selectedRecipe = recipeList.get(position);
 
                                     Intent detailIntent = new Intent(context, RecipeActivity.class);
-                                    detailIntent.putExtra("title", selectedRecipe.title);
-                                    detailIntent.putExtra("servings", selectedRecipe.servings);
-                                    detailIntent.putExtra("time", selectedRecipe.time);
-                                    detailIntent.putExtra("difficulty", selectedRecipe.difficulty);
-                                    detailIntent.putExtra("imageUrl", selectedRecipe.imageUrl);
-                                    detailIntent.putExtra("ingredientLines", (ArrayList<String>) selectedRecipe.ingredientLines);
-                                    detailIntent.putExtra("step", (ArrayList<String>) selectedRecipe.step);
+                                    detailIntent.putExtra("url", selectedRecipe.urlLink);
 
                                     startActivity(detailIntent);
                                 }
