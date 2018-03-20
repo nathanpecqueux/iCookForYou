@@ -184,11 +184,13 @@ public class Recipe {
         //ArrayList<Recipe> resultRecipes = new ArrayList<>();
 
         String ingrédients = null;
+        int index = 0;
 
         @Override
         protected Void doInBackground(String... params) {
             try {
                 ingrédients = params[0];
+                index = Integer.parseInt(params[2]);
 
                 Document document = Jsoup.connect("http://www.marmiton.org/recettes/recherche.aspx?aqt=" + ingrédients).get();
 
@@ -198,7 +200,7 @@ public class Recipe {
                 resultRecipes = new ArrayList<>();
 
 //                for (Element e : resultsElements) {
-                for(int i=0; i<5; i++){
+                for(int i=0; i<index; i++){
                     Elements currentRecipeElement = resultsElements.get(i).getElementsByClass("recipe-card__title");
                     String title = currentRecipeElement.first().ownText();
                     String urlLink = "http://www.marmiton.org" + resultsElements.get(i).attr("href");

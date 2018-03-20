@@ -43,5 +43,17 @@
     <ListView
         android:id="@+id/recipe_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="350dp">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Suivant"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp" />
+
 </LinearLayout>

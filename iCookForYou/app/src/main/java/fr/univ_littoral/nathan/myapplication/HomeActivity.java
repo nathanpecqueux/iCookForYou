@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,9 +45,10 @@ import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView mListView;
-    private ImageButton imageButtonPlats;
+    private Button next;
     private LinearLayout onec;
     private View view;
+    private String index = "5";
     private ProgressBar loading;
     Context context;
 
@@ -57,8 +59,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        index="5";
+
         loading = (ProgressBar) findViewById(R.id.progressBar2);
         load(view);
+        next = (Button) findViewById(R.id.buttonNext);
+        next.setOnClickListener(this);
 
         onec = (LinearLayout) findViewById(R.id.onec);
         onec.setOnClickListener(this);
@@ -134,8 +140,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Intent intentVotreStock = new Intent(HomeActivity.this, OneCubActivity.class);
-        startActivity(intentVotreStock);
+        switch (view.getId()) {
+            case R.id.onec:
+                Intent intentVotreStock = new Intent(HomeActivity.this, OneCubActivity.class);
+                startActivity(intentVotreStock);
+                break;
+            case R.id.buttonNext:
+                printRecipes();
+        }
     }
 
     public void load(View view){
@@ -178,7 +190,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                             Recipe.getRecipes recipes = new Recipe.getRecipes();
 
-                            recipes.execute(ingrédients, "list");
+                            recipes.execute(ingrédients, "list", index);
 
                             try {
                                 ViewGroup.LayoutParams params = loading.getLayoutParams();
@@ -201,6 +213,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             // Create list view
                             mListView = (ListView) findViewById(R.id.recipe_list_view);
                             mListView.setAdapter(adapter);
+
+                            if(Integer.parseInt(index)!=15) {
+                                index = String.valueOf(Integer.parseInt(index) + 5);
+                            }else{
+                                ViewGroup.LayoutParams params = next.getLayoutParams();
+                                params.height = 0;
+                                next.setLayoutParams(params);
+                            }
+                            scrollMyListViewToBottom();
 
                             // Set what happens when a list view item is clicked
                             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -241,5 +262,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+    private void scrollMyListViewToBottom() {
+        mListView.post(new Runnable() {
+            @Override
+            public void run() {
+                // Select the last row so it will scroll into view...
+                mListView.setSelection(mListView.getCount()-6);
+            }
+        });
     }
 }
