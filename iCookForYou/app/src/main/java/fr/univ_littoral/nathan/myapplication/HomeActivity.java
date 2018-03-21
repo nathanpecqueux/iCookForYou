@@ -46,10 +46,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private ListView mListView;
     private Button next;
-    private LinearLayout onec;
-    private View view;
+    private ImageView onec;
     private String index = "5";
-    private ProgressBar loading;
     Context context;
 
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
@@ -61,14 +59,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         index="5";
 
-        loading = (ProgressBar) findViewById(R.id.progressBar2);
-        load(view);
         next = (Button) findViewById(R.id.buttonNext);
         next.setOnClickListener(this);
 
-        onec = (LinearLayout) findViewById(R.id.onec);
+        onec = (ImageView) findViewById(R.id.onecub);
         onec.setOnClickListener(this);
-        view = (View) findViewById(R.id.view);
         context = this;
 
         Boolean onecub = getApplicationContext()
@@ -77,9 +72,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         if (onecub == true) {
             ViewGroup.LayoutParams params = onec.getLayoutParams();
-            params.height = 0;
+            params.width = 0;
             onec.setLayoutParams(params);
-            view.setVisibility(View.INVISIBLE);
         } else {
             ViewGroup.LayoutParams params = onec.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -141,32 +135,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.onec:
+            case R.id.onecub:
                 Intent intentVotreStock = new Intent(HomeActivity.this, OneCubActivity.class);
                 startActivity(intentVotreStock);
                 break;
             case R.id.buttonNext:
                 printRecipes();
         }
-    }
-
-    public void load(View view){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (true) {
-                        if(loading.getProgress()==100){
-                            loading.setProgress(0);
-                        }
-                        Thread.sleep(50);
-                        loading.incrementProgressBy(10);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 
     private void printRecipes() {
@@ -193,9 +168,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             recipes.execute(ingrédients, "list", index);
 
                             try {
-                                ViewGroup.LayoutParams params = loading.getLayoutParams();
-                                params.height = 0;
-                                loading.setLayoutParams(params);
                                 recipes.get();
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
@@ -269,7 +241,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 // Select the last row so it will scroll into view...
-                mListView.setSelection(mListView.getCount()-6);
+                mListView.setSelection(mListView.getCount()-7);
             }
         });
     }
