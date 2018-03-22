@@ -199,7 +199,6 @@ public class Recipe {
 
                 resultRecipes = new ArrayList<>();
 
-//                for (Element e : resultsElements) {
                 for(int i=0; i<index; i++){
                     Elements currentRecipeElement = resultsElements.get(i).getElementsByClass("recipe-card__title");
                     String title = currentRecipeElement.first().ownText();
