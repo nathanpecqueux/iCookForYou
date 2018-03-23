@@ -63,22 +63,26 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_liste_recette, menu);
+        inflater.inflate(R.menu.menu_recette, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuListProfil:
+            case R.id.menuRecetteAccueil:
+                Intent intentAccueil = new Intent(HistoryActivity.this, HomeActivity.class);
+                startActivity(intentAccueil);
+                break;
+            case R.id.menuRecetteProfil:
                 Intent intentProfil = new Intent(HistoryActivity.this, ProfileActivity.class);
                 startActivity(intentProfil);
                 break;
-            case R.id.menuListStock:
+            case R.id.menuRecetteStock:
                 Intent intentStock = new Intent(HistoryActivity.this, StockActivity.class);
                 startActivity(intentStock);
                 break;
-            case R.id.menuListAPropos:
+            case R.id.menuRecetteAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
                 dialog.setCancelable(true);
@@ -98,11 +102,11 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
 
                 dialog.show();
                 break;
-            case R.id.menuListQuit:
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+            case R.id.menuRecetteQuitter:
+                Intent intentQuitter = new Intent(Intent.ACTION_MAIN);
+                intentQuitter.addCategory(Intent.CATEGORY_HOME);
+                intentQuitter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intentQuitter);
                 break;
         }
         return true;
@@ -148,12 +152,6 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
                             } catch (ExecutionException e) {
                                 e.printStackTrace();
                             }
-
-                            for (Recipe r:recipe.resultRecipes
-                                 ) {
-                                System.out.println(r);
-                            }
-
 
                             // Get data to display
                             //final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);

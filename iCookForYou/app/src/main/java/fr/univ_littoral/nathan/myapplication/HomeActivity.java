@@ -49,6 +49,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView onec;
     private String index = "5";
     private Button hist;
+    private Button top;
     Context context;
 
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
@@ -64,6 +65,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         next.setOnClickListener(this);
         hist = (Button) findViewById(R.id.buttonHistory);
         hist.setOnClickListener(this);
+        top = (Button) findViewById(R.id.buttonPop);
+        top.setOnClickListener(this);
 
         onec = (ImageView) findViewById(R.id.onecub);
         onec.setOnClickListener(this);
@@ -148,6 +151,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.buttonHistory:
                 Intent history = new Intent(HomeActivity.this, HistoryActivity.class);
                 startActivity(history);
+                break;
+            case R.id.buttonPop:
+                Intent top = new Intent(HomeActivity.this, TopActivity.class);
+                startActivity(top);
                 break;
         }
     }

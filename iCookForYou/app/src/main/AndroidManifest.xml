@@ -43,6 +43,9 @@
             android:name=".HistoryActivity"
             android:label="Votre historique" />
         <activity
+            android:name=".TopActivity"
+            android:label="Top des recettes" />
+        <activity
             android:name=".RecipeActivity"
             android:label="A vous de jouer !" />
         <activity

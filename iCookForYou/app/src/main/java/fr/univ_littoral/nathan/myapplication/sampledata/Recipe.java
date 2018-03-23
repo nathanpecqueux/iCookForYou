@@ -239,7 +239,6 @@ public class Recipe {
         }
     }
 
-
     public static class getHistoryList extends AsyncTask<String, Void, Void> {
         //ArrayList<Recipe> resultRecipes = new ArrayList<>();
 
@@ -267,6 +266,43 @@ public class Recipe {
                 r.loadInformations(params[1]);
 
                 resultRecipes.add(r);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public static class getTop extends AsyncTask<String, Void, Void> {
+        //ArrayList<Recipe> resultRecipes = new ArrayList<>();
+
+        int index = 0;
+
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                index = Integer.parseInt(params[0]);
+
+                Document document = Jsoup.connect("http://www.marmiton.org/recettes/top-internautes.aspx").get();
+
+                Element elementResultsList = document.getElementsByClass("m-lsting-recipe").first();
+                Elements resultsElements = elementResultsList.getElementsByClass("item");
+
+                resultRecipes = new ArrayList<>();
+
+                for (int i = 0; i < index; i++) {
+                    Elements currentRecipeElement = resultsElements.get(i).getElementsByClass("title");
+                    String title = currentRecipeElement.first().ownText();
+                    String urlLink = "http://www.marmiton.org" + resultsElements.get(i).attr("href");
+
+                    Recipe r = new Recipe(title, urlLink);
+                    //System.out.println(r);
+
+                    r.loadInformations(params[1]);
+
+                    resultRecipes.add(r);
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
