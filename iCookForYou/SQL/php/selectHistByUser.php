@@ -17,26 +17,36 @@ if (mysqli_connect_errno()) {
 
 mysqli_set_charset($conn, "utf8");
 
-$url = $_POST['url'];
 $mail = $_POST['mail'];
 
-$Sql_Query = "
-INSERT THistory (idUserH, urlRecipe)
-	SELECT 
-		idUser, '$url'
-	FROM
-		TUser
-	WHERE
-		mail = '$mail';
-";
+// creating a query
+$stmt = $conn->prepare("
+SELECT 
+    h.urlRecipe
+FROM
+    THistory h
+        INNER JOIN
+    TUser us ON h.idUserH = us.idUser
+WHERE
+    us.mail = '$mail';
+");
 
-if (mysqli_query($conn, $Sql_Query)) {
-    echo 'Data Inserted Successfully';
-} else {
-    echo 'Try Again';
+// executing the query
+$stmt->execute();
+
+// binding results to the query
+$stmt->bind_result($url);
+
+$food = array();
+
+// traversing through all the result
+while ($stmt->fetch()) {
+    $temp = array();
+    $temp['url'] = $url;
+    array_push($food, $temp);
 }
 
-mysqli_close($conn);
+// displaying the result in json format
+echo json_encode($food);
 
 ?>
-

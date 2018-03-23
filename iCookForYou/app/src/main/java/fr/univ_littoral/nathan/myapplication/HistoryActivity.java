@@ -1,12 +1,9 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,11 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -42,46 +36,25 @@ import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
 import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HistoryActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView mListView;
     private Button next;
-    private ImageView onec;
     private String index = "5";
-    private Button hist;
     Context context;
 
-    private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
+    private static final String URL_FOOD = "http://51.255.164.53/php/selectHistByUser.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_history);
 
         index="5";
 
-        next = (Button) findViewById(R.id.buttonNext);
+        next = (Button) findViewById(R.id.buttonNext2);
         next.setOnClickListener(this);
-        hist = (Button) findViewById(R.id.buttonHistory);
-        hist.setOnClickListener(this);
-
-        onec = (ImageView) findViewById(R.id.onecub);
-        onec.setOnClickListener(this);
         context = this;
-
-        Boolean onecub = getApplicationContext()
-                .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-                .getBoolean("onecub", false);
-
-        if (onecub == true) {
-            ViewGroup.LayoutParams params = onec.getLayoutParams();
-            params.width = 0;
-            onec.setLayoutParams(params);
-        } else {
-            ViewGroup.LayoutParams params = onec.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            onec.setLayoutParams(params);
-        }
 
         printRecipes();
 
@@ -98,11 +71,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuListProfil:
-                Intent intentProfil = new Intent(HomeActivity.this, ProfileActivity.class);
+                Intent intentProfil = new Intent(HistoryActivity.this, ProfileActivity.class);
                 startActivity(intentProfil);
                 break;
             case R.id.menuListStock:
-                Intent intentStock = new Intent(HomeActivity.this, StockActivity.class);
+                Intent intentStock = new Intent(HistoryActivity.this, StockActivity.class);
                 startActivity(intentStock);
                 break;
             case R.id.menuListAPropos:
@@ -138,16 +111,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.onecub:
-                Intent intentVotreStock = new Intent(HomeActivity.this, OneCubActivity.class);
-                startActivity(intentVotreStock);
-                break;
-            case R.id.buttonNext:
+            case R.id.buttonNext2:
                 printRecipes();
-                break;
-            case R.id.buttonHistory:
-                Intent history = new Intent(HomeActivity.this, HistoryActivity.class);
-                startActivity(history);
                 break;
         }
     }
@@ -161,31 +126,38 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             final ArrayList<Ingredient> ingredientList = new ArrayList<>();
 
                             JSONArray array = new JSONArray(response);
-                            String ingrédients = "";
+                            ArrayList<String> urls = new ArrayList<>();
 
                             // Get Recipe objects from data
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject jsonIng = array.getJSONObject(i);
-                                ingrédients += jsonIng.getString("nameFood") + " ";
+                                urls.add(jsonIng.getString("url"));
                             }
+                            ArrayList<Recipe> recipesL = new ArrayList<>();
 
                             Recipe recipe = new Recipe();
-
-                            Recipe.getRecipes recipes = new Recipe.getRecipes();
-
-                            recipes.execute(ingrédients, "list", index);
-
                             try {
-                                recipes.get();
+                                for (int i = 0; i < array.length(); i++) {
+                                    Recipe.getHistoryList recipes = new Recipe.getHistoryList();
+                                    recipes.execute(urls.get(i),"list");
+                                    recipes.get();
+                                    recipesL.add(recipe.resultRecipes.get(0));
+                                }
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             } catch (ExecutionException e) {
                                 e.printStackTrace();
                             }
 
+                            for (Recipe r:recipe.resultRecipes
+                                 ) {
+                                System.out.println(r);
+                            }
+
+
                             // Get data to display
                             //final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
-                            final ArrayList<Recipe> recipeList = recipe.resultRecipes;
+                            final ArrayList<Recipe> recipeList = recipesL;
 
                             // Create adapter
                             RecipeAdapter adapter = new RecipeAdapter(context, recipeList);

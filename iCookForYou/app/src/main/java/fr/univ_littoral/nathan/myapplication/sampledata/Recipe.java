@@ -105,7 +105,6 @@ public class Recipe {
     }
 
     public void loadInformations(String infoToLoad) throws IOException {
-
         if (infoToLoad.equals("all")) {
             page = Jsoup.connect(urlLink).get();
             time = (page.getElementsByClass("title-2 recipe-infos__total-time__value").text());
@@ -199,7 +198,7 @@ public class Recipe {
 
                 resultRecipes = new ArrayList<>();
 
-                for(int i=0; i<index; i++){
+                for (int i = 0; i < index; i++) {
                     Elements currentRecipeElement = resultsElements.get(i).getElementsByClass("recipe-card__title");
                     String title = currentRecipeElement.first().ownText();
                     String urlLink = "http://www.marmiton.org" + resultsElements.get(i).attr("href");
@@ -231,6 +230,41 @@ public class Recipe {
                 Recipe r = new Recipe(title, url);
 
                 r.loadInformations(params[2]);
+
+                resultRecipes.add(r);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
+    public static class getHistoryList extends AsyncTask<String, Void, Void> {
+        //ArrayList<Recipe> resultRecipes = new ArrayList<>();
+
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                resultRecipes = new ArrayList<>();
+
+                String url = params[0];
+                Document document = null;
+                try {
+                    document = Jsoup.connect(url).get();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Element resultsElements = document.getElementsByClass("main-title").first();
+
+                resultRecipes = new ArrayList<>();
+
+                String title = resultsElements.ownText();
+
+                Recipe r = new Recipe(title, url);
+
+                r.loadInformations(params[1]);
 
                 resultRecipes.add(r);
             } catch (Exception e) {

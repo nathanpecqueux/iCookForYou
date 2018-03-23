@@ -274,6 +274,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
                 String mail = getApplicationContext()
                         .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                         .getString("login", null);
+                System.out.println("mail : "+mail+"\nurl : "+url+"\nhist : "+URL_HIST);
                 params.put("mail", mail);
                 params.put("url", url);
 
