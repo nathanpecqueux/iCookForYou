@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".IndexActivity">
+
+    <item android:title="Profil"
+        android:id="@+id/menuIndexProfil"/>
+    <item android:title="Stock"
+        android:id="@+id/menuIndexStock"/>
+    <item android:title="A propos de ..."
+        android:id="@+id/menuIndexAPropos"/>
+    <item android:title="Quitter"
+        android:id="@+id/menuIndexQuitter"/>
+
+</menu>
