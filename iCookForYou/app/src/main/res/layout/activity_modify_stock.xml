@@ -17,18 +17,19 @@
             android:orientation="vertical"
             android:layout_gravity="center_vertical">
 
-                <EditText
-                    android:id="@+id/quantityIngredientTextModify"
-                    android:layout_toRightOf="@id/selectIngredient"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff"
-                    android:background="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:textSize="15sp"
-                    android:hint="Quantité"/>
+            <EditText
+                android:id="@+id/quantityIngredientTextModify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/selectIngredient"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:hint="Quantité"
+                android:inputType="numberDecimal"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/ingredientTextModify"

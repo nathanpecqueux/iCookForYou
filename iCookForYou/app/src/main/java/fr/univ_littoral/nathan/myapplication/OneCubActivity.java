@@ -55,7 +55,6 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
         buttonNon.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -63,6 +62,7 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
                 if(checkMail()==false){
                     erreur.setVisibility(View.VISIBLE);
                 }else {
+                    saveFood();
                     getApplicationContext()
                             .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                             .edit()
@@ -74,15 +74,15 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
                         @Override
                         public void run() {
                             try {
-                                Thread.sleep(1500);
-                                Intent intentRecettes = new Intent(OneCubActivity.this, StockActivity.class);
-                                startActivity(intentRecettes);
+                                Thread.sleep(2000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
                     }).start();
                 }
+                Intent intentRecettes = new Intent(OneCubActivity.this, StockActivity.class);
+                startActivity(intentRecettes);
                 break;
             case R.id.buttonNon:
                 Intent intentAccueil = new Intent( OneCubActivity.this, HomeActivity.class);
@@ -108,7 +108,6 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
                         handle.sendMessage(handle.obtainMessage());
                         if (progress.getProgress() == progress
                                 .getMax()) {
-                            saveFood();
                             progress.dismiss();
                         }
                     }

@@ -5,7 +5,7 @@
 
     <item android:title="Profil"
         android:id="@+id/menuListProfil"/>
-    <item android:title="Stock"
+    <item android:title="Placard"
         android:id="@+id/menuListStock"/>
     <item android:title="A propos de ..."
         android:id="@+id/menuListAPropos"/>

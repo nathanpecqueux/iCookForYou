@@ -7,6 +7,7 @@
     tools:context=".StockActivity"
     android:orientation="vertical"
     android:background="#2c2d30">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,11 +17,62 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/layoutVide"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewVide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="60dp"
+                    android:fontFamily="cursive"
+                    android:text="\nvotre placard est vide\n\n"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/textViewVide2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:fontFamily="sans-serif"
+                    android:text="\n\n\n\nVous pouvez ajouter manuellement des ingrédients ou récupérer vos achats via votre email\n\n"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/addingredient2"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="24dp"
+                    android:layout_toRightOf="@+id/modifIngredient"
+                    android:background="@drawable/background_login"
+                    android:clickable="true"
+                    android:text="Ajouter un ingrédient"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
             <ListView
                 android:id="@+id/ingredients_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:layout_marginTop="50dp" />
+                android:layout_marginTop="50dp"
+                android:visibility="visible">
+
+            </ListView>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -28,17 +80,15 @@
                 android:layout_gravity="center">
 
                 <Button
-                    android:id="@+id/addingredient"
+                    android:id="@+id/vider"
                     style="@style/Base.TextAppearance.AppCompat.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/background_login"
                     android:clickable="true"
-                    android:maxLines="2"
-                    android:padding="10dp"
-                    android:text="Ajouter un ingrédient"
+                    android:text="Vider"
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
@@ -48,12 +98,26 @@
                     style="@style/Base.TextAppearance.AppCompat.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="24dp"
-                    android:layout_toRightOf="@+id/addingredient"
+                    android:layout_toRightOf="@+id/vider"
                     android:background="@drawable/background_login"
                     android:clickable="true"
-                    android:padding="10dp"
-                    android:text="Modifier un ingrédient"
+                    android:text="Modifier"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/addingredient"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_toRightOf="@+id/modifIngredient"
+                    android:background="@drawable/background_login"
+                    android:clickable="true"
+                    android:text="Ajouter"
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
