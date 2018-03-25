@@ -88,17 +88,17 @@ public class RecipeAdapter extends BaseAdapter {
         Recipe recipe = (Recipe) getItem(position);
 
         // Update row view's textviews to display recipe information
-        titleTextView.setText(recipe.getTitle());
+        titleTextView.setText(recipe.title);
 
         // Use Picasso to load the image. Temporarily have a placeholder in case it's slow to load
         Picasso.with(mContext).setLoggingEnabled(true);
 
 
-        if(recipe.getImageUrl().equals("")) {
+        if(recipe.imageUrl.equals("")) {
             Picasso.with(mContext).load(R.drawable.noimage).placeholder(R.drawable.logo).error(R.drawable.background_food).into(thumbnailImageView);
 
         }else {
-            Picasso.with(mContext).load(recipe.getImageUrl()).placeholder(R.drawable.logo).error(R.drawable.background_food).into(thumbnailImageView);
+            Picasso.with(mContext).load(recipe.imageUrl).placeholder(R.drawable.logo).error(R.drawable.background_food).into(thumbnailImageView);
         }
 
         return convertView;

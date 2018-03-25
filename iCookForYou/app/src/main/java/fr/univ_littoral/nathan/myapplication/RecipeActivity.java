@@ -2,6 +2,7 @@ package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,16 +12,26 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
 import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
@@ -35,11 +46,14 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     ImageView imageRecipe;
     Button buttonRealiser;
 
+    private static final String URL_HIST = "http://51.255.164.53/php/registerHistory.php";
+
     String title;
     String difficulty;
     String time;
     String servings;
     String imageUrl;
+    String url;
 
     TableLayout tableLayoutIngredients;
     TableRow row; // création d'un élément : ligne
@@ -56,18 +70,30 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        //final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
-
-        //RecipeAdapter adapter = new RecipeAdapter(this, recipeList);
-
         Intent intentReceive=getIntent();
+        url=intentReceive.getStringExtra("url");
         title=intentReceive.getStringExtra("title");
-        difficulty=intentReceive.getStringExtra("difficulty");
-        time=intentReceive.getStringExtra("time");
-        servings=intentReceive.getStringExtra("servings");
-        imageUrl=intentReceive.getStringExtra("imageUrl");
-        ingredientLines=intentReceive.getStringArrayListExtra("ingredientLines");
-        step=intentReceive.getStringArrayListExtra("step");
+
+        Recipe r = new Recipe(title,url);
+
+        Recipe.getRecipe recipes = new Recipe.getRecipe();
+
+        recipes.execute(title, url, "all");
+
+        try {
+            recipes.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        difficulty=r.resultRecipes.get(0).difficulty;
+        time=r.resultRecipes.get(0).time;
+        servings=r.resultRecipes.get(0).servings;
+        imageUrl=r.resultRecipes.get(0).imageUrl;
+        ingredientLines=r.resultRecipes.get(0).ingredientLines;
+        step=r.resultRecipes.get(0).step;
 
         imageRecipe=(ImageView) findViewById(R.id.imageRecipe);
 
@@ -226,7 +252,37 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
+        saveHistory();
         Intent intentStock=new Intent(RecipeActivity.this,StockActivity.class);
         startActivity(intentStock);
+    }
+
+    public void saveHistory() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_HIST,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String ServerResponse) {}
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {}
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                String mail = getApplicationContext()
+                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        .getString("login", null);
+                System.out.println("mail : "+mail+"\nurl : "+url+"\nhist : "+URL_HIST);
+                params.put("mail", mail);
+                params.put("url", url);
+
+                return params;
+            }
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(RecipeActivity.this);
+        requestQueue.add(stringRequest);
     }
 }

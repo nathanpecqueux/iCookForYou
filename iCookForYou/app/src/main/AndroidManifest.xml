@@ -38,7 +38,13 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".HomeActivity"
-            android:label="Les recettes tirées de votre placard" />
+            android:label="Vos recettes" />
+        <activity
+            android:name=".HistoryActivity"
+            android:label="Votre historique" />
+        <activity
+            android:name=".TopActivity"
+            android:label="Top des recettes" />
         <activity
             android:name=".RecipeActivity"
             android:label="A vous de jouer !" />
@@ -50,19 +56,19 @@
             android:label="Onecub" />
         <activity
             android:name=".AddIngredientActivity"
-            android:label="Ajouter un ingrédient"
+            android:label="Ajouter au placard"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SelectIngredientActivity"
-            android:label="Selectionner un ingrédient"
+            android:label="Selectionner"
             android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ModifyStockActivity"
-            android:label="Modifier un ingrédient"
+            android:label="Modifier"
             android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".SelectModifyIngredientActivity"
-            android:label="Selectionner un ingrédient"
+            android:label="Selectionner"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".IndexActivity"></activity>
     </application>

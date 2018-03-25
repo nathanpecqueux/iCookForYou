@@ -11,13 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,24 +29,27 @@ public class Recipe {
     public List<String> step = new ArrayList<String>();
     public static ArrayList<Recipe> resultRecipes;
 
+    public Recipe() {
+    }
+
     public Recipe(String name, String urlLink) {
         this.title = name;
         this.urlLink = urlLink;
     }
 
-    public static ArrayList<Recipe> getRecipesFromFile(String filename, Context context){
+    public static ArrayList<Recipe> getRecipesFromFile(String filename, Context context) {
         final ArrayList<Recipe> recipeList = new ArrayList<>();
 
         try {
             // Load data
             String jsonString = loadJsonFromAsset("recipes.json", context);
-            if(jsonString!=null){
+            if (jsonString != null) {
                 JSONObject json = new JSONObject(jsonString);
                 JSONArray recipes = json.getJSONArray("recipes");
 
                 // Get Recipe objects from data
-                for(int i = 0; i < recipes.length(); i++) {
-                    Recipe recipe = new Recipe(null,null);
+                for (int i = 0; i < recipes.length(); i++) {
+                    Recipe recipe = new Recipe();
 
                     recipe.title = recipes.getJSONObject(i).getString("title");
                     recipe.servings = recipes.getJSONObject(i).getString("servings");
@@ -89,61 +87,12 @@ public class Recipe {
             is.read(buffer);
             is.close();
             json = new String(buffer, "UTF-8");
-        }
-        catch (java.io.IOException ex) {
+        } catch (java.io.IOException ex) {
             ex.printStackTrace();
             return null;
         }
 
         return json;
-    }
-
-    public void loadInformations() throws IOException {
-        page = Jsoup.connect(this.getUrlLink()).get();
-
-        time = (page.getElementsByClass("title-2 recipe-infos__total-time__value").text());
-
-        difficulty = "1";
-
-        ArrayList<String> result = new ArrayList<>();
-
-        for (int i = 0; i < page.getElementsByClass("ingredient").size(); i++) {
-            @SuppressWarnings("unused")
-            int index = 0;
-            String ingredientName = page.getElementsByClass("ingredient").get(i).text();
-            if (page.getElementsByClass("recipe-ingredient-qt").get(i).text().equals("")) {
-                result.add("1 " + ingredientName);
-            } else {
-                float quantity = (float) parse((page.getElementsByClass("recipe-ingredient-qt").get(i).text()));
-                double decimale = quantity - (int) quantity;
-                if(decimale == 0){
-                    int q = (int) parse((page.getElementsByClass("recipe-ingredient-qt").get(i).text()));
-                    result.add(q + " " + ingredientName);
-                }else{
-                    result.add(quantity + " " + ingredientName);
-                }
-            }
-        }
-        ingredientLines = result;
-
-        servings = page.getElementsByClass("title-2 recipe-infos__quantity__value").text();
-
-        String str[] = page.getElementsByClass("recipe-preparation__list").text().split("Etape");
-
-        for (int y = 0; y < str.length; y++) {
-            String s = "";
-            for (int i = 3; i < str[y].length(); i++) {
-                s += str[y].charAt(i);
-            }
-            str[y] = s;
-            step.add(s);
-        }
-
-        if(page.getElementById("af-diapo-desktop-0_img") != null) {
-            imageUrl = page.getElementById("af-diapo-desktop-0_img").attr("src");
-        }else {
-            imageUrl="";
-        }
     }
 
     double parse(String ratio) {
@@ -155,38 +104,92 @@ public class Recipe {
         }
     }
 
-    public ArrayList<Recipe> search(String keyword)throws IOException {
-        ArrayList<Recipe> resultRecipes = new ArrayList<>();
+    public void loadInformations(String infoToLoad) throws IOException {
+        if (infoToLoad.equals("all")) {
+            page = Jsoup.connect(urlLink).get();
+            time = (page.getElementsByClass("title-2 recipe-infos__total-time__value").text());
+            difficulty = "1";
+            ArrayList<String> result = new ArrayList<>();
 
-        Document document = Jsoup.connect("http://www.marmiton.org/recettes/recherche.aspx?aqt=" + "jambon").get();
+            for (int i = 0; i < page.getElementsByClass("ingredient").size(); i++) {
+                @SuppressWarnings("unused")
+                int index = 0;
+                String ingredientName = page.getElementsByClass("ingredient").get(i).text();
+                if (page.getElementsByClass("recipe-ingredient-qt").get(i).text().equals("")) {
+                    result.add("1 " + ingredientName);
+                } else {
+                    float quantity = (float) parse((page.getElementsByClass("recipe-ingredient-qt").get(i).text()));
+                    double decimale = quantity - (int) quantity;
+                    if (decimale == 0) {
+                        int q = (int) parse((page.getElementsByClass("recipe-ingredient-qt").get(i).text()));
+                        result.add(q + " " + ingredientName);
+                    } else {
+                        result.add(quantity + " " + ingredientName);
+                    }
+                }
+            }
+            ingredientLines = result;
 
-        Element elementResultsList = document.getElementsByClass("recipe-results").first();
-        Elements resultsElements = elementResultsList.getElementsByClass("recipe-card");
+            servings = page.getElementsByClass("title-2 recipe-infos__quantity__value").text();
 
-        for (Element e : resultsElements) {
-            Elements currentRecipeElement = e.getElementsByClass("recipe-card__title");
-            String title = currentRecipeElement.first().ownText();
-            String urlLink = "http://www.marmiton.org" + e.attr("href");
+            String str[] = page.getElementsByClass("recipe-preparation__list").text().split("Etape");
 
-            Recipe r = new Recipe(title, urlLink);
+            for (int y = 0; y < str.length; y++) {
+                String s = "";
+                for (int i = 3; i < str[y].length(); i++) {
+                    s += str[y].charAt(i);
+                }
+                str[y] = s;
+                step.add(s);
+            }
 
-            r.loadInformations();
+            if (page.getElementById("af-diapo-desktop-0_img") != null) {
+                imageUrl = page.getElementById("af-diapo-desktop-0_img").attr("src");
+            } else {
+                imageUrl = "";
+            }
+        } else if (infoToLoad.equals("list")) {
+            page = Jsoup.connect(urlLink).get();
+            ArrayList<String> result = new ArrayList<>();
 
-            resultRecipes.add(r);
+            for (int i = 0; i < page.getElementsByClass("ingredient").size(); i++) {
+                @SuppressWarnings("unused")
+                int index = 0;
+                String ingredientName = page.getElementsByClass("ingredient").get(i).text();
+                if (page.getElementsByClass("recipe-ingredient-qt").get(i).text().equals("")) {
+                    result.add("1 " + ingredientName);
+                } else {
+                    float quantity = (float) parse((page.getElementsByClass("recipe-ingredient-qt").get(i).text()));
+                    double decimale = quantity - (int) quantity;
+                    if (decimale == 0) {
+                        int q = (int) parse((page.getElementsByClass("recipe-ingredient-qt").get(i).text()));
+                        result.add(q + " " + ingredientName);
+                    } else {
+                        result.add(quantity + " " + ingredientName);
+                    }
+                }
+            }
+            ingredientLines = result;
 
+            if (page.getElementById("af-diapo-desktop-0_img") != null) {
+                imageUrl = page.getElementById("af-diapo-desktop-0_img").attr("src");
+            } else {
+                imageUrl = "";
+            }
         }
-        return resultRecipes;
     }
 
     public static class getRecipes extends AsyncTask<String, Void, Void> {
         //ArrayList<Recipe> resultRecipes = new ArrayList<>();
 
         String ingrédients = null;
+        int index = 0;
 
         @Override
         protected Void doInBackground(String... params) {
             try {
                 ingrédients = params[0];
+                index = Integer.parseInt(params[2]);
 
                 Document document = Jsoup.connect("http://www.marmiton.org/recettes/recherche.aspx?aqt=" + ingrédients).get();
 
@@ -195,15 +198,14 @@ public class Recipe {
 
                 resultRecipes = new ArrayList<>();
 
-                for (Element e : resultsElements) {
-                    Elements currentRecipeElement = e.getElementsByClass("recipe-card__title");
+                for (int i = 0; i < index; i++) {
+                    Elements currentRecipeElement = resultsElements.get(i).getElementsByClass("recipe-card__title");
                     String title = currentRecipeElement.first().ownText();
-                    String urlLink = "http://www.marmiton.org" + e.attr("href");
+                    String urlLink = "http://www.marmiton.org" + resultsElements.get(i).attr("href");
 
                     Recipe r = new Recipe(title, urlLink);
 
-                    r.loadInformations();
-
+                    r.loadInformations(params[1]);
 
                     resultRecipes.add(r);
                 }
@@ -215,80 +217,97 @@ public class Recipe {
         }
     }
 
-    public ArrayList<Recipe> getResultRecipes() {
-        return resultRecipes;
+    public static class getRecipe extends AsyncTask<String, Void, Void> {
+        //ArrayList<Recipe> resultRecipes = new ArrayList<>();
+
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                resultRecipes = new ArrayList<>();
+
+                String title = params[0];
+                String url = params[1];
+                Recipe r = new Recipe(title, url);
+
+                r.loadInformations(params[2]);
+
+                resultRecipes.add(r);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
-    public String getTitle() {
-        return title;
+    public static class getHistoryList extends AsyncTask<String, Void, Void> {
+        //ArrayList<Recipe> resultRecipes = new ArrayList<>();
+
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                resultRecipes = new ArrayList<>();
+
+                String url = params[0];
+                Document document = null;
+                try {
+                    document = Jsoup.connect(url).get();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Element resultsElements = document.getElementsByClass("main-title").first();
+
+                resultRecipes = new ArrayList<>();
+
+                String title = resultsElements.ownText();
+
+                Recipe r = new Recipe(title, url);
+
+                r.loadInformations(params[1]);
+
+                resultRecipes.add(r);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public static class getTop extends AsyncTask<String, Void, Void> {
+        //ArrayList<Recipe> resultRecipes = new ArrayList<>();
 
-    public Document getPage() {
-        return page;
-    }
+        int index = 0;
 
-    public void setPage(Document page) {
-        this.page = page;
-    }
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                index = Integer.parseInt(params[0]);
 
-    public String getUrlLink() {
-        return urlLink;
-    }
+                Document document = Jsoup.connect("http://www.marmiton.org/recettes/top-internautes.aspx").get();
 
-    public void setUrlLink(String urlLink) {
-        this.urlLink = urlLink;
-    }
+                Element elementResultsList = document.getElementsByClass("m-lsting-recipe").first();
+                Elements resultsElements = elementResultsList.getElementsByClass("item");
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+                resultRecipes = new ArrayList<>();
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+                for (int i = 0; i < index; i++) {
+                    Elements currentRecipeElement = resultsElements.get(i).getElementsByClass("title");
+                    String title = currentRecipeElement.first().ownText();
+                    String urlLink = "http://www.marmiton.org" + resultsElements.get(i).attr("href");
 
-    public String getServings() {
-        return servings;
-    }
+                    Recipe r = new Recipe(title, urlLink);
+                    //System.out.println(r);
 
-    public void setServings(String servings) {
-        this.servings = servings;
-    }
+                    r.loadInformations(params[1]);
 
-    public String getDifficulty() {
-        return difficulty;
-    }
+                    resultRecipes.add(r);
+                }
 
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public ArrayList<String> getIngredientLines() {
-        return ingredientLines;
-    }
-
-    public void setIngredientLines(ArrayList<String> ingredientLines) {
-        this.ingredientLines = ingredientLines;
-    }
-
-    public List<String> getStep() {
-        return step;
-    }
-
-    public void setStep(List<String> step) {
-        this.step = step;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
     @Override

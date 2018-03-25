@@ -7,40 +7,89 @@
     android:background="#2c2d30">
 
     <LinearLayout
-        android:id="@+id/onec"
+        android:id="@+id/layoutTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         android:visibility="visible">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/onecub" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:id="@+id/onecub"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Récupérer vos ingrédients via votre mail"
-            android:textAlignment="center"
-            android:textColor="@color/colorBalanced"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_gravity="top|left"
+            android:src="@drawable/onecub_mini" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top|right"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/switchDiet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:checked="true"
+                android:splitTrack="false"
+                android:text="Mon régime    "
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="18sp"
+                tools:checked="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonPop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:text="Populaire"
+                    android:textColor="@android:color/holo_red_dark" />
+
+                <Button
+                    android:id="@+id/buttonHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:text="Historique"
+                    android:textColor="@android:color/holo_red_dark" />
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="fill_parent"
-        android:layout_height="3dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/white" />
-
-    <ListView
-        android:id="@+id/recipe_list_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/recipe_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </ListView>
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Suivant"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
 </LinearLayout>
