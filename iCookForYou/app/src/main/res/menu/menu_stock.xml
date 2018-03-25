@@ -7,8 +7,6 @@
         android:id="@+id/menuRecetteAccueil"/>
     <item android:title="Profil"
         android:id="@+id/menuRecetteProfil"/>
-    <item android:title="Placard"
-        android:id="@+id/menuRecetteStock"/>
     <item android:title="A propos de ..."
         android:id="@+id/menuRecetteAPropos"/>
     <item android:title="Quitter"

@@ -9,12 +9,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -35,9 +38,13 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
 
     private ListView mListView;
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
+    private static final String URL_DELETE = "http://51.255.164.53/php/deleteStock.php";
     Context context;
     Button addFood;
+    Button addFood1;
     Button modifyStock;
+    Button vider;
+    LinearLayout layoutVide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,11 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         addFood.setOnClickListener(this);
         modifyStock = (Button) findViewById(R.id.modifIngredient);
         modifyStock.setOnClickListener(this);
+        vider = (Button) findViewById(R.id.vider);
+        vider.setOnClickListener(this);
+        addFood1 = (Button) findViewById(R.id.addingredient2);
+        addFood1.setOnClickListener(this);
+        layoutVide = (LinearLayout) findViewById(R.id.layoutVide);
 
         findFood();
     }
@@ -57,7 +69,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_recette, menu);
+        inflater.inflate(R.menu.menu_stock, menu);
         return true;
     }
 
@@ -71,10 +83,6 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
             case R.id.menuRecetteProfil:
                 Intent intentProfil = new Intent(StockActivity.this, ProfileActivity.class);
                 startActivity(intentProfil);
-                break;
-            case R.id.menuRecetteStock:
-                Intent intentStock = new Intent(StockActivity.this, StockActivity.class);
-                startActivity(intentStock);
                 break;
             case R.id.menuRecetteAPropos:
                 Dialog dialog = new Dialog(this);
@@ -115,6 +123,23 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                             final ArrayList<Ingredient> ingredientList = new ArrayList<>();
 
                             JSONArray array = new JSONArray(response);
+                            mListView = (ListView) findViewById(R.id.ingredients_list_view);
+
+                            if(array.length()==0){
+                                ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
+                                params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                                layoutVide.setLayoutParams(params);
+//                                ViewGroup.LayoutParams params2 = mListView.getLayoutParams();
+//                                params2.height = 0;
+//                                mListView.setLayoutParams(params);
+                            }else{
+                                ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
+                                params.height = 0;
+                                layoutVide.setLayoutParams(params);
+//                                ViewGroup.LayoutParams params2 = mListView.getLayoutParams();
+//                                params2.height = 400;
+//                                mListView.setLayoutParams(params);
+                            }
 
                             // Get Recipe objects from data
                             for (int i = 0; i < array.length(); i++) {
@@ -134,7 +159,6 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
 
 
                             // Create list view
-                            mListView = (ListView) findViewById(R.id.ingredients_list_view);
                             mListView.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -169,10 +193,45 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                 Intent addingredientactivity = new Intent(StockActivity.this, AddIngredientActivity.class);
                 startActivityForResult(addingredientactivity, 1);
                 break;
+            case R.id.addingredient2:
+                Intent addingredientactivity1 = new Intent(StockActivity.this, AddIngredientActivity.class);
+                startActivityForResult(addingredientactivity1, 1);
+                break;
             case R.id.modifIngredient:
                 Intent modifingredientactivity = new Intent(StockActivity.this, SelectModifyIngredientActivity.class);
                 startActivityForResult(modifingredientactivity, 1);
                 break;
+            case R.id.vider:
+                deleteFood();
+                findFood();
+                break;
         }
     }
+
+    public void deleteFood() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DELETE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String ServerResponse) {}
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {}
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                String mail = getApplicationContext()
+                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        .getString("login", null);
+                // Paramètres de l'utilisateurs pour la première requête !
+                params.put("mail", mail);
+                return params;
+            }
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(StockActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
 }

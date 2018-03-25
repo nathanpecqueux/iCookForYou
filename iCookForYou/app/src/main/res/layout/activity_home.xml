@@ -28,17 +28,18 @@
             android:orientation="vertical">
 
             <Switch
-                android:id="@+id/switchDiet"
+                android:id="@+id/buttonDiet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:checked="true"
+                android:checked="false"
                 android:splitTrack="false"
                 android:text="Mon régime    "
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="18sp"
-                tools:checked="true" />
+                android:visibility="visible"
+                tools:checked="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,6 +73,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layoutVide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewVide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:fontFamily="cursive"
+                android:text="\nAucune recette\n\nvotre placard est vide"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/buttonPlacard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="80dp"
+                android:text="Accéder à votre placard"
+                android:textColor="@android:color/holo_red_dark" />
+
+        </LinearLayout>
 
         <ListView
             android:id="@+id/recipe_list_view"

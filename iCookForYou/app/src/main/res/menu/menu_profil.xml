@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ProfileActivity">
 
-    <item android:title="Accueil"
+    <item android:title="Recettes"
         android:id="@+id/menuProfilAccueil"/>
-    <item android:title="Stock"
+    <item android:title="Placard"
         android:id="@+id/menuProfilStock"/>
     <item android:title="A propos de ..."
         android:id="@+id/menuProfilAPropos"/>

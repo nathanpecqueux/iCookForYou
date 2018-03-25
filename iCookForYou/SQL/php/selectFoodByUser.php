@@ -21,7 +21,7 @@ $mail = $_POST['mail'];
 
 // creating a query
 $stmt = $conn->prepare("SELECT 
-    f.name, s.quantityS, u.name
+    f.name, s.quantityS, u.name, f.excluded
 FROM
     TFood f
         INNER JOIN
@@ -37,7 +37,7 @@ WHERE
 $stmt->execute();
 
 // binding results to the query
-$stmt->bind_result($nameFood, $quantity, $nameUnit);
+$stmt->bind_result($nameFood, $quantity, $nameUnit, $excluded);
 
 $food = array();
 
@@ -47,6 +47,7 @@ while ($stmt->fetch()) {
     $temp['nameFood'] = $nameFood;
     $temp['quantity'] = $quantity;
     $temp['nameUnit'] = $nameUnit;
+    $temp['excluded'] = $excluded;
     array_push($food, $temp);
 }
 

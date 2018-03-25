@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -27,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.plus.model.people.Person;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,9 +53,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private String index = "5";
     private Button hist;
     private Button top;
+    private Button buttonPlacard;
+    private Switch buttonDiet;
+    private LinearLayout layoutVide;
     Context context;
 
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
+    private static final String URL_DIET = "http://51.255.164.53/php/selectIdDietUser.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +74,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         hist.setOnClickListener(this);
         top = (Button) findViewById(R.id.buttonPop);
         top.setOnClickListener(this);
-
+        buttonDiet = (Switch) findViewById(R.id.buttonDiet);
+        buttonDiet.setOnClickListener(this);
+        buttonPlacard = (Button) findViewById(R.id.buttonPlacard);
+        buttonPlacard.setOnClickListener(this);
         onec = (ImageView) findViewById(R.id.onecub);
         onec.setOnClickListener(this);
+        layoutVide = (LinearLayout) findViewById(R.id.layoutVide);
         context = this;
 
         Boolean onecub = getApplicationContext()
@@ -85,9 +96,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             onec.setLayoutParams(params);
         }
+        System.out.println("create home");
 
-        printRecipes();
-
+        findDiet();
     }
 
     @Override
@@ -156,6 +167,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Intent top = new Intent(HomeActivity.this, TopActivity.class);
                 startActivity(top);
                 break;
+            case R.id.buttonDiet:
+                findDiet();
+                break;
+            case R.id.buttonPlacard:
+                Intent intentStock = new Intent(HomeActivity.this, StockActivity.class);
+                startActivity(intentStock);
+                break;
         }
     }
 
@@ -165,16 +183,46 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onResponse(String response) {
                         try {
+                            String[] diets = String.valueOf(buttonDiet.getText()).split("&");
+                            for (int i=0;i<diets.length;i++) {
+                                diets[i] = diets[i].replace(" ","").toLowerCase().replace("é","e");
+                            }
+
                             final ArrayList<Ingredient> ingredientList = new ArrayList<>();
 
                             JSONArray array = new JSONArray(response);
                             String ingrédients = "";
-
-                            // Get Recipe objects from data
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject jsonIng = array.getJSONObject(i);
-                                ingrédients += jsonIng.getString("nameFood") + " ";
+                            if(array.length()==0) {
+                                ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
+                                params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                                layoutVide.setLayoutParams(params);
+                            }else{
+                                ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
+                                params.height = 0;
+                                layoutVide.setLayoutParams(params);
                             }
+                            if(buttonDiet.isChecked()) {
+                                // Get Recipe objects from data
+                                for (int i = 0; i < array.length(); i++) {
+                                    int x = 0;
+                                    JSONObject jsonIng = array.getJSONObject(i);
+                                    for (String diet : diets) {
+                                        if (diet.equals(jsonIng.getString("excluded"))) {
+                                            x = 1;
+                                        }
+                                    }
+                                    if (x == 0) {
+                                        ingrédients += jsonIng.getString("nameFood") + " ";
+                                    }
+                                }
+                            }else{
+                                for (int i = 0; i < array.length(); i++) {
+                                    JSONObject jsonIng = array.getJSONObject(i);
+                                    ingrédients += jsonIng.getString("nameFood") + " ";
+                                }
+                            }
+
+                            System.out.println(ingrédients);
 
                             Recipe recipe = new Recipe();
 
@@ -260,4 +308,69 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    private void findDiet() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DIET,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray array = new JSONArray(response);
+                            buttonDiet.setText("");
+
+                            if(array.length()==0) {
+                                buttonDiet.setVisibility(View.INVISIBLE);
+                            }
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject diet = array.getJSONObject(i);
+                                int id = diet.getInt("idDiet");
+                                if (id == 1) {
+                                    buttonDiet.setText("Végan");
+                                } else if (id == 2) {
+                                    buttonDiet.setText("Végétarien");
+                                } else if (id == 3) {
+                                    if(buttonDiet.getText().equals("")){
+                                        buttonDiet.setText("Sans gluten");
+                                    }else{
+                                        buttonDiet.setText(buttonDiet.getText()+" & Sans gluten");
+                                    }
+                                }
+                            }
+
+                            printRecipes();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                String mail = getApplicationContext()
+                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        .getString("login", null);
+                params.put("mail", mail);
+                return params;
+            }
+
+        };
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == 1) {
+                System.out.println("coucou");
+                findDiet();
+            }
+        }
+    }
+
 }
