@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +21,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -58,6 +58,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout layoutVide;
     Context context;
 
+    //ProgressBar
+    private  ProgressDialog progressBar;
+    private int progressBarStatus = 0;
+    private int progressBarStatusB = 0;
+    private Handler progressBarbHandler = new Handler();
+    private long fileSize = 0;
+
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
     private static final String URL_DIET = "http://51.255.164.53/php/selectIdDietUser.php";
 
@@ -81,6 +88,35 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         onec = (ImageView) findViewById(R.id.onecub);
         onec.setOnClickListener(this);
         layoutVide = (LinearLayout) findViewById(R.id.layoutVide);
+
+        progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Chargement de vos recettes");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setProgress(0);
+        progressBar.setMax(100);
+        progressBar.show();
+        progressBarStatus = 0;
+        progressBarStatusB = 0;
+
+        new Thread(new Runnable() {
+            public void run() {
+                while (progressBarStatus < 100) {
+                    progressBarStatus = downloadFile();
+
+                    progressBarbHandler.post(new Runnable() {
+                        public void run() {
+                            progressBar.setProgress(progressBarStatus);
+                        }
+                    });
+                }
+
+                if (progressBarStatusB == 100) {
+                    progressBar.dismiss();
+                }
+            }
+        }).start();
+
         context = this;
 
         Boolean onecub = getApplicationContext()
@@ -99,6 +135,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         System.out.println("create home");
 
         findDiet();
+    }
+
+    public int downloadFile() {
+        while (fileSize <= 1000000) {
+            fileSize++;
+
+            if (fileSize == 100000) {
+                return 10;
+            }else if (fileSize == 200000) {
+                return 20;
+            }else if (fileSize == 300000) {
+                return 30;
+            }else if (fileSize == 400000) {
+                return 40;
+            }else if (fileSize == 500000) {
+                return 50;
+            }else if (fileSize == 700000) {
+                return 70;
+            }else if (fileSize == 800000) {
+                return 80;
+            }else if (fileSize == 900000) {
+                return 90;
+            }
+        }
+        if(progressBarStatusB==100){
+            return 100;
+        }
+        return 99;
     }
 
     @Override
@@ -180,6 +244,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         try {
                             String[] diets = String.valueOf(buttonDiet.getText()).split("&");
                             for (int i=0;i<diets.length;i++) {
@@ -269,6 +334,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                     detailIntent.putExtra("title", selectedRecipe.title);
 
                                     startActivity(detailIntent);
+
                                 }
                             });
 
@@ -282,6 +348,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     public void onErrorResponse(VolleyError error) {
                         System.out.println(error);
                     }
+
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -295,6 +362,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         Volley.newRequestQueue(this).add(stringRequest);
+        progressBarStatusB=100;
     }
 
     private void scrollMyListViewToBottom() {
@@ -358,7 +426,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         };
-
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
