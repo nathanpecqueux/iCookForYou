@@ -45,6 +45,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
     Button modifyStock;
     Button vider;
     LinearLayout layoutVide;
+    LinearLayout layoutRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         addFood1 = (Button) findViewById(R.id.addingredient2);
         addFood1.setOnClickListener(this);
         layoutVide = (LinearLayout) findViewById(R.id.layoutVide);
+        layoutRecipes = (LinearLayout) findViewById(R.id.layoutRecipes);
 
         findFood();
     }
@@ -129,12 +131,16 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                                 ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
                                 params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                                 layoutVide.setLayoutParams(params);
-                                mListView.setVisibility(View.INVISIBLE);
+                                ViewGroup.LayoutParams params1 = layoutRecipes.getLayoutParams();
+                                params1.height = 0;
+                                layoutRecipes.setLayoutParams(params1);
                             }else{
                                 ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
                                 params.height = 0;
                                 layoutVide.setLayoutParams(params);
-                                mListView.setVisibility(View.VISIBLE);
+                                ViewGroup.LayoutParams params1 = layoutRecipes.getLayoutParams();
+                                params1.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                                layoutRecipes.setLayoutParams(params1);
                             }
 
                             // Get Recipe objects from data

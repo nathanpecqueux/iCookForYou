@@ -83,7 +83,7 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
             case R.id.buttonValidateFoodModify:
                 updateQuantity();
                 Intent validatefoodactivity = new Intent(ModifyStockActivity.this, StockActivity.class);
-                startActivityForResult(validatefoodactivity, 1);
+                startActivity(validatefoodactivity);
                 break;
         }
     }

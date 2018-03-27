@@ -65,64 +65,71 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/ingredients_list_view"
+            <LinearLayout
+                android:id="@+id/layoutRecipes"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginTop="50dp"
-                android:visibility="visible">
+                android:layout_height="0dp"
+                android:orientation="vertical">
 
-            </ListView>
+                <ListView
+                    android:id="@+id/ingredients_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_marginTop="50dp"
+                    android:visibility="visible">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                </ListView>
 
-                <Button
-                    android:id="@+id/vider"
-                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/background_login"
-                    android:clickable="true"
-                    android:text="Vider"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    android:layout_gravity="center">
 
-                <Button
-                    android:id="@+id/modifIngredient"
-                    style="@style/Base.TextAppearance.AppCompat.Body2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_toRightOf="@+id/vider"
-                    android:background="@drawable/background_login"
-                    android:clickable="true"
-                    android:text="Modifier"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    <Button
+                        android:id="@+id/vider"
+                        style="@style/Base.TextAppearance.AppCompat.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/background_login"
+                        android:clickable="true"
+                        android:text="Vider"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
 
-                <Button
-                    android:id="@+id/addingredient"
-                    style="@style/Base.TextAppearance.AppCompat.Body2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_toRightOf="@+id/modifIngredient"
-                    android:background="@drawable/background_login"
-                    android:clickable="true"
-                    android:text="Ajouter"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    <Button
+                        android:id="@+id/modifIngredient"
+                        style="@style/Base.TextAppearance.AppCompat.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_toRightOf="@+id/vider"
+                        android:background="@drawable/background_login"
+                        android:clickable="true"
+                        android:text="Modifier"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
 
-            </RelativeLayout>
+                    <Button
+                        android:id="@+id/addingredient"
+                        style="@style/Base.TextAppearance.AppCompat.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_toRightOf="@+id/modifIngredient"
+                        android:background="@drawable/background_login"
+                        android:clickable="true"
+                        android:text="Ajouter"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
