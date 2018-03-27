@@ -114,10 +114,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
                 dialog.show();
                 break;
-            case R.id.menuProfilQuitter:
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            case R.id.menuProfilDéconnexion:
+                Intent intent = new Intent(ProfileActivity.this,ConnectionActivity.class);
                 startActivity(intent);
                 break;
         }

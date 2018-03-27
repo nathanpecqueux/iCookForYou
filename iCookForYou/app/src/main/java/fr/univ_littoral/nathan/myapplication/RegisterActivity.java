@@ -116,10 +116,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
             dialog.show();
             break;
-            case R.id.menuProfilQuitter:
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            case R.id.menuProfilDéconnexion:
+                Intent intent = new Intent(RegisterActivity.this,ConnectionActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -139,10 +139,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 dialog.show();
                 break;
-            case R.id.menuListQuit:
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            case R.id.menuListDéconnexion:
+                Intent intent = new Intent(HomeActivity.this,ConnectionActivity.class);
                 startActivity(intent);
                 break;
         }

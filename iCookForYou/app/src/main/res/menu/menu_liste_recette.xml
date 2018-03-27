@@ -9,7 +9,7 @@
         android:id="@+id/menuListStock"/>
     <item android:title="A propos de ..."
         android:id="@+id/menuListAPropos"/>
-    <item android:title="Quitter"
-        android:id="@+id/menuListQuit"/>
+    <item android:title="Déconnexion"
+        android:id="@+id/menuListDéconnexion"/>
 
 </menu>

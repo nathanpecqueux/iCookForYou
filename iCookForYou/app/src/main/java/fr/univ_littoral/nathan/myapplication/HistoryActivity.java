@@ -102,11 +102,9 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
 
                 dialog.show();
                 break;
-            case R.id.menuRecetteQuitter:
-                Intent intentQuitter = new Intent(Intent.ACTION_MAIN);
-                intentQuitter.addCategory(Intent.CATEGORY_HOME);
-                intentQuitter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intentQuitter);
+            case R.id.menuRecetteDéconnexion:
+                Intent intent = new Intent(HistoryActivity.this,ConnectionActivity.class);
+                startActivity(intent);
                 break;
         }
         return true;
