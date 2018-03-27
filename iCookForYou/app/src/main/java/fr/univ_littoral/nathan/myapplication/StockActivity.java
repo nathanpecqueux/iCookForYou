@@ -129,16 +129,12 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                                 ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
                                 params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                                 layoutVide.setLayoutParams(params);
-//                                ViewGroup.LayoutParams params2 = mListView.getLayoutParams();
-//                                params2.height = 0;
-//                                mListView.setLayoutParams(params);
+                                mListView.setVisibility(View.INVISIBLE);
                             }else{
                                 ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
                                 params.height = 0;
                                 layoutVide.setLayoutParams(params);
-//                                ViewGroup.LayoutParams params2 = mListView.getLayoutParams();
-//                                params2.height = 400;
-//                                mListView.setLayoutParams(params);
+                                mListView.setVisibility(View.VISIBLE);
                             }
 
                             // Get Recipe objects from data
