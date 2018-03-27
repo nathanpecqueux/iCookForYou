@@ -89,7 +89,7 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
             case R.id.buttonValidateFood:
                 saveStock();
                 Intent validatefoodactivity = new Intent(AddIngredientActivity.this, StockActivity.class);
-                startActivityForResult(validatefoodactivity, 1);
+                startActivity(validatefoodactivity);
                 break;
         }
     }

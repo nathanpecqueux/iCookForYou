@@ -193,15 +193,15 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.addingredient:
                 Intent addingredientactivity = new Intent(StockActivity.this, AddIngredientActivity.class);
-                startActivityForResult(addingredientactivity, 1);
+                startActivity(addingredientactivity);
                 break;
             case R.id.addingredient2:
                 Intent addingredientactivity1 = new Intent(StockActivity.this, AddIngredientActivity.class);
-                startActivityForResult(addingredientactivity1, 1);
+                startActivity(addingredientactivity1);
                 break;
             case R.id.modifIngredient:
                 Intent modifingredientactivity = new Intent(StockActivity.this, SelectModifyIngredientActivity.class);
-                startActivityForResult(modifingredientactivity, 1);
+                startActivity(modifingredientactivity);
                 break;
             case R.id.vider:
                 deleteFood();

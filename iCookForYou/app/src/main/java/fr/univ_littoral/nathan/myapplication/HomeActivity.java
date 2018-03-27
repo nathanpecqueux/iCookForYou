@@ -56,6 +56,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonPlacard;
     private Switch buttonDiet;
     private LinearLayout layoutVide;
+    private LinearLayout layoutLoad;
+    private ProgressBar progress;
     Context context;
 
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
@@ -81,6 +83,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         onec = (ImageView) findViewById(R.id.onecub);
         onec.setOnClickListener(this);
         layoutVide = (LinearLayout) findViewById(R.id.layoutVide);
+        layoutLoad = (LinearLayout) findViewById(R.id.layoutLoad);
+        progress = (ProgressBar) findViewById(R.id.progressBar2);
         context = this;
 
         Boolean onecub = getApplicationContext()
@@ -96,7 +100,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             onec.setLayoutParams(params);
         }
-        System.out.println("create home");
 
         findDiet();
     }
@@ -193,10 +196,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             JSONArray array = new JSONArray(response);
                             String ingrédients = "";
                             if(array.length()==0) {
+                                ViewGroup.LayoutParams params1 = layoutLoad.getLayoutParams();
+                                params1.height = 0;
+                                layoutLoad.setLayoutParams(params1);
                                 ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
                                 params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                                 layoutVide.setLayoutParams(params);
                             }else{
+                                ViewGroup.LayoutParams params1 = layoutLoad.getLayoutParams();
+                                params1.height = 0;
+                                layoutLoad.setLayoutParams(params1);
                                 ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
                                 params.height = 0;
                                 layoutVide.setLayoutParams(params);
@@ -364,13 +373,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            if (resultCode == 1) {
-                System.out.println("coucou");
-                findDiet();
+    public void download(View view){
+        progress.setMax(100);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (progress.getProgress() <= progress.getMax()) {
+                        Thread.sleep(100);
+                        progress.incrementProgressBy(10);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        }).start();
     }
 
 }
