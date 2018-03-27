@@ -1,14 +1,10 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -29,7 +24,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.plus.model.people.Person;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,6 +81,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         progress = (ProgressBar) findViewById(R.id.progressBar2);
         context = this;
 
+        download();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
         Boolean onecub = getApplicationContext()
                 .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                 .getBoolean("onecub", false);
@@ -101,7 +108,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             onec.setLayoutParams(params);
         }
 
-        findDiet();
+       findDiet();
     }
 
     @Override
@@ -230,8 +237,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                     ingrédients += jsonIng.getString("nameFood") + " ";
                                 }
                             }
-
-                            System.out.println(ingrédients);
 
                             Recipe recipe = new Recipe();
 
@@ -373,7 +378,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
-    public void download(View view){
+    public void download(){
         progress.setMax(100);
         new Thread(new Runnable() {
             @Override

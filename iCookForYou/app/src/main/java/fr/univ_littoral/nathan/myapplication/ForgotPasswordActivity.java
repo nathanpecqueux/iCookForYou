@@ -24,6 +24,7 @@ public class ForgotPasswordActivity extends Activity implements View.OnClickList
         recoverMail=(EditText) findViewById(R.id.recoverMail);
         recoverButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
+        System.out.println("qefgehqeb");
     }
 
     @Override

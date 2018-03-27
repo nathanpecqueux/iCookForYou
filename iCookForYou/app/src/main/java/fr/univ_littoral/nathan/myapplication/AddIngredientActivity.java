@@ -2,15 +2,11 @@ package fr.univ_littoral.nathan.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -23,16 +19,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.univ_littoral.nathan.myapplication.sampledata.Ingredient;
-import fr.univ_littoral.nathan.myapplication.sampledata.IngredientAdapter;
-
-public class AddIngredientActivity extends AppCompatActivity implements View.OnClickListener{
+public class AddIngredientActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button cancel;
     Button validateFood;
@@ -55,7 +46,7 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
         selectFood = (Button) findViewById(R.id.selectIngredient);
         selectFood.setOnClickListener(this);
 
-        quantity=(EditText) findViewById(R.id.quantityIngredientText);
+        quantity = (EditText) findViewById(R.id.quantityIngredientText);
 
 
         cancel = (Button) findViewById(R.id.buttonCancelFood);
@@ -65,9 +56,9 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
         validateFood.setOnClickListener(this);
 
         Intent intent = getIntent();
-        if(intent.getStringExtra("id")==null){
+        if (intent.getStringExtra("id") == null) {
             selectedIngredient.setText("");
-        }else{
+        } else {
             selectedIngredient.setText(intent.getStringExtra("id").toString());
         }
 
@@ -88,6 +79,16 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.buttonValidateFood:
                 saveStock();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 Intent validatefoodactivity = new Intent(AddIngredientActivity.this, StockActivity.class);
                 startActivity(validatefoodactivity);
                 break;
@@ -119,7 +120,7 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                String nameFood = (String)selectedIngredient.getText();
+                String nameFood = (String) selectedIngredient.getText();
                 params.put("nameFood", nameFood);
                 return params;
             }
@@ -133,11 +134,13 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_SAVESTOCK,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String ServerResponse) {}
+                    public void onResponse(String ServerResponse) {
+                    }
                 },
                 new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {}
+                    public void onErrorResponse(VolleyError volleyError) {
+                    }
                 }) {
             @Override
             protected Map<String, String> getParams() {
