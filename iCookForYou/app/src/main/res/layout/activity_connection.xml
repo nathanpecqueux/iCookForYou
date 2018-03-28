@@ -35,7 +35,6 @@ android:orientation="vertical"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:padding="8dp"
-            android:text="nathan@gmail.com"
             android:textColor="#fff"
             android:textColorHint="#fff" />
 
@@ -57,7 +56,6 @@ android:orientation="vertical"
             android:inputType="textPassword"
             android:maxLines="1"
             android:padding="8dp"
-            android:text="nathan"
             android:textColor="#fff"
             android:textColorHint="#fff" />
 

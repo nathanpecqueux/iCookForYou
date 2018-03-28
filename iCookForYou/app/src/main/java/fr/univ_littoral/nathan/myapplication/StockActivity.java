@@ -184,7 +184,11 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                                 JSONObject jsonIng = array.getJSONObject(i);
 
                                 ingredient.name = jsonIng.getString("nameFood");
-                                ingredient.quantity = jsonIng.getString("quantity");
+                                if(jsonIng.getString("quantity").equals("null")){
+                                    ingredient.quantity = "";
+                                }else {
+                                    ingredient.quantity = jsonIng.getString("quantity");
+                                }
                                 ingredient.unity = jsonIng.getString("nameUnit");
 
                                 ingredientList.add(ingredient);
@@ -248,6 +252,20 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                 ViewGroup.LayoutParams params1 = layoutRecipes.getLayoutParams();
                 params1.height = 0;
                 layoutRecipes.setLayoutParams(params1);
+
+                download();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(3000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
                 findFood();
                 break;
         }

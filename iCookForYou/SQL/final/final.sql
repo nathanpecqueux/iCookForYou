@@ -78,7 +78,7 @@ CREATE TABLE `TFood` (
   PRIMARY KEY (`idFood`),
   KEY `fk_idUnitF_idx` (`idUnitF`),
   CONSTRAINT `fk_idUnitF` FOREIGN KEY (`idUnitF`) REFERENCES `TUnit` (`idUnit`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -87,7 +87,7 @@ CREATE TABLE `TFood` (
 
 LOCK TABLES `TFood` WRITE;
 /*!40000 ALTER TABLE `TFood` DISABLE KEYS */;
-INSERT INTO `TFood` VALUES (1,'sucre',2,NULL),(2,'céréale',2,'sansgluten'),(3,'biscotte',3,'sansgluten'),(4,'miel',2,'vegan'),(5,'chocolat',2,NULL),(6,'huile',1,NULL),(7,'vinaigre',1,NULL),(8,'mayonnaise',2,'vegan'),(9,'moutarde',2,'vegan'),(10,'farine',2,'sansgluten'),(11,'pommes de terre',2,NULL),(12,'pâtes',2,'sansgluten'),(13,'riz',2,NULL),(14,'soupe',1,NULL),(15,'lentilles',2,NULL),(16,'poisson',3,'vegetarien'),(17,'lait',1,'vegan'),(18,'semoule',2,'sansgluten'),(19,'beurre',2,'vegan'),(20,'œuf',3,'vegan'),(21,'fromage',2,'vegan'),(22,'jambon',3,'vegetarien'),(23,'rillettes',2,'vegetarien'),(24,'saucisse',3,'vegetarien'),(25,'steack haché',3,'vegetarien'),(26,'glace',2,'vegan'),(27,'pain',3,'sansgluten'),(28,'eau',1,NULL),(29,'pastis',1,NULL),(30,'bière',1,NULL),(31,'pomme',3,NULL),(32,'banane',3,NULL),(33,'orange',3,NULL),(34,'clémentine',3,NULL),(35,'pêche',3,NULL),(36,'poire',3,NULL),(37,'raisin',3,NULL),(38,'pamplemousse',3,NULL),(39,'kiwi',3,NULL),(40,'fraise',3,NULL),(41,'tomate',3,NULL),(42,'carotte',3,NULL),(43,'melon',3,NULL),(44,'endive',3,NULL),(45,'salade',3,NULL),(46,'courgette',3,NULL),(47,'oignon',3,NULL),(48,'concombre',3,NULL),(49,'poireau',3,NULL),(50,'choux-fleur',3,NULL);
+INSERT INTO `TFood` VALUES (1,'sucre',2,NULL),(2,'céréale',2,'sansgluten'),(3,'biscotte',3,'sansgluten'),(4,'miel',2,'vegan'),(5,'chocolat',2,NULL),(6,'huile',1,NULL),(7,'vinaigre',1,NULL),(8,'mayonnaise',2,'vegan'),(9,'moutarde',2,'vegan'),(10,'farine',2,'sansgluten'),(11,'pommes de terre',2,NULL),(12,'pâtes',2,'sansgluten'),(13,'riz',2,NULL),(14,'soupe',1,NULL),(15,'lentilles',2,NULL),(16,'poisson',3,'vegetarien'),(17,'lait',1,'vegan'),(18,'semoule',2,'sansgluten'),(19,'beurre',2,'vegan'),(20,'œuf',3,'vegan'),(21,'fromage',2,'vegan'),(22,'jambon',3,'vegetarien'),(23,'rillettes',2,'vegetarien'),(24,'saucisse',3,'vegetarien'),(25,'steack haché',3,'vegetarien'),(26,'glace',2,'vegan'),(27,'pain',3,'sansgluten'),(28,'eau',1,NULL),(29,'pastis',1,NULL),(30,'bière',1,NULL),(31,'pomme',3,NULL),(32,'banane',3,NULL),(33,'orange',3,NULL),(34,'clémentine',3,NULL),(35,'pêche',3,NULL),(36,'poire',3,NULL),(37,'raisin',3,NULL),(38,'pamplemousse',3,NULL),(39,'kiwi',3,NULL),(40,'fraise',3,NULL),(41,'tomate',3,NULL),(42,'carotte',3,NULL),(43,'melon',3,NULL),(44,'endive',3,NULL),(45,'salade',3,NULL),(46,'courgette',3,NULL),(47,'oignon',3,NULL),(48,'concombre',3,NULL),(49,'poireau',3,NULL),(50,'choux-fleur',3,NULL),(51,'sel',4,NULL),(52,'poivre',4,NULL),(53,'parmesan',2,NULL),(54,'oignon',3,NULL),(55,'crème fraîche',2,NULL);
 /*!40000 ALTER TABLE `TFood` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,7 +126,7 @@ DROP TABLE IF EXISTS `TStock`;
 CREATE TABLE `TStock` (
   `idUserS` int(11) NOT NULL,
   `idFood` int(11) NOT NULL,
-  `quantityS` int(11) NOT NULL,
+  `quantityS` int(11) DEFAULT NULL,
   PRIMARY KEY (`idUserS`,`idFood`),
   KEY `fk_idFood_idx` (`idFood`),
   CONSTRAINT `fk_idFoodS` FOREIGN KEY (`idFood`) REFERENCES `TFood` (`idFood`) ON DELETE CASCADE ON UPDATE NO ACTION,
@@ -140,7 +140,7 @@ CREATE TABLE `TStock` (
 
 LOCK TABLES `TStock` WRITE;
 /*!40000 ALTER TABLE `TStock` DISABLE KEYS */;
-INSERT INTO `TStock` VALUES (1,12,100),(1,21,50),(1,22,3),(2,6,1),(2,24,4),(2,25,2),(3,12,100),(3,21,50),(7,12,100),(7,21,50),(7,22,3),(7,32,6);
+INSERT INTO `TStock` VALUES (1,12,1000),(1,22,2),(1,47,2),(1,51,NULL),(1,52,NULL),(1,53,120),(1,54,2),(2,6,1),(2,24,4),(2,25,2),(3,12,100),(3,21,50),(7,12,100),(7,21,50),(7,22,3),(7,32,6);
 /*!40000 ALTER TABLE `TStock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +155,7 @@ CREATE TABLE `TUnit` (
   `idUnit` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`idUnit`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,7 +164,7 @@ CREATE TABLE `TUnit` (
 
 LOCK TABLES `TUnit` WRITE;
 /*!40000 ALTER TABLE `TUnit` DISABLE KEYS */;
-INSERT INTO `TUnit` VALUES (1,'litre(s)'),(2,'gramme(s)'),(3,'unité(s)');
+INSERT INTO `TUnit` VALUES (1,'litre(s)'),(2,'gramme(s)'),(3,'unité(s)'),(4,' ');
 /*!40000 ALTER TABLE `TUnit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,4 +263,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-28 11:06:50
+-- Dump completed on 2018-03-28 11:45:36

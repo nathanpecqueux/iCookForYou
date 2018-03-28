@@ -238,7 +238,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                         ingrédients += jsonIng.getString("nameFood") + "-";
                                     }
                                 }
-                                ingrédients += "-jambon";
+                                ingrédients += "-jambon--chorizo--lardon--thon--lapin";
                             }else{
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject jsonIng = array.getJSONObject(i);
