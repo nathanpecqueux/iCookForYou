@@ -33,7 +33,7 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
     private static final String URL_UNIT = "http://51.255.164.53/php/selectUnitByFood.php";
     private static final String URL_QUANTITY = "http://51.255.164.53/php/selectQuantityByFood.php";
     private static final String URL_UPDATEQTT = "http://51.255.164.53/php/updateQuantityFood.php";
-    private static final String URL_DELETE = "http://51.255.164.53/php/deleteQuantityFood.php";
+    private static final String URL_DELETE = "http://51.255.164.53/php/deleteQuantityFood.php" ;
 
 
     @Override
