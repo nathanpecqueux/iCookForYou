@@ -20,22 +20,22 @@ mysqli_set_charset($conn, "utf8");
 $mail = $_POST['mail'];
 
 $Sql_Query = "
-INSERT TStock (idUserS,idFood, quantityS)
-	SELECT 
-		  u.idUser, idFood, 1000
-	FROM
-		  TUser u,
-		  TFood f
-	WHERE
-		  u.mail = '$mail'
-		      AND f.name = 'pâtes';
+UPDATE TStock s
+        INNER JOIN
+    TUser u ON s.idUserS = u.idUser
+        INNER JOIN
+    TFood f ON s.idFood = f.idFood 
+SET 
+    s.quantityS = '400'
+WHERE
+    u.mail = '$mail'
+        AND f.name = 'pâtes';
 ";
 
 if (mysqli_query($conn, $Sql_Query)) {
     echo 'Data Inserted Successfully';
 } else {
     echo 'Try Again';
-    
 }
 
 $Sql_Query = "
@@ -45,7 +45,7 @@ UPDATE TStock s
         INNER JOIN
     TFood f ON s.idFood = f.idFood 
 SET 
-    s.quantityS = '4'
+    s.quantityS = '2'
 WHERE
     u.mail = '$mail'
         AND f.name = 'jambon';
@@ -58,15 +58,33 @@ if (mysqli_query($conn, $Sql_Query)) {
 }
 
 $Sql_Query = "
-INSERT TStock (idUserS,idFood, quantityS)
-	SELECT 
-		  u.idUser, idFood, 50
-	FROM
-		  TUser u,
-		  TFood f
-	WHERE
-		  u.mail = '$mail'
-		      AND f.name = 'beurre';
+UPDATE TStock s
+        INNER JOIN
+    TUser u ON s.idUserS = u.idUser
+        INNER JOIN
+    TFood f ON s.idFood = f.idFood 
+SET 
+    s.quantityS = '20'
+WHERE
+    u.mail = '$mail'
+        AND f.name = 'parmesan';
+";
+
+if (mysqli_query($conn, $Sql_Query)) {
+    echo 'Data Inserted Successfully';
+} else {
+    echo 'Try Again';
+}
+
+$Sql_Query = "
+DELETE s FROM TStock s
+        INNER JOIN
+    TUser u ON s.idUserS = u.idUser
+        INNER JOIN
+    TFood f ON s.idFood = f.idFood 
+WHERE
+    u.mail = '$mail'
+    AND f.name = 'oignon';
 ";
 
 if (mysqli_query($conn, $Sql_Query)) {
@@ -77,69 +95,14 @@ if (mysqli_query($conn, $Sql_Query)) {
 
 
 $Sql_Query = "
-INSERT TStock (idUserS,idFood, quantityS)
-	SELECT 
-		  u.idUser, idFood, 120
-	FROM
-		  TUser u,
-		  TFood f
-	WHERE
-		  u.mail = '$mail'
-		      AND f.name = 'parmesan';
-";
-
-if (mysqli_query($conn, $Sql_Query)) {
-    echo 'Data Inserted Successfully';
-} else {
-    echo 'Try Again';
-}
-
-$Sql_Query = "
-INSERT TStock (idUserS,idFood, quantityS)
-	SELECT 
-		  u.idUser, idFood, 2
-	FROM
-		  TUser u,
-		  TFood f
-	WHERE
-		  u.mail = '$mail'
-		      AND f.name = 'oignon';
-";
-
-if (mysqli_query($conn, $Sql_Query)) {
-    echo 'Data Inserted Successfully';
-} else {
-    echo 'Try Again';
-}
-
-$Sql_Query = "
-INSERT TStock (idUserS,idFood)
-	SELECT 
-		  u.idUser, idFood
-	FROM
-		  TUser u,
-		  TFood f
-	WHERE
-		  u.mail = '$mail'
-		      AND f.name = 'sel';
-";
-
-if (mysqli_query($conn, $Sql_Query)) {
-    echo 'Data Inserted Successfully';
-} else {
-    echo 'Try Again';
-}
-
-$Sql_Query = "
-INSERT TStock (idUserS,idFood)
-	SELECT 
-		  u.idUser, idFood
-	FROM
-		  TUser u,
-		  TFood f
-	WHERE
-		  u.mail = '$mail'
-		      AND f.name = 'poivre';
+DELETE s FROM TStock s
+        INNER JOIN
+    TUser u ON s.idUserS = u.idUser
+        INNER JOIN
+    TFood f ON s.idFood = f.idFood 
+WHERE
+    u.mail = '$mail'
+    AND f.name = 'beurre';
 ";
 
 if (mysqli_query($conn, $Sql_Query)) {
@@ -151,4 +114,3 @@ if (mysqli_query($conn, $Sql_Query)) {
 mysqli_close($conn);
 
 ?>
-

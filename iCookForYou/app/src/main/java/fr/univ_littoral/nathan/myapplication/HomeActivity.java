@@ -1,14 +1,10 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -29,7 +24,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.plus.model.people.Person;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +50,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonPlacard;
     private Switch buttonDiet;
     private LinearLayout layoutVide;
+    private LinearLayout layoutLoad;
+    private ProgressBar progress;
     Context context;
 
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
@@ -81,7 +77,29 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         onec = (ImageView) findViewById(R.id.onecub);
         onec.setOnClickListener(this);
         layoutVide = (LinearLayout) findViewById(R.id.layoutVide);
+        layoutLoad = (LinearLayout) findViewById(R.id.layoutLoad);
+        progress = (ProgressBar) findViewById(R.id.progressBar2);
         context = this;
+
+        ViewGroup.LayoutParams params1 = layoutLoad.getLayoutParams();
+        params1.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutLoad.setLayoutParams(params1);
+        ViewGroup.LayoutParams params2 = layoutVide.getLayoutParams();
+        params2.height = 0;
+        layoutVide.setLayoutParams(params2);
+
+        download();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         Boolean onecub = getApplicationContext()
                 .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
@@ -96,9 +114,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             onec.setLayoutParams(params);
         }
-        System.out.println("create home");
 
-        findDiet();
+       findDiet();
     }
 
     @Override
@@ -193,10 +210,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             JSONArray array = new JSONArray(response);
                             String ingrédients = "";
                             if(array.length()==0) {
+                                ViewGroup.LayoutParams params1 = layoutLoad.getLayoutParams();
+                                params1.height = 0;
+                                layoutLoad.setLayoutParams(params1);
                                 ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
                                 params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                                 layoutVide.setLayoutParams(params);
                             }else{
+                                ViewGroup.LayoutParams params1 = layoutLoad.getLayoutParams();
+                                params1.height = 0;
+                                layoutLoad.setLayoutParams(params1);
                                 ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
                                 params.height = 0;
                                 layoutVide.setLayoutParams(params);
@@ -212,15 +235,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                         }
                                     }
                                     if (x == 0) {
-                                        ingrédients += jsonIng.getString("nameFood") + " ";
+                                        ingrédients += jsonIng.getString("nameFood") + "-";
                                     }
                                 }
+                                ingrédients += "-jambon--chorizo--lardon--thon--lapin";
                             }else{
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject jsonIng = array.getJSONObject(i);
-                                    ingrédients += jsonIng.getString("nameFood") + " ";
+                                    ingrédients += jsonIng.getString("nameFood") + "-";
                                 }
                             }
+
 
                             System.out.println(ingrédients);
 
@@ -364,13 +389,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            if (resultCode == 1) {
-                System.out.println("coucou");
-                findDiet();
+    public void download(){
+        progress.setMax(100);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (progress.getProgress() <= progress.getMax()) {
+                        Thread.sleep(100);
+                        progress.incrementProgressBy(10);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        }).start();
     }
 
 }

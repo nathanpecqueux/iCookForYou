@@ -19,11 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import fr.univ_littoral.nathan.myapplication.sampledata.Ingredient;
 
 public class ModifyStockActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -63,7 +60,6 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
         }
 
         findUnit();
-
         findQuantity();
     }
 
@@ -82,8 +78,18 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.buttonValidateFoodModify:
                 updateQuantity();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 Intent validatefoodactivity = new Intent(ModifyStockActivity.this, StockActivity.class);
-                startActivityForResult(validatefoodactivity, 1);
+                startActivity(validatefoodactivity);
                 break;
         }
     }
@@ -166,11 +172,13 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPDATEQTT,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String ServerResponse) {}
+                    public void onResponse(String ServerResponse) {
+                    }
                 },
                 new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {}
+                    public void onErrorResponse(VolleyError volleyError) {
+                    }
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -197,11 +205,13 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DELETE,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String ServerResponse) {}
+                    public void onResponse(String ServerResponse) {
+                    }
                 },
                 new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {}
+                    public void onErrorResponse(VolleyError volleyError) {
+                    }
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -213,7 +223,7 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
 
                 // Paramètres de l'utilisateurs pour la première requête !
                 params.put("mail", mail);
-                params.put("nameFood", (String)selectedIngredient.getText());
+                params.put("nameFood", (String) selectedIngredient.getText());
 
                 return params;
             }

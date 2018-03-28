@@ -296,7 +296,6 @@ public class Recipe {
                     String urlLink = "http://www.marmiton.org" + resultsElements.get(i).attr("href");
 
                     Recipe r = new Recipe(title, urlLink);
-                    //System.out.println(r);
 
                     r.loadInformations(params[1]);
 

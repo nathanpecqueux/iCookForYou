@@ -47,6 +47,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     Button buttonRealiser;
 
     private static final String URL_HIST = "http://51.255.164.53/php/registerHistory.php";
+    private static final String URL_STOCK = "http://51.255.164.53/php/updateOnecub.php";
 
     String title;
     String difficulty;
@@ -252,6 +253,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
+        updateOnecub();
         saveHistory();
         Intent intentStock=new Intent(RecipeActivity.this,StockActivity.class);
         startActivity(intentStock);
@@ -285,4 +287,33 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         RequestQueue requestQueue = Volley.newRequestQueue(RecipeActivity.this);
         requestQueue.add(stringRequest);
     }
+
+    public void updateOnecub() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_STOCK,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String ServerResponse) {
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                String mail = getApplicationContext()
+                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        .getString("login", null);
+                params.put("mail", mail);
+                return params;
+            }
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(RecipeActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
 }
