@@ -81,6 +81,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         progress = (ProgressBar) findViewById(R.id.progressBar2);
         context = this;
 
+        ViewGroup.LayoutParams params1 = layoutLoad.getLayoutParams();
+        params1.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutLoad.setLayoutParams(params1);
+        ViewGroup.LayoutParams params2 = layoutVide.getLayoutParams();
+        params2.height = 0;
+        layoutVide.setLayoutParams(params2);
+
         download();
 
         new Thread(new Runnable() {
@@ -228,15 +235,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                         }
                                     }
                                     if (x == 0) {
-                                        ingrédients += jsonIng.getString("nameFood") + " ";
+                                        ingrédients += jsonIng.getString("nameFood") + "-";
                                     }
                                 }
+                                ingrédients += "-jambon";
                             }else{
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject jsonIng = array.getJSONObject(i);
-                                    ingrédients += jsonIng.getString("nameFood") + " ";
+                                    ingrédients += jsonIng.getString("nameFood") + "-";
                                 }
                             }
+
+
+                            System.out.println(ingrédients);
 
                             Recipe recipe = new Recipe();
 

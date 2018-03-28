@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -46,6 +47,8 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
     Button vider;
     LinearLayout layoutVide;
     LinearLayout layoutRecipes;
+    LinearLayout layoutLoad;
+    private ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,31 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         addFood1.setOnClickListener(this);
         layoutVide = (LinearLayout) findViewById(R.id.layoutVide);
         layoutRecipes = (LinearLayout) findViewById(R.id.layoutRecipes);
+        layoutLoad = (LinearLayout) findViewById(R.id.layoutLoad);
+        progress = (ProgressBar) findViewById(R.id.progressBar2);
+
+        ViewGroup.LayoutParams params2 = layoutLoad.getLayoutParams();
+        params2.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutLoad.setLayoutParams(params2);
+        ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
+        params.height = 0;
+        layoutVide.setLayoutParams(params);
+        ViewGroup.LayoutParams params1 = layoutRecipes.getLayoutParams();
+        params1.height = 0;
+        layoutRecipes.setLayoutParams(params1);
+
+        download();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         findFood();
     }
@@ -128,6 +156,9 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                             mListView = (ListView) findViewById(R.id.ingredients_list_view);
 
                             if(array.length()==0){
+                                ViewGroup.LayoutParams params2 = layoutLoad.getLayoutParams();
+                                params2.height = 0;
+                                layoutLoad.setLayoutParams(params2);
                                 ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
                                 params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                                 layoutVide.setLayoutParams(params);
@@ -135,6 +166,9 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                                 params1.height = 0;
                                 layoutRecipes.setLayoutParams(params1);
                             }else{
+                                ViewGroup.LayoutParams params2 = layoutLoad.getLayoutParams();
+                                params2.height = 0;
+                                layoutLoad.setLayoutParams(params2);
                                 ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
                                 params.height = 0;
                                 layoutVide.setLayoutParams(params);
@@ -205,6 +239,15 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.vider:
                 deleteFood();
+                ViewGroup.LayoutParams params2 = layoutLoad.getLayoutParams();
+                params2.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                layoutLoad.setLayoutParams(params2);
+                ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
+                params.height = 0;
+                layoutVide.setLayoutParams(params);
+                ViewGroup.LayoutParams params1 = layoutRecipes.getLayoutParams();
+                params1.height = 0;
+                layoutRecipes.setLayoutParams(params1);
                 findFood();
                 break;
         }
@@ -235,5 +278,23 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         RequestQueue requestQueue = Volley.newRequestQueue(StockActivity.this);
         requestQueue.add(stringRequest);
     }
+
+    public void download(){
+        progress.setMax(100);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (progress.getProgress() <= progress.getMax()) {
+                        Thread.sleep(100);
+                        progress.incrementProgressBy(10);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 
 }
