@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ProfileActivity">
 
-    <item android:title="Recettes"
+    <item android:title="Accueil"
         android:id="@+id/menuProfilAccueil"/>
     <item android:title="Placard"
         android:id="@+id/menuProfilStock"/>

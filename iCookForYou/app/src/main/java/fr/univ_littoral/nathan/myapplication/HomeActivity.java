@@ -1,6 +1,7 @@
 package fr.univ_littoral.nathan.myapplication;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -53,13 +55,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout layoutLoad;
     private ProgressBar progress;
     Context context;
-
-    //ProgressBar
-    private  ProgressDialog progressBar;
-    private int progressBarStatus = 0;
-    private int progressBarStatusB = 0;
-    private Handler progressBarbHandler = new Handler();
-    private long fileSize = 0;
 
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
     private static final String URL_DIET = "http://51.255.164.53/php/selectIdDietUser.php";
@@ -123,34 +118,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
        findDiet();
-    }
-
-    public int downloadFile() {
-        while (fileSize <= 1000000) {
-            fileSize++;
-
-            if (fileSize == 100000) {
-                return 10;
-            }else if (fileSize == 200000) {
-                return 20;
-            }else if (fileSize == 300000) {
-                return 30;
-            }else if (fileSize == 400000) {
-                return 40;
-            }else if (fileSize == 500000) {
-                return 50;
-            }else if (fileSize == 700000) {
-                return 70;
-            }else if (fileSize == 800000) {
-                return 80;
-            }else if (fileSize == 900000) {
-                return 90;
-            }
-        }
-        if(progressBarStatusB==100){
-            return 100;
-        }
-        return 99;
     }
 
     @Override
@@ -358,7 +325,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         Volley.newRequestQueue(this).add(stringRequest);
-        progressBarStatusB=100;
     }
 
     private void scrollMyListViewToBottom() {

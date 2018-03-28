@@ -82,7 +82,7 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(3000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

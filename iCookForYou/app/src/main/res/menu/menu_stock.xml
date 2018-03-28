@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".RecipeActivity">
 
-    <item android:title="Recettes"
+    <item android:title="Accueil"
         android:id="@+id/menuRecetteAccueil"/>
     <item android:title="Profil"
         android:id="@+id/menuRecetteProfil"/>
