@@ -5,7 +5,5 @@
 
     <item android:title="A propos de ..."
         android:id="@+id/menuProfilAPropos"/>
-    <item android:title="Quitter"
-        android:id="@+id/menuProfilQuitter"/>
 
 </menu>

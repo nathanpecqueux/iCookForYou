@@ -63,10 +63,8 @@ public class IndexActivity extends Activity implements View.OnClickListener {
 
                 dialog.show();
                 break;
-            case R.id.menuIndexQuitter:
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            case R.id.menuIndexDéconnexion:
+                Intent intent = new Intent(IndexActivity.this,ConnectionActivity.class);
                 startActivity(intent);
                 break;
         }

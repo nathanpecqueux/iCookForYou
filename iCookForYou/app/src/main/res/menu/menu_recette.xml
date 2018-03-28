@@ -11,7 +11,7 @@
         android:id="@+id/menuRecetteStock"/>
     <item android:title="A propos de ..."
         android:id="@+id/menuRecetteAPropos"/>
-    <item android:title="Quitter"
-        android:id="@+id/menuRecetteQuitter"/>
+    <item android:title="Déconnexion"
+        android:id="@+id/menuRecetteDéconnexion"/>
 
 </menu>
