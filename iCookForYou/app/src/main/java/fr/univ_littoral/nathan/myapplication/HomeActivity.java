@@ -43,6 +43,7 @@ import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //Variables globales pour le layout xml
     private ListView mListView;
     private Button next;
     private ImageView onec;
@@ -66,6 +67,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         index="5";
 
+        //On lie nos variables globales avec les id du layout xml
         next = (Button) findViewById(R.id.buttonNext);
         next.setOnClickListener(this);
         hist = (Button) findViewById(R.id.buttonHistory);
@@ -117,9 +119,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             onec.setLayoutParams(params);
         }
 
+        //On recherche les recettes
        findDiet();
     }
 
+    //créer le menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -127,17 +131,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    //gère les clics sur le menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            //renvoie vers le profil
             case R.id.menuListProfil:
                 Intent intentProfil = new Intent(HomeActivity.this, ProfileActivity.class);
                 startActivity(intentProfil);
                 break;
+            //accès au stock
             case R.id.menuListStock:
                 Intent intentStock = new Intent(HomeActivity.this, StockActivity.class);
                 startActivity(intentStock);
                 break;
+            //Pop-up informations sur application
             case R.id.menuListAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
@@ -166,27 +174,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    //Gère les clics sur les boutons
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            //clics sur le logo OneCub => envoie ves la layout onecub
             case R.id.onecub:
                 Intent intentVotreStock = new Intent(HomeActivity.this, OneCubActivity.class);
                 startActivity(intentVotreStock);
                 break;
+                //affiche la suite de la liste des recettes
             case R.id.buttonNext:
                 printRecipes();
                 break;
+                //layout historique
             case R.id.buttonHistory:
                 Intent history = new Intent(HomeActivity.this, HistoryActivity.class);
                 startActivity(history);
                 break;
+                //layout populaire
             case R.id.buttonPop:
                 Intent top = new Intent(HomeActivity.this, TopActivity.class);
                 startActivity(top);
                 break;
+                //gère le bouton 'diet' ( vegetarien, vegan, etc ) afin d'afficher des listes de recettes correspondantes au régime
             case R.id.buttonDiet:
                 findDiet();
                 break;
+                //Accès au stock
             case R.id.buttonPlacard:
                 Intent intentStock = new Intent(HomeActivity.this, StockActivity.class);
                 startActivity(intentStock);
@@ -194,12 +209,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //Fonction d'affichage des recettes
     private void printRecipes() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_FOOD,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        //récupération du régime alimentaire de l'utilisateur
                         try {
                             String[] diets = String.valueOf(buttonDiet.getText()).split("&");
                             for (int i=0;i<diets.length;i++) {
@@ -225,6 +241,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                 params.height = 0;
                                 layoutVide.setLayoutParams(params);
                             }
+
+                            //Si le bouton de diet est coché, on gère le régime alimentaire indiqué
                             if(buttonDiet.isChecked()) {
                                 // Get Recipe objects from data
                                 for (int i = 0; i < array.length(); i++) {
@@ -239,7 +257,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                         ingrédients += jsonIng.getString("nameFood") + "-";
                                     }
                                 }
-                                ingrédients += "-jambon--chorizo--lardon--thon--lapin--porc--boeuf--poulet";
+                                //Liste des viandes interdites au végétarien
+                                ingrédients += "-jambon--chorizo--lardon--thon--lapin--porc--boeuf--poulet--saumon";
                             }else{
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject jsonIng = array.getJSONObject(i);
@@ -342,6 +361,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    //Fonction pour afficher le bon régime alimentaire à coté du bouton Diet
     private void findDiet() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DIET,
                 new Response.Listener<String>() {

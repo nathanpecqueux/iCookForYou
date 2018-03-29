@@ -38,6 +38,7 @@ import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
 public class HistoryActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //Variables globales pour le layout xml
     private ListView mListView;
     private Button next;
     private String index = "5";
@@ -52,14 +53,18 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
 
         index="5";
 
+        //On lie nos variables globales avec les id du layout xml
         next = (Button) findViewById(R.id.buttonNext2);
+        //Listener du bouton
         next.setOnClickListener(this);
         context = this;
 
+        //On appele la fonction pour afficher les recettes
         printRecipes();
 
     }
 
+    //permet de creer le menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -67,28 +72,33 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
+    //gère les clics sur les éléments du menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            //on retourne à l'accueil
             case R.id.menuRecetteAccueil:
                 Intent intentAccueil = new Intent(HistoryActivity.this, HomeActivity.class);
                 startActivity(intentAccueil);
                 break;
+            //on va vers le profil de l'utilsateur
             case R.id.menuRecetteProfil:
                 Intent intentProfil = new Intent(HistoryActivity.this, ProfileActivity.class);
                 startActivity(intentProfil);
                 break;
+            //on accède au stock de l'utilsateur
             case R.id.menuRecetteStock:
                 Intent intentStock = new Intent(HistoryActivity.this, StockActivity.class);
                 startActivity(intentStock);
                 break;
+            //Pop-up informations de l'application
             case R.id.menuRecetteAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
                 dialog.setCancelable(true);
-                //there are a lot of settings, for dialog, check them all out!
+
+                //le texte
                 dialog.setTitle("A propos de l'application");
-                //set up text
                 TextView text = (TextView) dialog.findViewById(R.id.TextView01);
                 text.setText("Application créée par :");
                 TextView text2 = (TextView) dialog.findViewById(R.id.TextView02);
@@ -96,12 +106,13 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
                 TextView text3 = (TextView) dialog.findViewById(R.id.TextView03);
                 text3.setText("Version 1.0,  02/02/2018");
 
-                //set up image view
+                //l'image
                 ImageView img = (ImageView) dialog.findViewById(R.id.ImageView01);
                 img.setImageResource(R.drawable.logo_propos);
 
                 dialog.show();
                 break;
+                //On se déconnecte de l'application
             case R.id.menuRecetteDéconnexion:
                 Intent intent = new Intent(HistoryActivity.this,ConnectionActivity.class);
                 startActivity(intent);
@@ -110,15 +121,18 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
+    //gère les clics sur les boutons
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            //permet d'afficher la suite de la liste
             case R.id.buttonNext2:
                 printRecipes();
                 break;
         }
     }
 
+    //Récupération + affichage des recettes 
     private void printRecipes() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_FOOD,
                 new Response.Listener<String>() {

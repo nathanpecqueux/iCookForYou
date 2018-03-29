@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 public class ForgotPasswordActivity extends Activity implements View.OnClickListener{
 
+    //Variables globales pour le layout xml
     Button recoverButton;
     Button cancelButton;
     EditText recoverMail;
@@ -19,6 +20,8 @@ public class ForgotPasswordActivity extends Activity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+
+        //On lie nos variables globales avec les id du layout xml
         recoverButton=(Button) findViewById(R.id.recoverPasswordButton);
         cancelButton=(Button) findViewById(R.id.cancelButtonForgot);
         recoverMail=(EditText) findViewById(R.id.recoverMail);
@@ -27,9 +30,11 @@ public class ForgotPasswordActivity extends Activity implements View.OnClickList
         System.out.println("qefgehqeb");
     }
 
+    //Gère les clics sur les boutons
     @Override
     public void onClick(View view) {
         switch(view.getId()){
+            //On envoie un mail à l'utilisateur
             case R.id.recoverPasswordButton:
                 if(isValidEmail(recoverMail.getText().toString())){
                     //Envoi d'un mail de recovery
@@ -38,6 +43,7 @@ public class ForgotPasswordActivity extends Activity implements View.OnClickList
                 }
                 System.out.println("Mail non trouvé dans la BDD");
                 break;
+            //Bouton d'annulation, on revient à la layout précédente
             case R.id.cancelButtonForgot:
                 finish();
                 break;
