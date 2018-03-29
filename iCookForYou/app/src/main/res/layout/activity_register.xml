@@ -84,7 +84,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:text="Pecqueux@gmail.com"
+                android:text="pecqueux@gmail.com"
                 android:textColor="#fff"
                 android:textColorHint="#fff" />
 
