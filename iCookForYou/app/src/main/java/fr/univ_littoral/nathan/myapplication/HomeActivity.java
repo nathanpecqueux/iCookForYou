@@ -258,7 +258,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                     }
                                 }
                                 //Liste des viandes interdites au végétarien
-                                ingrédients += "-jambon--chorizo--lardon--thon--lapin--porc--boeuf--poulet--saumon";
+                                ingrédients += "-jambon--chorizo--lardon--thon--lapin--porc--boeuf--poulet--saumon--hachis";
                             }else{
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject jsonIng = array.getJSONObject(i);

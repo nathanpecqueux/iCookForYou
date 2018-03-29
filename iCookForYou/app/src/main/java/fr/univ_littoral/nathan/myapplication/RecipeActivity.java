@@ -1,6 +1,5 @@
 package fr.univ_littoral.nathan.myapplication;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -34,7 +32,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import fr.univ_littoral.nathan.myapplication.sampledata.Recipe;
-import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
 public class RecipeActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -117,7 +114,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         buttonRealiser=(Button) findViewById(R.id.buttonRealiser);
 
         buttonRealiser.setOnClickListener(this);
-        //codeBouchon();
+        printRecipe();
 
     }
 
@@ -178,14 +175,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-
-/*
-    Code de test, plus besoin
-
-
-
-
-    public void codeBouchon() {
+    public void printRecipe() {
         textViewTitreRecette.setText(title);
         textViewNbPersonnes.setHint("Personnes :   "+servings);
         textViewDifficulte.setHint("Difficulté :   "+difficulty);
@@ -245,7 +235,6 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 
         affichageEtapes();
     }
-*/
 
     //Permet l'affichage des étapes
     public void affichageEtapes() {
@@ -276,8 +265,6 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         //ajout dans l'historique + redirection dans page de stock
         updateOnecub();
         saveHistory();
-        Intent intentStock=new Intent(RecipeActivity.this,StockActivity.class);
-        startActivity(intentStock);
     }
 
     //Sauvegarde dans l'historique
@@ -285,7 +272,10 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_HIST,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String ServerResponse) {}
+                    public void onResponse(String ServerResponse) {
+                        Intent intentStock=new Intent(RecipeActivity.this,StockActivity.class);
+                        startActivity(intentStock);
+                    }
                 },
                 new Response.ErrorListener() {
                     @Override
@@ -309,7 +299,6 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         RequestQueue requestQueue = Volley.newRequestQueue(RecipeActivity.this);
         requestQueue.add(stringRequest);
     }
-
 
     public void updateOnecub() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_STOCK,
