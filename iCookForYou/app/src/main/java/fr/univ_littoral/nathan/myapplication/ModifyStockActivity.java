@@ -24,6 +24,7 @@ import java.util.Map;
 
 public class ModifyStockActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //Variables xml
     Button cancel;
     Button validateFoodModification;
     Button deleteFood;
@@ -41,6 +42,7 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_stock);
 
+        //Initialisation
         selectedIngredient = (TextView) findViewById(R.id.ingredientTextModify);
         deleteFood = (Button) findViewById(R.id.buttonDeleteFood);
         unit = (TextView) findViewById(R.id.unityTextModify);
@@ -52,6 +54,7 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
         validateFoodModification = (Button) findViewById(R.id.buttonValidateFoodModify);
         validateFoodModification.setOnClickListener(this);
 
+        //Récupération des données à l'arrivée sur la layout
         Intent intent = getIntent();
         if (intent.getStringExtra("id") == null) {
             selectedIngredient.setText("");
@@ -63,19 +66,23 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
         findQuantity();
     }
 
+    //gère les clics sur les boutons
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //redirection sur la page de stock après suppression de l'aliment
             case R.id.buttonDeleteFood:
                 deleteFood();
                 Intent deletefoodactivity = new Intent(ModifyStockActivity.this, StockActivity.class);
                 startActivityForResult(deletefoodactivity, 1);
                 break;
+                //bouton d'annulation, on retourne à la layout précédente
             case R.id.buttonCancelFoodModify:
                 Intent cancelintent = new Intent();
                 setResult(1, cancelintent);
                 finish();
                 break;
+                //mise à jour de la quantité et redirection sur layout précédente
             case R.id.buttonValidateFoodModify:
                 updateQuantity();
                 break;
@@ -156,6 +163,7 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
+    //Mise à jour quantité
     public void updateQuantity() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPDATEQTT,
                 new Response.Listener<String>() {
@@ -201,6 +209,7 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
         requestQueue.add(stringRequest);
     }
 
+    //suppression aliment
     public void deleteFood() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DELETE,
                 new Response.Listener<String>() {

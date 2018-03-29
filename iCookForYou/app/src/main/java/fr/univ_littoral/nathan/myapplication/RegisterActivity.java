@@ -38,6 +38,7 @@ import java.util.Map;
 
 public class RegisterActivity extends Activity implements View.OnClickListener{
 
+    //Variables globales pour le layout xml
     static String[] allergy;
     static String[] diet;
     boolean[] checkedAllergyItems;
@@ -69,6 +70,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_register);
         setAllergy();
         setDiet();
+
+        //On lie nos variables globales avec les id du layout xml
         allergiesButton=(Button) findViewById(R.id.registeredAllergies);
         dietButton=(Button) findViewById(R.id.registeredDiet);
         registerButton=(Button) findViewById(R.id.registerButton);
@@ -87,6 +90,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
     }
 
 
+    //créer le menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater=getMenuInflater();
@@ -94,8 +98,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         return true;
     }
 
+    //gère les clics sur le menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        //Pop-up informations sur l'application
         switch (item.getItemId()){ case R.id.menuProfilAPropos:
             Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.layout_propos);
@@ -116,6 +122,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
             dialog.show();
             break;
+
+            //Deconnexion
             case R.id.menuProfilDéconnexion:
                 Intent intent = new Intent(RegisterActivity.this,ConnectionActivity.class);
                 startActivity(intent);
@@ -124,17 +132,21 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         return true;
     }
 
+    //gère les clics sur les boutons
     @Override
     public void onClick(View v) {
         switch(v.getId()){
+            //affiche pop-up allergies
             case R.id.registeredAllergies:
                 alertAllergies();
                 addAllergy.show();
                 break;
+            //affiche pop-up regime alimentaire
             case R.id.registeredDiet:
                 alertDiet();
                 addDiet.show();
                 break;
+            //Inscription
             case R.id.registerButton:
                 if(checkRegister()){
                     final String mail = String.valueOf(registerMail.getText());
@@ -241,6 +253,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         void onFail(String msg);
     }
 
+    //ajout en bdd
     public void saveUser() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USERS,
                 new Response.Listener<String>() {
@@ -268,6 +281,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         RequestQueue requestQueue = Volley.newRequestQueue(RegisterActivity.this);
         requestQueue.add(stringRequest);
     }
+
 
     public void saveAllergy(String mail, String i) {
         final String index = i;
@@ -383,6 +397,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
+    //Pop-up des allergies
     public void alertAllergies(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("Selectionnez vos diet");
@@ -398,6 +413,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         addAllergy =builder.create();
     }
 
+    //Pop-up des régimes alimentaire
     public void alertDiet(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("Selectionnez vos régimes alimentaires");

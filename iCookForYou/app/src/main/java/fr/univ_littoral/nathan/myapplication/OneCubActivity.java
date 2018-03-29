@@ -55,9 +55,12 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
         buttonNon.setOnClickListener(this);
     }
 
+    //gère clics sur boutons
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //si oui, et que adresse bonne, initialisation de la connexion + chargement aliment
+            //sinon, message d'erreur
             case R.id.buttonOui:
                 if(checkMail()==false){
                     erreur.setVisibility(View.VISIBLE);
@@ -65,6 +68,7 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
                     saveFood();
                 }
                 break;
+                //redirection page accueil
             case R.id.buttonNon:
                 Intent intentAccueil = new Intent( OneCubActivity.this, HomeActivity.class);
                 startActivity(intentAccueil);
@@ -72,6 +76,8 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
         }
     }
 
+
+    //Récupération aliments sur boite mail ( fictif )
     public void download(){
         progress = new ProgressDialog(OneCubActivity.this);
         progress.setMax(100);
@@ -107,12 +113,12 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
         }
     };
 
+    //sauvegarde connexion oneCub + redirection page stock
     public void saveFood() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ONECUB,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String ServerResponse) {
-
                         getApplicationContext()
                                 .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                                 .edit()

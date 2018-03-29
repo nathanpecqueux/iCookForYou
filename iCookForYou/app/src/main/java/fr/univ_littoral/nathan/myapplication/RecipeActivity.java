@@ -38,6 +38,7 @@ import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
 public class RecipeActivity extends AppCompatActivity implements View.OnClickListener{
 
+    //Variables globales pour le layout xml
     TextView textViewTitreRecette;
     TextView textViewNbPersonnes;
     TextView textViewDifficulte;
@@ -75,6 +76,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         url=intentReceive.getStringExtra("url");
         title=intentReceive.getStringExtra("title");
 
+        //création d'un objet Recipe pour récuperer les éléments d'une recette et les afficher
         Recipe r = new Recipe(title,url);
 
         Recipe.getRecipe recipes = new Recipe.getRecipe();
@@ -89,6 +91,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
         }
 
+        //récuperation des données pour afficher les informations
         difficulty=r.resultRecipes.get(0).difficulty;
         time=r.resultRecipes.get(0).time;
         servings=r.resultRecipes.get(0).servings;
@@ -104,6 +107,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
             Picasso.with(this).load(imageUrl).resize(450,300).into(imageRecipe);
         }
 
+        //On lie nos variables globales avec les id du layout xml
         textViewTitreRecette = (TextView) findViewById(R.id.textViewTitreRecette);
         textViewNbPersonnes = (TextView) findViewById(R.id.textViewNbPersonnes);
         textViewDifficulte = (TextView) findViewById(R.id.textViewDifficulte);
@@ -113,10 +117,11 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         buttonRealiser=(Button) findViewById(R.id.buttonRealiser);
 
         buttonRealiser.setOnClickListener(this);
-        codeBouchon();
+        //codeBouchon();
 
     }
 
+    //création du menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -124,21 +129,26 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
+    //gère clics sur menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            //retourne à la page recette
             case R.id.menuRecetteAccueil:
                 Intent intentAccueil = new Intent(RecipeActivity.this, HomeActivity.class);
                 startActivity(intentAccueil);
                 break;
+            //retourne à la page profil
             case R.id.menuRecetteProfil:
                 Intent intentProfil = new Intent(RecipeActivity.this, ProfileActivity.class);
                 startActivity(intentProfil);
                 break;
+            //retourne à la page stock
             case R.id.menuRecetteStock:
                 Intent intentStock = new Intent(RecipeActivity.this, StockActivity.class);
                 startActivity(intentStock);
                 break;
+            //Pop-up informations sur l'application
             case R.id.menuRecetteAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
@@ -159,6 +169,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 
                 dialog.show();
                 break;
+                //Deconnexion, retour sur page connexion
             case R.id.menuRecetteDéconnexion:
                 Intent intent = new Intent(RecipeActivity.this,ConnectionActivity.class);
                 startActivity(intent);
@@ -166,6 +177,13 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         }
         return true;
     }
+
+
+/*
+    Code de test, plus besoin
+
+
+
 
     public void codeBouchon() {
         textViewTitreRecette.setText(title);
@@ -227,7 +245,9 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
 
         affichageEtapes();
     }
+*/
 
+    //Permet l'affichage des étapes
     public void affichageEtapes() {
         String totalEtape = new String();
         int temp;
@@ -239,6 +259,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         textViewTotalEtape.setText(totalEtape);
     }
 
+    //Permet l'affichage des ingrédients dans un tableau à 2 colonnes
     public void separateIngredients(List<String> ingredients) {
         for (int j = 0; j < ingredients.size(); j++) {
             if (j % 2 == 0) {
@@ -249,14 +270,17 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    //gère le clic sur le bouton "j'ai réaliser cette recette"
     @Override
     public void onClick(View view) {
+        //ajout dans l'historique + redirection dans page de stock
         updateOnecub();
         saveHistory();
         Intent intentStock=new Intent(RecipeActivity.this,StockActivity.class);
         startActivity(intentStock);
     }
 
+    //Sauvegarde dans l'historique
     public void saveHistory() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_HIST,
                 new Response.Listener<String>() {
@@ -285,6 +309,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         RequestQueue requestQueue = Volley.newRequestQueue(RecipeActivity.this);
         requestQueue.add(stringRequest);
     }
+
 
     public void updateOnecub() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_STOCK,

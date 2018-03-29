@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
  * Created by alexd on 16/01/2018.
  */
 
+
+//Fonction qui gère la splash d'accueil ( logo + nom )
 public class SplashActivity extends AppCompatActivity {
 
     @Override
