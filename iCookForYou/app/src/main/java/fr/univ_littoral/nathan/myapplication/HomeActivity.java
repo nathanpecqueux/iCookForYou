@@ -104,11 +104,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 while (progressBarStatus < 100) {
                     progressBarStatus = downloadFile();
 
-                    progressBarbHandler.post(new Runnable() {
-                        public void run() {
-                            progressBar.setProgress(progressBarStatus);
-                        }
-                    });
+                    try{
+                        Thread.sleep(100);
+                        progressBarbHandler.post(new Runnable() {
+                            public void run() {
+                                progressBar.setProgress(progressBarStatus);
+                            }
+                        });
+                    }catch(Exception e){
+
+                    }
                 }
 
                 if (progressBarStatusB == 100) {
@@ -362,6 +367,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         Volley.newRequestQueue(this).add(stringRequest);
+
+        //Permet d'arreter le thread de chargement
         progressBarStatusB=100;
     }
 
