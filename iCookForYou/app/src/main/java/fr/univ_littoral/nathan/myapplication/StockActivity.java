@@ -37,6 +37,7 @@ import fr.univ_littoral.nathan.myapplication.sampledata.IngredientAdapter;
 
 public class StockActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //Variables xml
     private ListView mListView;
     private static final String URL_FOOD = "http://51.255.164.53/php/selectFoodByUser.php";
     private static final String URL_DELETE = "http://51.255.164.53/php/deleteStock.php";
@@ -57,6 +58,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
 
         context = this;
 
+        //On lie nos variables globales avec les id du layout xml
         addFood = (Button) findViewById(R.id.addingredient);
         addFood.setOnClickListener(this);
         modifyStock = (Button) findViewById(R.id.modifIngredient);
@@ -96,6 +98,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         findFood();
     }
 
+    //création menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -103,17 +106,21 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
+    //gère clics sur menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            //retourne sur page recette
             case R.id.menuRecetteAccueil:
                 Intent intentAccueil = new Intent(StockActivity.this, HomeActivity.class);
                 startActivity(intentAccueil);
                 break;
+            //retourne sur page profil
             case R.id.menuRecetteProfil:
                 Intent intentProfil = new Intent(StockActivity.this, ProfileActivity.class);
                 startActivity(intentProfil);
                 break;
+            //pop-up informations sur l'application
             case R.id.menuRecetteAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
@@ -134,6 +141,8 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
 
                 dialog.show();
                 break;
+
+                //deconnexion
             case R.id.menuRecetteDéconnexion:
                 Intent intent = new Intent(StockActivity.this,ConnectionActivity.class);
                 startActivity(intent);
@@ -224,27 +233,33 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
+    //gère clics sur boutons
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //envoie vers la layout d'ajout d'ingrédients
             case R.id.addingredient:
                 Intent addingredientactivity = new Intent(StockActivity.this, AddIngredientActivity.class);
                 startActivity(addingredientactivity);
                 break;
+            //envoie vers la layout d'ajout d'ingrédients
             case R.id.addingredient2:
                 Intent addingredientactivity1 = new Intent(StockActivity.this, AddIngredientActivity.class);
                 startActivity(addingredientactivity1);
                 break;
+            //envoie vers la layout de modification d'ingrédients
             case R.id.modifIngredient:
                 Intent modifingredientactivity = new Intent(StockActivity.this, SelectModifyIngredientActivity.class);
                 startActivity(modifingredientactivity);
                 break;
+            //vide simplement la liste de stock
             case R.id.vider:
                 deleteFood();
                 break;
         }
     }
 
+    //fonction pour vider le stock
     public void deleteFood() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DELETE,
                 new Response.Listener<String>() {
