@@ -78,18 +78,6 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.buttonValidateFoodModify:
                 updateQuantity();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-                Intent validatefoodactivity = new Intent(ModifyStockActivity.this, StockActivity.class);
-                startActivity(validatefoodactivity);
                 break;
         }
     }
@@ -173,6 +161,18 @@ public class ModifyStockActivity extends AppCompatActivity implements View.OnCli
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String ServerResponse) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(3000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+                        Intent validatefoodactivity = new Intent(ModifyStockActivity.this, StockActivity.class);
+                        startActivity(validatefoodactivity);
                     }
                 },
                 new Response.ErrorListener() {

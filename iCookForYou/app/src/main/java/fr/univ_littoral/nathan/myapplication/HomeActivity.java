@@ -239,7 +239,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                         ingrédients += jsonIng.getString("nameFood") + "-";
                                     }
                                 }
-                                ingrédients += "-jambon--chorizo--lardon--thon--lapin";
+                                ingrédients += "-jambon--chorizo--lardon--thon--lapin--porc--boeuf--poulet";
                             }else{
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject jsonIng = array.getJSONObject(i);
@@ -267,6 +267,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             // Get data to display
                             //final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipes.json", this);
                             final ArrayList<Recipe> recipeList = recipe.resultRecipes;
+
+                            for (Recipe r : recipe.resultRecipes
+                                 ) {
+                                System.out.println(r);
+                            }
 
                             // Create adapter
                             RecipeAdapter adapter = new RecipeAdapter(context, recipeList);

@@ -149,7 +149,10 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPDATEDIET,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String ServerResponse) {}
+                    public void onResponse(String ServerResponse) {
+                        Intent intentAccueil=new Intent(ModifyProfileActivity.this, HomeActivity.class);
+                        startActivity(intentAccueil);
+                    }
                 },
                 new Response.ErrorListener() {
                     @Override

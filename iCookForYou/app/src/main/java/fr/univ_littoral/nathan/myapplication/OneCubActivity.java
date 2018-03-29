@@ -63,26 +63,7 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
                     erreur.setVisibility(View.VISIBLE);
                 }else {
                     saveFood();
-                    getApplicationContext()
-                            .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-                            .edit()
-                            .putBoolean("onecub", true)
-                            .apply();
-                    erreur.setVisibility(View.INVISIBLE);
-                    download(v);
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }).start();
                 }
-                Intent intentRecettes = new Intent(OneCubActivity.this, StockActivity.class);
-                startActivity(intentRecettes);
                 break;
             case R.id.buttonNon:
                 Intent intentAccueil = new Intent( OneCubActivity.this, HomeActivity.class);
@@ -91,7 +72,7 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    public void download(View view){
+    public void download(){
         progress = new ProgressDialog(OneCubActivity.this);
         progress.setMax(100);
         progress.setMessage("En cours de récupération");
@@ -130,7 +111,29 @@ public class OneCubActivity extends Activity implements View.OnClickListener{
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ONECUB,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String ServerResponse) {}
+                    public void onResponse(String ServerResponse) {
+
+                        getApplicationContext()
+                                .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                                .edit()
+                                .putBoolean("onecub", true)
+                                .apply();
+                        erreur.setVisibility(View.INVISIBLE);
+                        download();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+
+                        Intent intentRecettes = new Intent(OneCubActivity.this, StockActivity.class);
+                        startActivity(intentRecettes);
+                    }
                 },
                 new Response.ErrorListener() {
                     @Override

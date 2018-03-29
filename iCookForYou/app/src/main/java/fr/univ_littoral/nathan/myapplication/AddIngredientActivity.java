@@ -79,18 +79,6 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.buttonValidateFood:
                 saveStock();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-                Intent validatefoodactivity = new Intent(AddIngredientActivity.this, StockActivity.class);
-                startActivity(validatefoodactivity);
                 break;
         }
     }
@@ -135,6 +123,18 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String ServerResponse) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(3000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+                        Intent validatefoodactivity = new Intent(AddIngredientActivity.this, StockActivity.class);
+                        startActivity(validatefoodactivity);
                     }
                 },
                 new Response.ErrorListener() {

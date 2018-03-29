@@ -241,30 +241,6 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.vider:
                 deleteFood();
-                ViewGroup.LayoutParams params2 = layoutLoad.getLayoutParams();
-                params2.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                layoutLoad.setLayoutParams(params2);
-                ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
-                params.height = 0;
-                layoutVide.setLayoutParams(params);
-                ViewGroup.LayoutParams params1 = layoutRecipes.getLayoutParams();
-                params1.height = 0;
-                layoutRecipes.setLayoutParams(params1);
-
-                download();
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(3000);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-
-                findFood();
                 break;
         }
     }
@@ -273,7 +249,32 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DELETE,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String ServerResponse) {}
+                    public void onResponse(String ServerResponse) {
+                        ViewGroup.LayoutParams params2 = layoutLoad.getLayoutParams();
+                        params2.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                        layoutLoad.setLayoutParams(params2);
+                        ViewGroup.LayoutParams params = layoutVide.getLayoutParams();
+                        params.height = 0;
+                        layoutVide.setLayoutParams(params);
+                        ViewGroup.LayoutParams params1 = layoutRecipes.getLayoutParams();
+                        params1.height = 0;
+                        layoutRecipes.setLayoutParams(params1);
+
+                        download();
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(3000);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+
+                        findFood();
+                    }
                 },
                 new Response.ErrorListener() {
                     @Override

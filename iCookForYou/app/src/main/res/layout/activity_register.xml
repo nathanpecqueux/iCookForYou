@@ -40,7 +40,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:text="Leblanc"
+                android:text="Pecqueux"
                 android:textColor="#fff"
                 android:textColorHint="#fff" />
 
@@ -62,7 +62,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:text="Alexandre"
+                android:text="Nathan"
                 android:textColor="#fff"
                 android:textColorHint="#fff" />
 
@@ -84,7 +84,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:text="leblanc@gmail.com"
+                android:text="Pecqueux@gmail.com"
                 android:textColor="#fff"
                 android:textColorHint="#fff" />
 
@@ -106,7 +106,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:text="leblanc"
+                android:text="nathan"
                 android:textColor="#fff"
                 android:textColorHint="#fff" />
 
@@ -128,7 +128,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:text="leblanc"
+                android:text="nathan"
                 android:textColor="#fff"
                 android:textColorHint="#fff" />
 
