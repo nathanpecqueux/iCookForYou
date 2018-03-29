@@ -15,34 +15,43 @@ import android.widget.TextView;
 
 public class IndexActivity extends Activity implements View.OnClickListener {
 
+    //Variables globales pour le layout xml
     Button buttonCestParti;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
 
+        //On lie nos variables globales avec les id du layout xml
         buttonCestParti=(Button) findViewById(R.id.buttonCestParti);
 
         buttonCestParti.setOnClickListener(this);
     }
 
+    //Permet de créer le menu de la layout connexion
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_index, menu);
         return true;
     }
 
+    //Fonction qui permet de gérer les clics sur les éléments du menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
+            //Accès au profil
             case R.id.menuIndexProfil:
                 Intent intentAccueil = new Intent(IndexActivity.this, ProfileActivity.class);
                 startActivity(intentAccueil);
                 break;
+                //accès au stock
             case R.id.menuIndexStock:
                 Intent intentStock = new Intent(IndexActivity.this, StockActivity.class);
                 startActivity(intentStock);
                 break;
+
+                //Affiche une pop-up avec les informations de l'application
             case R.id.menuIndexAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
@@ -63,6 +72,7 @@ public class IndexActivity extends Activity implements View.OnClickListener {
 
                 dialog.show();
                 break;
+                //Deconnexion
             case R.id.menuIndexDéconnexion:
                 Intent intent = new Intent(IndexActivity.this,ConnectionActivity.class);
                 startActivity(intent);

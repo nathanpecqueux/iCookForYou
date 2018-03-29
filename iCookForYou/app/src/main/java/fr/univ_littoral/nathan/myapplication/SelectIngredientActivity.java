@@ -51,6 +51,7 @@ public class SelectIngredientActivity extends AppCompatActivity {
 
         findFood();
 
+        //Liste l"ingrédient séléctionné et l'envoie à la layout d'ajout
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override

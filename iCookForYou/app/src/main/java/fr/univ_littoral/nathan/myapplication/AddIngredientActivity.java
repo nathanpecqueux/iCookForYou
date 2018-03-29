@@ -25,12 +25,14 @@ import java.util.Map;
 
 public class AddIngredientActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //Variables globales pour le layout xml
     Button cancel;
     Button validateFood;
     Button selectFood;
     TextView selectedIngredient;
     TextView unit;
     EditText quantity;
+
     private static final String URL_UNIT = "http://51.255.164.53/php/selectUnitByFood.php";
     private static final String URL_SAVESTOCK = "http://51.255.164.53/php/registerStock.php";
 
@@ -40,6 +42,7 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ingredient);
 
+        //On lie nos variables globales avec les id du layout xml
         selectedIngredient = (TextView) findViewById(R.id.ingredientTextAdd);
         unit = (TextView) findViewById(R.id.unityTextAdd);
 
@@ -55,6 +58,7 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
         validateFood = (Button) findViewById(R.id.buttonValidateFood);
         validateFood.setOnClickListener(this);
 
+        //On récupère ici les informations envoyés
         Intent intent = getIntent();
         if (intent.getStringExtra("id") == null) {
             selectedIngredient.setText("");
@@ -65,23 +69,28 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
         findUnit();
     }
 
+    //Gère les clics sur les boutons
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //Envoie vers la lyout de selection d'ingredient
             case R.id.selectIngredient:
                 Intent registerActivity = new Intent(AddIngredientActivity.this, SelectIngredientActivity.class);
                 startActivityForResult(registerActivity, 1);
                 break;
+            //Bouton d'annulation
             case R.id.buttonCancelFood:
                 Intent cancelintent = new Intent();
                 setResult(1, cancelintent);
                 finish();
                 break;
+            //Bouton de validation, sauvegarde l'aliment
             case R.id.buttonValidateFood:
                 saveStock();
                 break;
         }
     }
+
 
     private void findUnit() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UNIT,
@@ -118,6 +127,7 @@ public class AddIngredientActivity extends AppCompatActivity implements View.OnC
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
+    //Fonction de sauvegarde du stock, on ajoute dans la base de données le nom de l'aliment, la quantité et le mail de l'utilisateur
     public void saveStock() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_SAVESTOCK,
                 new Response.Listener<String>() {

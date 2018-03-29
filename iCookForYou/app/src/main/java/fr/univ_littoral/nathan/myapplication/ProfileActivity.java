@@ -53,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        //On lie nos variables globales avec les id du layout xml
         textViewNom = (TextView) findViewById(R.id.textViewNom);
         textViewPrenom = (TextView) findViewById(R.id.textViewPrenom);
         textViewMdp = (TextView) findViewById(R.id.textViewMdp);
@@ -76,6 +77,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    //créer le menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -83,17 +85,21 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
+    //gères les clics sur le menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            //renvoie à la page de recette
             case R.id.menuProfilAccueil:
                 Intent intentAccueil = new Intent(ProfileActivity.this, HomeActivity.class);
                 startActivity(intentAccueil);
                 break;
+                //renvoie page stock
             case R.id.menuProfilStock:
                 Intent intentStock = new Intent(ProfileActivity.this, StockActivity.class);
                 startActivity(intentStock);
                 break;
+                //pop-up informations sur l'appli
             case R.id.menuProfilAPropos:
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.layout_propos);
@@ -114,6 +120,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
                 dialog.show();
                 break;
+                //deconnexion
             case R.id.menuProfilDéconnexion:
                 Intent intent = new Intent(ProfileActivity.this,ConnectionActivity.class);
                 startActivity(intent);
@@ -134,6 +141,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         textViewAllergy.setText(temp);
     }
 
+    //gère clics sur le bouton, redirection vers page de modification de profil avec envoie des données de l'utilisateur
     @Override
     public void onClick(View view) {
         Intent intentModifyProfileActivity = new Intent(ProfileActivity.this, ModifyProfileActivity.class);

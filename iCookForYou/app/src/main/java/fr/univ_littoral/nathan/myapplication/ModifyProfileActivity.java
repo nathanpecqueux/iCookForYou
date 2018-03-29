@@ -119,6 +119,7 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         updateA();
     }
 
+    //Regarde le régime alimentaire de l'utilisateur pour le modifier en bdd
     public void updateD(Intent intentFromProfileActivity) {
         // Action = "del" or "add"
         //updateDiet(String idDiet, String mail, String action);
@@ -145,6 +146,7 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    //Mise à jour du régime alimentaire en BDD
     public void updateDiet(final String idDiet, final String action) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPDATEDIET,
                 new Response.Listener<String>() {
@@ -175,6 +177,7 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         requestQueue.add(stringRequest);
     }
 
+    //Regarde les alleriges de l'utilisateur pour le modifier en bdd
     public void updateA() {
         String all = String.valueOf(textViewAllergy.getText())
                 .replace(".", "");
@@ -204,6 +207,7 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    //Mise à jour des allergies en BDD
     public void updateAllergy(final String idAllergy, final String action) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPDATEALLERGY,
                 new Response.Listener<String>() {
@@ -231,6 +235,8 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         requestQueue.add(stringRequest);
     }
 
+
+    //
     public void setAllergy() {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_ALLERGY,
                 new Response.Listener<String>() {
@@ -271,6 +277,7 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
+    //Mise à jour du nom
     public void updateNom() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPDATENOM,
                 new Response.Listener<String>() {
@@ -297,6 +304,7 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         requestQueue.add(stringRequest);
     }
 
+    //Mise à jour du prénom
     public void updatePrenom() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPDATEPRENOM,
                 new Response.Listener<String>() {
@@ -323,6 +331,7 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         requestQueue.add(stringRequest);
     }
 
+    //Mise à jour du mot de passe
     public void updateMdp() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPDATEPASSWORD,
                 new Response.Listener<String>() {

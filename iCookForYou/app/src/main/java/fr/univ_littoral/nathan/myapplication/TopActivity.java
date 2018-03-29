@@ -25,6 +25,7 @@ import fr.univ_littoral.nathan.myapplication.sampledata.RecipeAdapter;
 
 public class TopActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //variables xml
     private ListView mListView;
     private Button next;
     private ImageView onec;
@@ -40,6 +41,7 @@ public class TopActivity extends AppCompatActivity implements View.OnClickListen
         index = "5";
         context = this;
 
+        //On lie nos variables globales avec les id du layout xml
         next = (Button) findViewById(R.id.buttonNext2);
         next.setOnClickListener(this);
 
@@ -47,6 +49,7 @@ public class TopActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    //création du menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -54,6 +57,7 @@ public class TopActivity extends AppCompatActivity implements View.OnClickListen
         return true;
     }
 
+    //gère les clics sur les éléments du menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -97,15 +101,18 @@ public class TopActivity extends AppCompatActivity implements View.OnClickListen
         return true;
     }
 
+    //gère clic sur bouton
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            //permet d'afficher la suite de la liste de recette
             case R.id.buttonNext2:
                 printRecipes();
                 break;
         }
     }
 
+    //affichage des recettes
     private void printRecipes() {
 
         Recipe recipe = new Recipe();
